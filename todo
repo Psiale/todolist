@@ -1,0 +1,7 @@
+TodoList of the TodoList project
+
+* Receiving input from DOM
+* Task > has a title, description, dueDate and priority.
+* FactoryListObjects(DOM Manipulation) < receive tasks > passes to List
+* LocalStorage 
+* DOMManipulation < receive and display LocalStorage
