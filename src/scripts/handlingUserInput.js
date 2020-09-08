@@ -10,16 +10,19 @@ const eventHandler = () => {
 const projectTitleHandler = () => {
   const newProject = newTodoListItem(document.getElementById('projectTitleInput').value);
   console.log(newProject);
-  saveItem('project', JSON.stringify(newProject));
+  saveItem('project', newProject);
 };
 
 const itemHandler = () => {
   const project = Array.from(retrieveItem("project"));
   const tasks = Array.from(document.querySelectorAll('.todo-input-value'));
-  project.push(tasks);
+  for (let i = 0; i < tasks.length; i++) {
+    const element = tasks[i];
+    project[i+1] = element.value;
+  }
   // eslint-disable-next-line max-len
   //const todoItem = newTodoListItem(tasks[0].value, tasks[1].value, tasks[2].value, tasks[3].value);
-  saveItem("project", JSON.stringify(project));
+  saveItem('project', JSON.stringify(project));
   console.log(project);
 };
 
