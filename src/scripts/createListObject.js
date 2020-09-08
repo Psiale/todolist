@@ -1,5 +1,5 @@
 import * as generator from './domManipulation';
-import { eventHandler } from './handlingUserInput';
+import { eventHandler, itemHandler } from './handlingUserInput';
 
 const projectGenerator = () => {
   const mainContainer = generator.htmlGenerator('div', 'project-form-container');
@@ -28,13 +28,14 @@ const todoItemGenerator = () => {
   const inputContainer = generator.htmlGenerator('div', 'todo-input-container');
   for (let i = 0; i < 4; i++) {
     const inputLabel = generator.htmlGenerator('label', 'todo-label-input');
-    const inputElement = generator.htmlGenerator('input', 'todo-title-input');
+    const inputElement = generator.htmlGenerator('input', 'todo-input-value');
     inputContainer.append(inputLabel, inputElement);
   }
   const btnText = generator.textGenerator('p', 'Create Task');
   const btn = generator.htmlGenerator('button', 'todo-submit-btn', 'todoSubmitBtn');
   btn.setAttribute('type', 'button');
   btn.appendChild(btnText);
+  btn.addEventListener('click', itemHandler);
 
   form.append(inputContainer, btn);
   mainContainer.append(formTitle, form);
