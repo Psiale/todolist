@@ -1,5 +1,5 @@
 import * as generator from './domManipulation';
-import { eventHandler, itemHandler, projectTitleHandler } from './handlingUserInput';
+import { itemHandler, projectTitleHandler } from './handlingUserInput';
 
 
 const projectGenerator = () => {
