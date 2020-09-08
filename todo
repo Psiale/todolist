@@ -1,7 +1,46 @@
 TodoList of the TodoList project
 
-* Receiving input from DOM
-* Task > has a title, description, dueDate and priority.
-* FactoryListObjects(DOM Manipulation) < receive tasks > passes to List
-* LocalStorage 
-* DOMManipulation < receive and display LocalStorage
+* receiveUserInput() - Receiving input from DOM
+
+* parseUserInput() - Creates/parses has a title, description, dueDate and priority.
+
+* createListObjects() - DOM Manipulation > receive tasks > passes to List
+
+* validate() - Ensure fields are filled and correct before saving to localStorage
+
+* updateListObject() - Passes user information into create for new object
+
+* saveListObject() - Save Factory created object into local storage
+
+* readListObject() - Return a list object from localStorage
+
+* destroyListObject() - Delete a given object from localStorage
+
+* retrievesListObject() - Fetches todo list object from local storage
+
+* domManipulation() - Series of functions to create HTML elements
+
+* ViewAllProjects - Create a list of projects using domManip functions
+
+* ViewSingleProject - Display a project using domManip functions
+
+* ViewProjectsTodos - Create a list of tasks/todos using domManip functions
+
+
+
+
+DEPENDENCIES
+** Create New Todo Item **
+receiveUserInput() -> parseUserInput() -> createListObject() -> saveListObject() -> retrievesListObject()
+
+** View Todo Item ** 
+retrievesListObject() -> domManipulation() -> ViewAllProjects()
+Object                -> parsingFunction   -> HTML
+
+** View Single Project **
+retrievesListObject() -> domManipulation() -> ViewSingleProject()
+                                           -> ViewProjectsTodos()
+
+** Editing A Project **
+retrievesListObject() -> domManipulation() -> ViewSingleProject() -> updateListObject() -> receiveUserInput() -> parseUserInput() -> createListObject() -> saveListObject()
+                                                                                                                                                        -> Destroy(OLD)ListObject()
