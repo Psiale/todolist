@@ -12,7 +12,7 @@ import * as generator from './domManipulation';
 // import viewSingleProject from './viewSingleProject';
 const load = () => {
   const mainContainer = generator.htmlGenerator('div', 'main-container', 'content');
-  mainContainer.appendChild(newListObject.todoItemGenerator());
+  mainContainer.append(newListObject.projectGenerator(), newListObject.todoItemGenerator());
   return mainContainer;
 };
 

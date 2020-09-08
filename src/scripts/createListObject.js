@@ -1,5 +1,6 @@
 import * as generator from './domManipulation';
-import { eventHandler, itemHandler } from './handlingUserInput';
+import { eventHandler, itemHandler, projectTitleHandler } from './handlingUserInput';
+
 
 const projectGenerator = () => {
   const mainContainer = generator.htmlGenerator('div', 'project-form-container');
@@ -13,7 +14,7 @@ const projectGenerator = () => {
   const btn = generator.htmlGenerator('button', 'project-submit-btn', 'projectSubmitBtn');
   btn.appendChild(btnText);
   btn.setAttribute('type', 'button');
-  btn.addEventListener('click', eventHandler);
+  btn.addEventListener('click', projectTitleHandler);
 
   inputContainer.append(inputLabel, inputElement);
   form.append(inputContainer, listContainer, btn);

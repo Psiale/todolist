@@ -1,14 +1,21 @@
-import TodoListItem from './classes/todoListItem';
+import newTodoListItem from './classes/todoListItem';
 
 const eventHandler = () => {
   const element = document.getElementById('projectTitleInput');
   return element.value;
 };
 
+const projectTitleHandler = () => {
+  const newProject = newTodoListItem(document.getElementById('projectTitleInput').value);
+  console.log(newProject);
+  return newProject;
+};
+
 const itemHandler = () => {
-  const list = Array.from(document.querySelectorAll('.todo-input-value'));
-  const todoItem = TodoListItem(list[0].value, list[1].value, list[2].value, list[3].value);
+  const tasks = Array.from(document.querySelectorAll('.todo-input-value'));
+  // eslint-disable-next-line max-len
+  const todoItem = newTodoListItem(tasks[0].value, tasks[1].value, tasks[2].value, tasks[3].value);
   return todoItem;
 };
 
-export { eventHandler, itemHandler };
+export { eventHandler, itemHandler, projectTitleHandler };
