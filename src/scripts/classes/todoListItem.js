@@ -1,4 +1,4 @@
-function newTodoListItem(projectTitle, title, description, dueDate, priority) {
+function newTodoListItem(projectTitle, title = null, description = null, dueDate = null, priority = null) {
   return {
     projectTitle,
     title,

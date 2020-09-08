@@ -14,7 +14,7 @@ const projectGenerator = () => {
   const btn = generator.htmlGenerator('button', 'project-submit-btn', 'projectSubmitBtn');
   btn.appendChild(btnText);
   btn.setAttribute('type', 'button');
-  btn.addEventListener('click', eventHandler);
+  btn.addEventListener('click', projectTitleHandler);
 
   inputContainer.append(inputLabel, inputElement);
   form.append(inputContainer, listContainer, btn);
