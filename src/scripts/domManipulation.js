@@ -5,6 +5,10 @@ const htmlGenerator = (htmlElement, htmlClass, idClass = null) => {
   return element;
 };
 
+const textGenerator = (tag, text) => {
+  const element = document.createElement(tag);
+  element.innerHTML = `${text}`;
+  return element;
+};
 
-
-export { htmlGenerator };
+export { htmlGenerator, textGenerator };
