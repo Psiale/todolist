@@ -2,6 +2,7 @@ import * as generator from './domTools';
 import { saveItem, retrieveItem } from './localStorage';
 import { itemHandler, projectTitleHandler } from './handlingUserInput';
 
+const mainContainer = generator.htmlGenerator('div', 'todo-list-tasks', 'todoListTasks');
 
 const projectGenerator = () => {
   const mainContainer = generator.htmlGenerator('div', 'project-form-container');
@@ -45,7 +46,6 @@ const todoItemGenerator = () => {
 };
 
 const todoListTasks = () => {
-  const mainContainer = generator.htmlGenerator('div', 'todo-list-tasks');
   const savedProject = retrieveItem('project');
   console.log(retrieveItem('project'));
 
@@ -65,5 +65,9 @@ const todoListTasks = () => {
   }
   return mainContainer;
 };
+
+// (function () {
+//   todoListTasks();
+// }());
 
 export { projectGenerator, todoItemGenerator, todoListTasks };
