@@ -1,11 +1,17 @@
-function newTodoListItem(projectTitle, title = null, description = null, dueDate = null, priority = null) {
-  return [
-    projectTitle,
+function todoItem(title, description, dueDate, priority) {
+  return {
     title,
     description,
     dueDate,
     priority,
-  ];
+  };
 }
 
-export default newTodoListItem;
+function todoList(projectTitle, items = []) {
+  return {
+    projectTitle,
+    items,
+  };
+}
+
+export { todoItem, todoList };

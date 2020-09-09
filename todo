@@ -31,7 +31,7 @@ TodoList of the TodoList project
 
 DEPENDENCIES
 ** Create New Todo Item **
-receiveUserInput() -> parseUserInput() -> createListObject() -> saveListObject() -> retrievesListObject()
+receiveUserInput()  -> createListObject() -> saveListObject() -> retrievesListObject()
 
 ** View Todo Item ** 
 retrievesListObject() -> domManipulation() -> ViewAllProjects()
