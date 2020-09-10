@@ -1,0 +1,123 @@
+html {
+  box-sizing: border-box;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: inherit;
+}
+
+html,
+body {
+  padding: 0;
+  margin: 0;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5 {
+  padding: 0;
+  margin: 0;
+}
+
+body {
+  height: 100vh;
+  width: 100%;
+  font: 400 16px/16px sans-serif, monospace;
+  color: #202020;
+}
+
+// MAIN PAGE CONTAINER ---------------------//
+.main-container {
+  display: flex;
+  height: 100%;
+  width: 100%;
+  flex-flow: row nowrap;
+  background: darkred;
+}
+
+// TODO LIST WINDOW ------------------------//
+.todo-list-main-container {
+  display: flex;
+  flex-flow: column nowrap;
+  align-items: center;
+  width: 100%;
+  height: 75%;
+  background: rgb(51, 51, 51);
+  padding: 10px;
+
+  .project-form-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 80px;
+
+    .edit-project-title-container {
+      display: flex;
+      justify-content: center;
+      flex-flow: row nowrap;
+      align-items: center;
+      width: 100%;
+      height: 80px;
+      position: relative;
+
+      input {
+        height: 75px;
+        top: 0;
+        width: 70%;
+        position: absolute;
+        left: 25%;
+        transform: translateX(-25%);
+        border: none;
+        outline: none;
+        background-color: transparent;
+        font: 500 32px/32px sans-serif, monospace;
+        color: #dcdcdc;
+
+        &::placeholder {
+          font: 500 32px/32px sans-serif, monospace;
+          color: #D7BDE2;
+        }
+      }
+
+      button {
+        margin-left: auto;
+      }
+    }
+  }
+
+  .todo-list-tasks {
+    display: flex;
+    flex-flow: column nowrap;
+    align-items: center;
+    width: 100%;
+    height: 80%;
+    padding: 3px;
+    overflow: hidden;
+    overflow-y: auto;
+    background-color: rgba(0, 0, 0, 0.4);
+  
+    .todo-list-item-container {
+      color: wheat;
+      width: 100%;
+      border-radius: 4px;
+      background: rgba(256, 256, 256, 0.1);
+      display: flex;
+      margin: 3px 0;
+      padding: 0;
+      height: min-content;
+      p {
+        text-align: center;
+        width: 80%;
+      }
+    }
+  }
+}
+
+.hidden { 
+  display: none;
+}
