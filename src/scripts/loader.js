@@ -1,4 +1,4 @@
-import * as newListObject from './domManipulation';
+import todoListMainContainer from './domManipulation';
 // import destroyListObject from './destroyListObject';
 import * as generator from './domTools';
 // import parseUserInput from './parseUserInput';
@@ -12,7 +12,7 @@ import * as generator from './domTools';
 // import viewSingleProject from './viewSingleProject';
 const load = () => {
   const mainContainer = generator.htmlGenerator('div', 'main-container', 'content');
-  mainContainer.append(newListObject.projectGenerator(), newListObject.todoItemGenerator(), newListObject.todoListTasks());
+  mainContainer.appendChild(todoListMainContainer());
   return mainContainer;
 };
 
