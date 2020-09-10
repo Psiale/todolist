@@ -1,11 +1,19 @@
 import { todoItem, todoList } from './classes/todoListItem';
 import { saveItem, retrieveItem, obliterateItem } from './localStorage';
 
-const createNewProject = (string) => {
-  const newTitle = todoList(document.getElementById('projectTitleInput').value);
-  if (retrieveItem(`${string}`)) throw new Error('Project already exists. Please select a different title');
-  saveItem(`${string}`, newTitle);
-  console.log(retrieveItem(`${string}`));
+const placeHolderProject = todoList('New project');
+
+const createNewProject = () => {
+  if (!retrieveItem('project')) return placeHolderProject;
+  return retrieveItem('project');
+};
+
+const saveProject = () => {
+  const newProjectTitle = document.getElementById('projectTitleInput').value;
+  const project = retrieveItem('project');
+  placeHolderProject.projectTitle = newProjectTitle;
+  saveItem(  'project', placeHolderProject);
+  console.log(retrieveItem('project'));
 };
 
 const editProjectTitle = (string) => {
@@ -35,4 +43,4 @@ const editProjectTitle = (string) => {
 //  })
 //};
 
-export { createNewProject, editProjectTitle };
+export { createNewProject, editProjectTitle, saveProject };

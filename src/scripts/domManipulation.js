@@ -1,6 +1,6 @@
 import * as generator from './domTools';
 import { saveItem, retrieveItem } from './localStorage';
-import { createNewProject, editProjectTitle } from './handlingUserInput';
+import { createNewProject, editProjectTitle, saveProject } from './handlingUserInput';
 import { todoList } from './classes/todoListItem';
 
 const mainContainer = generator.htmlGenerator('div', 'todo-list-tasks', 'todoListTasks');
@@ -9,7 +9,7 @@ const todoListMainContainer = () => {
   const todoListMainContainer = generator.htmlGenerator('div', 'todo-list-main-container', 'todoListMainContainer');
 
   const projectGenerator = () => {
-    const project = retrieveItem('Ultra New Project');
+    const project = createNewProject();
     const mainContainer = generator.htmlGenerator('div', 'project-form-container');
 
     const form = generator.htmlGenerator('form', 'edit-project-title-container', 'editProjectTitleContainer');
@@ -24,36 +24,34 @@ const todoListMainContainer = () => {
 
     btn.appendChild(btnText);
     btn.setAttribute('type', 'button');
-    btn.addEventListener('click', () => {
-      createNewProject(document.getElementById('projectTitleInput').value);
-    });
-  
+    btn.addEventListener('click', saveProject);
+
     inputContainer.append(inputLabel, inputElement);
     form.append(inputContainer, listContainer, btn);
     mainContainer.appendChild(form);
     return mainContainer;
   };
 
-  const todoListTasks = () => {
-    const savedProject = retrieveItem('project');
-    console.log(retrieveItem('project'));
+  // const todoListTasks = () => {
+  //   const savedProject = retrieveItem('project');
+  //   console.log(retrieveItem('project'));
 
-    if (savedProject) {
-      for (let i = 0; i < savedProject.items.length; i++) {
-        const listItemContainer = generator.htmlGenerator('div', 'todo-list-item-container');
-        const listItemTitle = generator.textGenerator('p', `${savedProject.items[i].title}`);
-        const listItemEditButtonText = generator.textGenerator('p', '<i class="fas fa-edit"></i>');
-        const listItemEditButton = generator.htmlGenerator('button', 'list-item-edit-button');
-        const listItemDeleteButtonText = generator.textGenerator('p', '<i class="fas fa-times"></i>');
-        const listItemDeleteButton = generator.htmlGenerator('button', 'list-item-delete-button');
-        listItemEditButton.appendChild(listItemEditButtonText);
-        listItemDeleteButton.appendChild(listItemDeleteButtonText);
-        listItemContainer.append(listItemTitle, listItemEditButton, listItemDeleteButton);
-        mainContainer.appendChild(listItemContainer);
-      }
-    }
-    return mainContainer;
-  };
+  //   if (savedProject) {
+  //     for (let i = 0; i < savedProject.items.length; i++) {
+  //       const listItemContainer = generator.htmlGenerator('div', 'todo-list-item-container');
+  //       const listItemTitle = generator.textGenerator('p', `${savedProject.items[i].title}`);
+  //       const listItemEditButtonText = generator.textGenerator('p', '<i class="fas fa-edit"></i>');
+  //       const listItemEditButton = generator.htmlGenerator('button', 'list-item-edit-button');
+  //       const listItemDeleteButtonText = generator.textGenerator('p', '<i class="fas fa-times"></i>');
+  //       const listItemDeleteButton = generator.htmlGenerator('button', 'list-item-delete-button');
+  //       listItemEditButton.appendChild(listItemEditButtonText);
+  //       listItemDeleteButton.appendChild(listItemDeleteButtonText);
+  //       listItemContainer.append(listItemTitle, listItemEditButton, listItemDeleteButton);
+  //       mainContainer.appendChild(listItemContainer);
+  //     }
+  //   }
+  //   return mainContainer;
+  // };
 
   const todoItemGenerator = () => {
     const mainContainer = generator.htmlGenerator('div', 'todo-form-container');
@@ -69,14 +67,14 @@ const todoListMainContainer = () => {
     const btn = generator.htmlGenerator('button', 'todo-submit-btn', 'todoSubmitBtn');
     btn.setAttribute('type', 'button');
     btn.appendChild(btnText);
-    //btn.addEventListener('click', itemHandler);
+    // btn.addEventListener('click', itemHandler);
 
     form.append(inputContainer, btn);
     mainContainer.append(formTitle, form);
     return mainContainer;
   };
 
-  todoListMainContainer.append(projectGenerator(), todoListTasks(), todoItemGenerator());
+  todoListMainContainer.append(projectGenerator(), todoItemGenerator());
   return todoListMainContainer;
 };
 
