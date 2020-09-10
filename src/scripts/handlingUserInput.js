@@ -10,9 +10,11 @@ const createNewProject = () => {
 
 const saveProject = () => {
   const newProjectTitle = document.getElementById('projectTitleInput').value;
-  const project = retrieveItem('project');
   placeHolderProject.projectTitle = newProjectTitle;
-  saveItem(  'project', placeHolderProject);
+  if (retrieveItem('project')) {
+    placeHolderProject.items = retrieveItem('project').items;
+  }
+  saveItem('project', placeHolderProject);
   console.log(retrieveItem('project'));
 };
 
@@ -22,13 +24,16 @@ const editProjectTitle = (string) => {
   saveItem(string, newProject);
 };
 
-//const itemHandler = () => {
-//  const project = retrieveItem('project');
-//  const tasks = Array.from(document.querySelectorAll('.todo-input-value'));
-//  project.items.push(todoItem(tasks[0].value, tasks[1].value, tasks[2].value, tasks[3].value));
-//  saveItem('project', project);
-//  location.reload();
-//};
+const itemHandler = () => {
+  const itemArray = [];
+  const project = retrieveItem('project');
+  const tasks = Array.from(document.querySelectorAll('.todo-input-value'));
+  project.items.push(todoItem(tasks[0].value, tasks[1].value, tasks[2].value, tasks[3].value));
+  itemArray.push(todoItem(tasks[0].value, tasks[1].value, tasks[2].value, tasks[3].value));
+  saveItem('itemArray', itemArray);
+  saveItem('project', project);
+  location.reload();
+};
 //
 //const editProjectTitleHandler = () => {
 //  const projectTitleField = document.getElementById('projectTitleInput')
@@ -43,4 +48,4 @@ const editProjectTitle = (string) => {
 //  })
 //};
 
-export { createNewProject, editProjectTitle, saveProject };
+export { createNewProject, editProjectTitle, saveProject, itemHandler };
