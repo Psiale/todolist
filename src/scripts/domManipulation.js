@@ -1,6 +1,6 @@
 import * as generator from './domTools';
 import { saveItem, retrieveItem } from './localStorage';
-import { itemHandler, projectTitleHandler } from './handlingUserInput';
+import { createNewProject, editProjectTitle } from './handlingUserInput';
 import { todoList } from './classes/todoListItem';
 
 const mainContainer = generator.htmlGenerator('div', 'todo-list-tasks', 'todoListTasks');
@@ -9,7 +9,7 @@ const todoListMainContainer = () => {
   const todoListMainContainer = generator.htmlGenerator('div', 'todo-list-main-container', 'todoListMainContainer');
 
   const projectGenerator = () => {
-    const project = retrieveItem('project');
+    const project = retrieveItem('Ultra New Project');
     const mainContainer = generator.htmlGenerator('div', 'project-form-container');
 
     const form = generator.htmlGenerator('form', 'edit-project-title-container', 'editProjectTitleContainer');
@@ -24,7 +24,9 @@ const todoListMainContainer = () => {
 
     btn.appendChild(btnText);
     btn.setAttribute('type', 'button');
-    //btn.addEventListener('click', projectTitleHandler);
+    btn.addEventListener('click', () => {
+      createNewProject(document.getElementById('projectTitleInput').value);
+    });
   
     inputContainer.append(inputLabel, inputElement);
     form.append(inputContainer, listContainer, btn);
@@ -67,7 +69,7 @@ const todoListMainContainer = () => {
     const btn = generator.htmlGenerator('button', 'todo-submit-btn', 'todoSubmitBtn');
     btn.setAttribute('type', 'button');
     btn.appendChild(btnText);
-    btn.addEventListener('click', itemHandler);
+    //btn.addEventListener('click', itemHandler);
 
     form.append(inputContainer, btn);
     mainContainer.append(formTitle, form);
