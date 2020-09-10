@@ -15,8 +15,16 @@ const itemHandler = () => {
 };
 
 const editProjectTitleHandler = () => {
-    const editTitleContainer = document.getElementById('editTitleContainer');
-
-}
+  const projectTitleField = document.getElementById('projectTitleInput')
+  const newProjectTitle = document.getElementById('projectTitleInput').value;
+  const btn = document.getElementById('project-submit-btn');
+  btn.addEventListener('click', () => {
+    const currentProject = retrieveItem('project');
+    currentProject.projectTitle = newProjectTitle;
+    saveItem('project', currentProject);
+    projectTitleField.placeholder = newProjectTitle;
+    console.log(retrieveItem('project'));
+  })
+};
 
 export { itemHandler, projectTitleHandler };
