@@ -14,4 +14,9 @@ const itemHandler = () => {
   location.reload();
 };
 
+const editProjectTitleHandler = () => {
+    const editTitleContainer = document.getElementById('editTitleContainer');
+
+}
+
 export { itemHandler, projectTitleHandler };

@@ -9,8 +9,12 @@ const todoListMainContainer = () => {
   const todoListMainContainer = generator.htmlGenerator('div', 'todo-list-main-container', 'todoListMainContainer');
 
   const projectGenerator = () => {
+    const project = retrieveItem('project');
     const mainContainer = generator.htmlGenerator('div', 'project-form-container');
-    const form = generator.htmlGenerator('form', 'project-form');
+    const showProjectTitleContainer = generator.htmlGenerator('div', 'project-form', 'showProjectTitle');
+    const projectTitleText = generator.textGenerator('p', `${project.projectTitle}`);
+    showProjectTitleContainer.appendChild(projectTitleText);
+    const form = generator.htmlGenerator('form', 'hidden', 'editProjectTitleContainer');
     const inputContainer = generator.htmlGenerator('div', 'project-input-container');
     const inputLabel = generator.htmlGenerator('label', 'project-label-input');
     const inputElement = generator.htmlGenerator('input', 'project-title-input', 'projectTitleInput');
@@ -23,7 +27,7 @@ const todoListMainContainer = () => {
   
     inputContainer.append(inputLabel, inputElement);
     form.append(btn, inputContainer, listContainer);
-    mainContainer.appendChild(form);
+    mainContainer.append(form, showProjectTitleContainer);
     return mainContainer;
   };
 
@@ -71,6 +75,6 @@ const todoListMainContainer = () => {
 
   todoListMainContainer.append(projectGenerator(), todoListTasks(), todoItemGenerator());
   return todoListMainContainer;
-}
+};
 
 export default todoListMainContainer;
