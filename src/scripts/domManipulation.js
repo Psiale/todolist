@@ -76,12 +76,14 @@ const todoListMainContainer = () => {
     // if there is a list, render the list,  add a single one
     // if not, add a single one
     const savedProject = retrieveItem('project');
-    const listContainer = document.querySelector('.todo-list-item-container');
-    const savedListLength = savedProject.items.length;
-    listContainer.innerHTML = '';
-    todoListTasks();
-    createSingleTask()
-    if (!listContainer.lastChild.innerHTML === '') todoListTasks();
+    const listLength = savedProject.items.length - 1;
+    const listContainer = document.getElementById('todoListTasks');
+    console.log(document.getElementById(`projectTask${listLength}`).placeholder);
+    if (document.getElementById(`projectTask${listLength - 1}`).placeholder !== '') {
+      listContainer.innerHTML = '';
+      todoListTasks();
+      listContainer.appendChild(createSingleTask());
+    }
   };
 
   const todoItemGenerator = () => {
