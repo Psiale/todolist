@@ -3,15 +3,19 @@ import { saveItem, retrieveItem, obliterateItem } from './localStorage';
 
 const placeHolderProject = todoList('New project');
 
+const lengthParse = (project) => {
+  let listLength;
+  if (project.items.length < 1) {
+    listLength = project.items.length;
+  } else {
+    listLength = project.items.length - 1;
+  }
+  return listLength;
+}
+
 const createNewProject = () => {
   if (!retrieveItem('project')) return placeHolderProject;
   return retrieveItem('project');
-};
-
-const createNewTask = () => {
-  const savedTasks = retrieveItem('project').items;
-
-  console.log(savedTasks);
 };
 
 const saveProject = () => {
@@ -27,12 +31,7 @@ const saveProject = () => {
 
 const saveTask = () => {
   const project = retrieveItem('project');
-  let listLength;
-  if (project.items.length < 1) {
-    listLength = project.items.length;
-  } else {
-    listLength = project.items.length - 1;
-  }
+  const listLength = lengthParse(project);
   console.log(document.getElementById(`projectTask${listLength}`));
   const inputValue = document.getElementById(`projectTask${listLength}`).value;
   project.items.push(todoItem(inputValue));
@@ -52,4 +51,4 @@ const itemHandler = () => {
 
 
 
-export { createNewProject, saveProject, itemHandler, createNewTask, saveTask };
+export { createNewProject, saveProject, itemHandler, saveTask, lengthParse };
