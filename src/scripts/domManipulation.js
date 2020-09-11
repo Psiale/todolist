@@ -1,6 +1,6 @@
 import * as generator from './domTools';
 import { saveItem, retrieveItem } from './localStorage';
-import { createNewProject, saveProject, lengthParse, saveTask } from './handlingUserInput';
+import { createNewProject, saveProject, saveTask } from './handlingUserInput';
 import { todoList } from './classes/todoListItem';
 
 const mainContainer = generator.htmlGenerator('div', 'todo-list-tasks', 'todoListTasks');
@@ -83,39 +83,16 @@ const todoListMainContainer = () => {
     // if there is a list, render the list,  add a single one
     // if not, add a single one
     const savedProject = retrieveItem('project');
-    const listLength = lengthParse(savedProject);
+    const listLength = savedProject.items.length;
     const listContainer = document.getElementById('todoListTasks');
-    let domLength = listContainer.getElementsByTagName('div').length;
-    if (listLength === 0 && domLength < 1) {
-      console.log(listLength, domLength);
-      mainContainer.appendChild(createSingleTask(domLength));
-      console.log('a')
-
-    } else if (listLength > 0 && domLength === listLength + 1) {
+    const domLength = listContainer.getElementsByTagName('div').length;
+    if (listLength >= 0 && domLength <= listLength) {
+      listContainer.appendChild(createSingleTask(listLength));
+    } else if (listLength >= 0 && domLength <= listLength + 1) {
       listContainer.innerHTML = '';
       todoListTasks();
-      console.log('b')
-
-    } else if (listLength > 0 && domLength > listLength + 1) {
-      listContainer.innerHTML = '';
-      todoListTasks();
-      console.log('c')
-
-    } else {
-      console.log(listLength, domLength)
-      console.log('d')
+      listContainer.appendChild(createSingleTask(listLength));
     }
-    
-    
-    //if (listLength > 0) {
-    //  if (document.getElementById(`projectTask${listLength}`).placeholder !== '') {
-    //    listContainer.innerHTML = '';
-    //    todoListTasks();
-    //    listContainer.appendChild(createSingleTask(0));
-    //  }
-    //} else if (listContainer.querySelectorAll('*').length < 2) {
-    //  mainContainer.appendChild(createSingleTask(0));
-    //}
   };
 
   const todoItemGenerator = () => {
