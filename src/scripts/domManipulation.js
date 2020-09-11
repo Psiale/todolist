@@ -58,6 +58,7 @@ const todoListMainContainer = () => {
 
   const todoListTasks = () => {
     const savedProject = retrieveItem('project');
+    // const listLength = listContainer.getElementsByTagName('*').length;
     if (savedProject) {
       for (let i = 0; i < savedProject.items.length; i++) {
         mainContainer.appendChild(createSingleTask(`${i}`));
@@ -69,6 +70,18 @@ const todoListMainContainer = () => {
     }
 
     return mainContainer;
+  };
+
+  const listBuilder = () => {
+    // if there is a list, render the list,  add a single one
+    // if not, add a single one
+    const savedProject = retrieveItem('project');
+    const listContainer = document.querySelector('.todo-list-item-container');
+    const savedListLength = savedProject.items.length;
+    listContainer.innerHTML = '';
+    todoListTasks();
+    createSingleTask()
+    if (!listContainer.lastChild.innerHTML === '') todoListTasks();
   };
 
   const todoItemGenerator = () => {
@@ -86,7 +99,7 @@ const todoListMainContainer = () => {
     btn.setAttribute('type', 'button');
     btn.appendChild(btnText);
     //btn.addEventListener('click', itemHandler);
-    btn.addEventListener('click', todoListTasks);
+    btn.addEventListener('click', listBuilder);
 
     form.append(inputContainer, btn);
     mainContainer.append(formTitle, form);
