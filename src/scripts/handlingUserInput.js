@@ -8,6 +8,12 @@ const createNewProject = () => {
   return retrieveItem('project');
 };
 
+const createNewTask = () => {
+  const savedTasks = retrieveItem('project').items;
+
+  console.log(savedTasks);
+};
+
 const saveProject = () => {
   const newProjectTitle = document.getElementById('projectTitleInput').value;
   placeHolderProject.projectTitle = newProjectTitle;
@@ -16,12 +22,7 @@ const saveProject = () => {
   }
   saveItem('project', placeHolderProject);
   console.log(retrieveItem('project'));
-};
-
-const editProjectTitle = (string) => {
-  obliterateItem(string);
-  const newProject = todoList(document.getElementById('projectTitleInput').value);
-  saveItem(string, newProject);
+  location.reload();
 };
 
 const itemHandler = () => {
@@ -34,18 +35,7 @@ const itemHandler = () => {
   saveItem('project', project);
   location.reload();
 };
-//
-//const editProjectTitleHandler = () => {
-//  const projectTitleField = document.getElementById('projectTitleInput')
-//  const newProjectTitle = document.getElementById('projectTitleInput').value;
-//  const btn = document.getElementById('project-submit-btn');
-//  btn.addEventListener('click', () => {
-//    const currentProject = retrieveItem('project');
-//    currentProject.projectTitle = newProjectTitle;
-//    saveItem('project', currentProject);
-//    projectTitleField.placeholder = newProjectTitle;
-//    console.log(retrieveItem('project'));
-//  })
-//};
 
-export { createNewProject, editProjectTitle, saveProject, itemHandler };
+
+
+export { createNewProject, saveProject, itemHandler, createNewTask };

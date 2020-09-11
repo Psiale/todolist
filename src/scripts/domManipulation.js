@@ -1,6 +1,6 @@
 import * as generator from './domTools';
 import { saveItem, retrieveItem } from './localStorage';
-import { createNewProject, editProjectTitle, itemHandler, saveProject } from './handlingUserInput';
+import { createNewProject, saveProject, createNewTask, itemHandler } from './handlingUserInput';
 import { todoList } from './classes/todoListItem';
 
 const mainContainer = generator.htmlGenerator('div', 'todo-list-tasks', 'todoListTasks');
@@ -25,6 +25,12 @@ const todoListMainContainer = () => {
     btn.appendChild(btnText);
     btn.setAttribute('type', 'button');
     btn.addEventListener('click', saveProject);
+    inputElement.addEventListener('keypress', (event) => {
+      if (event.keyCode === 13) {
+        event.preventDefault();
+        btn.click();
+      }
+    });
 
     inputContainer.append(inputLabel, inputElement);
     form.append(inputContainer, listContainer, btn);
@@ -32,24 +38,36 @@ const todoListMainContainer = () => {
     return mainContainer;
   };
 
+  const createSingleTask = (id) => {
+    const listItemContainer = generator.htmlGenerator('div', 'todo-list-item-container');
+    const listItemInputContainer = generator.htmlGenerator('input', 'project-task-input', `projectTask${id}`);
+    const listItemSubmitButton = generator.htmlGenerator('button', 'project-task-submit');
+    const listItemPriorityButton = generator.textGenerator('button', '<i class="far fa-star"></i>');
+    listItemPriorityButton.classList.add('list-item-priority');
+    const listItemDeleteButtonText = generator.textGenerator('p', '<i class="fas fa-times"></i>');
+    const listItemDeleteButton = generator.htmlGenerator('button', 'list-item-delete-button');
+    listItemDeleteButton.appendChild(listItemDeleteButtonText);
+    listItemContainer.append(
+      listItemInputContainer,
+      listItemSubmitButton,
+      listItemPriorityButton,
+      listItemDeleteButton,
+    );
+    return listItemContainer;
+  };
+
   const todoListTasks = () => {
     const savedProject = retrieveItem('project');
-    console.log(retrieveItem('project'));
-
     if (savedProject) {
       for (let i = 0; i < savedProject.items.length; i++) {
-        const listItemContainer = generator.htmlGenerator('div', 'todo-list-item-container');
-        const listItemTitle = generator.textGenerator('p', `${savedProject.items[i].title}`);
-        const listItemEditButtonText = generator.textGenerator('p', '<i class="fas fa-edit"></i>');
-        const listItemEditButton = generator.htmlGenerator('button', 'list-item-edit-button');
-        const listItemDeleteButtonText = generator.textGenerator('p', '<i class="fas fa-times"></i>');
-        const listItemDeleteButton = generator.htmlGenerator('button', 'list-item-delete-button');
-        listItemEditButton.appendChild(listItemEditButtonText);
-        listItemDeleteButton.appendChild(listItemDeleteButtonText);
-        listItemContainer.append(listItemTitle, listItemEditButton, listItemDeleteButton);
-        mainContainer.appendChild(listItemContainer);
+        mainContainer.appendChild(createSingleTask(`${i}`));
+        setTimeout(() => {
+          const inputField = document.getElementById(`projectTask${i}`);
+          inputField.placeholder = `${savedProject.items[i].title}`;
+        }, 1);
       }
     }
+
     return mainContainer;
   };
 
@@ -67,7 +85,8 @@ const todoListMainContainer = () => {
     const btn = generator.htmlGenerator('button', 'todo-submit-btn', 'todoSubmitBtn');
     btn.setAttribute('type', 'button');
     btn.appendChild(btnText);
-    btn.addEventListener('click', itemHandler);
+    //btn.addEventListener('click', itemHandler);
+    btn.addEventListener('click', todoListTasks);
 
     form.append(inputContainer, btn);
     mainContainer.append(formTitle, form);
