@@ -1,6 +1,6 @@
 import * as generator from './domTools';
 import { saveItem, retrieveItem } from './localStorage';
-import { createNewProject, saveProject, createNewTask, itemHandler } from './handlingUserInput';
+import { createNewProject, saveProject, createNewTask, itemHandler, saveTask } from './handlingUserInput';
 import { todoList } from './classes/todoListItem';
 
 const mainContainer = generator.htmlGenerator('div', 'todo-list-tasks', 'todoListTasks');
@@ -47,6 +47,13 @@ const todoListMainContainer = () => {
     const listItemDeleteButtonText = generator.textGenerator('p', '<i class="fas fa-times"></i>');
     const listItemDeleteButton = generator.htmlGenerator('button', 'list-item-delete-button');
     listItemDeleteButton.appendChild(listItemDeleteButtonText);
+    listItemSubmitButton.addEventListener('click', saveTask);
+    listItemInputContainer.addEventListener('keypress', (event) => {
+      if (event.keyCode === 13) {
+        event.preventDefault();
+        listItemSubmitButton.click();
+      }
+    });
     listItemContainer.append(
       listItemInputContainer,
       listItemSubmitButton,
@@ -78,11 +85,14 @@ const todoListMainContainer = () => {
     const savedProject = retrieveItem('project');
     const listLength = savedProject.items.length - 1;
     const listContainer = document.getElementById('todoListTasks');
-    console.log(document.getElementById(`projectTask${listLength}`).placeholder);
-    if (document.getElementById(`projectTask${listLength - 1}`).placeholder !== '') {
-      listContainer.innerHTML = '';
-      todoListTasks();
-      listContainer.appendChild(createSingleTask());
+    if (savedProject.items.length > 0) {
+      if (document.getElementById(`projectTask${listLength}`).placeholder !== '') {
+        listContainer.innerHTML = '';
+        todoListTasks();
+        listContainer.appendChild(createSingleTask());
+      }
+    } else {
+      mainContainer.appendChild(createSingleTask(0));
     }
   };
 
