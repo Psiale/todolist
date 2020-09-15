@@ -22,11 +22,13 @@ const saveProject = () => {
 const saveTask = () => {
   const project = retrieveItem('project');
   const listLength = project.items.length;
-  if (document.getElementById(`projectTask${listLength}`).placeHolder == null) return;
+  const focusedID = document.querySelector(':focus').id.split('').reverse().slice(0, 1).join('');
   console.log(document.getElementById(`projectTask${listLength}`));
   const inputValue = document.getElementById(`projectTask${listLength}`).value;
   project.items.push(todoItem(inputValue));
   saveItem('project', project);
+  const button = document.getElementById(`projectTaskSubmit${focusedID}`);
+  button.removeEventListener('click', saveTask);
   location.reload();
 };
 
@@ -42,19 +44,17 @@ const itemHandler = () => {
 };
 
 const editTask = () => {
+  console.log('HERE I AM MOTHERFUCKER');
   const project = retrieveItem('project');
-  let task;
-  let taskId;
-  const input = document.querySelector(':focus');
+  let task; let taskId; const input = document.querySelector(':focus');
   if (input.type === 'input') {
     if (input.placeHolder === '') return;
-    task = input.value;
-    taskId = input.id.split('').reverse().slice(0, 1).join('');
+    task = input.value; taskId = input.id.split('').reverse().slice(0, 1).join('');
     project.items[taskId] = task;
     saveItem('project', project);
     console.log(input);
   }
-}
+};
 
 
-export { createNewProject, saveProject, itemHandler, saveTask, editTask };
+export { createNewProject, saveProject, itemHandler, saveTask };

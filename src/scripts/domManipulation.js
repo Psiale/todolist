@@ -41,7 +41,7 @@ const todoListMainContainer = () => {
   const createSingleTask = (id) => {
     const listItemContainer = generator.htmlGenerator('div', 'todo-list-item-container');
     const listItemInputContainer = generator.htmlGenerator('input', 'project-task-input', `projectTask${id}`);
-    const listItemSubmitButton = generator.htmlGenerator('button', 'project-task-submit');
+    const listItemSubmitButton = generator.htmlGenerator('button', 'project-task-submit', `projectTaskSubmit${id}`);
     const listItemPriorityButton = generator.textGenerator('button', '<i class="far fa-star"></i>');
     listItemPriorityButton.classList.add('list-item-priority');
     const listItemDeleteButtonText = generator.textGenerator('p', '<i class="fas fa-times"></i>');
