@@ -22,14 +22,17 @@ const saveProject = () => {
 const saveTask = () => {
   const project = retrieveItem('project');
   const listLength = project.items.length;
-  const focusedID = document.querySelector(':focus').id.split('').reverse().slice(0, 1).join('');
+  const focusElement = document.querySelector(':focus');
+  const focusedID = focusElement.id.split('').reverse().slice(0, 1).join('');
+  if(todoChecker(todoTitleList(), focusElement)) return;
   console.log(document.getElementById(`projectTask${listLength}`));
   const inputValue = document.getElementById(`projectTask${listLength}`).value;
   project.items.push(todoItem(inputValue));
   saveItem('project', project);
   const button = document.getElementById(`projectTaskSubmit${focusedID}`);
   button.removeEventListener('click', saveTask);
-  location.reload();
+  // console.log(titlesStore());
+// location.reload();
 };
 
 const itemHandler = () => {
@@ -44,6 +47,8 @@ const itemHandler = () => {
 };
 
 const editTask = () => {
+  const focusElement = document.querySelector(':focus');
+  focusElement.removeEventListener('click', saveTask);
   console.log('HERE I AM MOTHERFUCKER');
   const project = retrieveItem('project');
   let task; let taskId; const input = document.querySelector(':focus');
@@ -56,5 +61,20 @@ const editTask = () => {
   }
 };
 
+const todoTitleList = () => { 
+  // get updated titles 
+  let arr = [];
+  const arrItems =  retrieveItem('project').items.map(element => {
+    arr.push(element.title);
+    
+  });
+  return arr;
+  }
 
-export { createNewProject, saveProject, itemHandler, saveTask };
+  const todoChecker = (array, inputElement) => array.includes(`${inputElement.placeHolder}`);
+      // array.forEach(element => {
+      //   if (element === inputElement.placeHolder) return true;
+      // });
+
+
+export { createNewProject, saveProject, itemHandler, saveTask, todoChecker, editTask };
