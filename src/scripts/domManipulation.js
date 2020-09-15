@@ -1,7 +1,6 @@
 import * as generator from './domTools';
-import { saveItem, retrieveItem } from './localStorage';
+import { retrieveItem } from './localStorage';
 import { createNewProject, saveProject, saveTask, editTask } from './handlingUserInput';
-import { todoList } from './classes/todoListItem';
 
 const mainContainer = generator.htmlGenerator('div', 'todo-list-tasks', 'todoListTasks');
 

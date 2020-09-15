@@ -1,5 +1,5 @@
 import { todoItem, todoList } from './classes/todoListItem';
-import { saveItem, retrieveItem, obliterateItem } from './localStorage';
+import { saveItem, retrieveItem } from './localStorage';
 
 const placeholderProject = todoList('New project');
 
@@ -15,7 +15,6 @@ const saveProject = () => {
     placeholderProject.items = retrieveItem('project').items;
   }
   saveItem('project', placeholderProject);
-  console.log(retrieveItem('project'));
   location.reload();
 };
 
@@ -42,17 +41,13 @@ const itemHandler = () => {
 };
 
 const editTask = () => {
-  const focusElement = document.querySelector(':focus');
-  console.log('HERE I AM MOTHERFUCKER');
   const project = retrieveItem('project');
-  let task; let taskId; const input = document.querySelector(':focus');
-  if (input.type === 'input') {
-    if (input.placeholder === '') return;
-    task = input.value; taskId = input.id.split('').reverse().slice(0, 1).join('');
-    project.items[taskId] = task;
-    saveItem('project', project);
-    console.log(input);
-  }
+  const input = document.querySelector(':focus');
+  const task = input.value;
+  const taskId = input.id.split('').reverse().slice(0, 1).join('');
+  project.items[taskId].title = task;
+  saveItem('project', project);
+  location.reload();
 };
 
 export { createNewProject, saveProject, itemHandler, saveTask, editTask };
