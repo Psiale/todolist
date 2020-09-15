@@ -39,6 +39,8 @@ const todoListMainContainer = () => {
   };
 
   const createSingleTask = (id) => {
+    const savedItems = retrieveItem('project').items;
+    const savedItemsLength = savedItems.length;
     const listItemContainer = generator.htmlGenerator('div', 'todo-list-item-container');
     const listItemInputContainer = generator.htmlGenerator('input', 'project-task-input', `projectTask${id}`);
     const listItemSubmitButton = generator.htmlGenerator('button', 'project-task-submit', `projectTaskSubmit${id}`);
@@ -47,8 +49,12 @@ const todoListMainContainer = () => {
     const listItemDeleteButtonText = generator.textGenerator('p', '<i class="fas fa-times"></i>');
     const listItemDeleteButton = generator.htmlGenerator('button', 'list-item-delete-button');
     listItemDeleteButton.appendChild(listItemDeleteButtonText);
-    listItemSubmitButton.addEventListener('click', saveTask);
-    listItemSubmitButton.addEventListener('click', editTask);
+    const listItemID = listItemInputContainer.id.split('').reverse().slice(0, 1).join('');
+    if (listItemID >= savedItemsLength) {
+      listItemSubmitButton.addEventListener('click', saveTask);
+    } else {
+      listItemSubmitButton.addEventListener('click', editTask);
+    }
     listItemInputContainer.addEventListener('keypress', (event) => {
       if (event.keyCode === 13) {
         event.preventDefault();
