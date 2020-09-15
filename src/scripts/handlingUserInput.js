@@ -42,12 +42,18 @@ const itemHandler = () => {
 
 const editTask = () => {
   const project = retrieveItem('project');
-  const input = document.querySelector(':focus');
+  let input;
+  if (document.querySelector(':focus').type === 'submit') {
+    input = document.querySelector(':focus').previousSibling;
+  } else {
+    input = document.querySelector(':focus');
+  }
   const task = input.value;
   const taskId = input.id.split('').reverse().slice(0, 1).join('');
   project.items[taskId].title = task;
   saveItem('project', project);
-  location.reload();
+  console.log(document.querySelector(':focus').type);
+  // location.reload();
 };
 
 export { createNewProject, saveProject, itemHandler, saveTask, editTask };
