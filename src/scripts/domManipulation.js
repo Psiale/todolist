@@ -1,6 +1,6 @@
 import * as generator from './domTools';
 import { saveItem, retrieveItem } from './localStorage';
-import { createNewProject, saveProject, saveTask } from './handlingUserInput';
+import { createNewProject, saveProject, saveTask, editTask } from './handlingUserInput';
 import { todoList } from './classes/todoListItem';
 
 const mainContainer = generator.htmlGenerator('div', 'todo-list-tasks', 'todoListTasks');
@@ -48,6 +48,7 @@ const todoListMainContainer = () => {
     const listItemDeleteButton = generator.htmlGenerator('button', 'list-item-delete-button');
     listItemDeleteButton.appendChild(listItemDeleteButtonText);
     listItemSubmitButton.addEventListener('click', saveTask);
+    listItemSubmitButton.addEventListener('click', editTask);
     listItemInputContainer.addEventListener('keypress', (event) => {
       if (event.keyCode === 13) {
         event.preventDefault();

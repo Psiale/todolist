@@ -22,6 +22,7 @@ const saveProject = () => {
 const saveTask = () => {
   const project = retrieveItem('project');
   const listLength = project.items.length;
+  if (document.getElementById(`projectTask${listLength}`).placeHolder == null) return;
   console.log(document.getElementById(`projectTask${listLength}`));
   const inputValue = document.getElementById(`projectTask${listLength}`).value;
   project.items.push(todoItem(inputValue));
@@ -40,6 +41,20 @@ const itemHandler = () => {
   location.reload();
 };
 
+const editTask = () => {
+  const project = retrieveItem('project');
+  let task;
+  let taskId;
+  const input = document.querySelector(':focus');
+  if (input.type === 'input') {
+    if (input.placeHolder === '') return;
+    task = input.value;
+    taskId = input.id.split('').reverse().slice(0, 1).join('');
+    project.items[taskId] = task;
+    saveItem('project', project);
+    console.log(input);
+  }
+}
 
 
-export { createNewProject, saveProject, itemHandler, saveTask };
+export { createNewProject, saveProject, itemHandler, saveTask, editTask };
