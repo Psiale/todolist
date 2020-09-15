@@ -1,5 +1,5 @@
 import { todoItem, todoList } from './classes/todoListItem';
-import { saveItem, retrieveItem } from './localStorage';
+import { saveItem, retrieveItem, obliterateItem } from './localStorage';
 
 const placeholderProject = todoList('New project');
 
@@ -40,6 +40,7 @@ const itemHandler = () => {
   location.reload();
 };
 
+
 const editTask = () => {
   const project = retrieveItem('project');
   let input;
@@ -53,7 +54,15 @@ const editTask = () => {
   project.items[taskId].title = task;
   saveItem('project', project);
   console.log(document.querySelector(':focus').type);
-  // location.reload();
+  location.reload();
 };
+const obliterateTask = () => {
+  const project = retrieveItem('project');
+  const id = document.querySelector(':focus').id.split('').reverse().slice(0, 1).join('');
+  project.items.slice(parseInt(id, 10), parseInt(id, 10) + 1);
+  saveProject('project', project);
+  console.log(project);
+  // location.reload();
+} 
 
-export { createNewProject, saveProject, itemHandler, saveTask, editTask };
+export { createNewProject, saveProject, itemHandler, saveTask, editTask, obliterateTask };

@@ -1,6 +1,6 @@
 import * as generator from './domTools';
 import { retrieveItem } from './localStorage';
-import { createNewProject, saveProject, saveTask, editTask } from './handlingUserInput';
+import { createNewProject, saveProject, saveTask, editTask, obliterateTask } from './handlingUserInput';
 
 const mainContainer = generator.htmlGenerator('div', 'todo-list-tasks', 'todoListTasks');
 
@@ -46,7 +46,7 @@ const todoListMainContainer = () => {
     const listItemPriorityButton = generator.textGenerator('button', '<i class="far fa-star"></i>');
     listItemPriorityButton.classList.add('list-item-priority');
     const listItemDeleteButtonText = generator.textGenerator('p', '<i class="fas fa-times"></i>');
-    const listItemDeleteButton = generator.htmlGenerator('button', 'list-item-delete-button');
+    const listItemDeleteButton = generator.htmlGenerator('button', 'list-item-delete-button', `projectTaskDelete${id}`);
     listItemDeleteButton.appendChild(listItemDeleteButtonText);
     const listItemID = listItemInputContainer.id.split('').reverse().slice(0, 1).join('');
     if (listItemID >= savedItemsLength) {
@@ -59,6 +59,11 @@ const todoListMainContainer = () => {
         event.preventDefault();
         listItemSubmitButton.click();
       }
+    });
+
+    listItemDeleteButton.addEventListener('click', (event) => {
+      event.preventDefault();
+      obliterateTask();
     });
     listItemContainer.append(
       listItemInputContainer,
@@ -89,6 +94,7 @@ const todoListMainContainer = () => {
     // if there is a list, render the list,  add a single one
     // if not, add a single one
     const savedProject = retrieveItem('project');
+    console.log(savedProject);
     const listLength = savedProject.items.length;
     const listContainer = document.getElementById('todoListTasks');
     const domLength = listContainer.getElementsByTagName('div').length;
