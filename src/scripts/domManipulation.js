@@ -50,7 +50,7 @@ const todoListMainContainer = () => {
 
     //const focusedContainer = document.querySelector(':focus').parentNode.firstChild;
     //const focusedContainerID = generator.generateID(focusedContainer);
-    const listItemPriorityButton = document.createElement('button');
+    const listItemPriorityButton = generator.htmlGenerator('button', 'todo-list-item-button', `listItemButton${id}`);
     listItemPriorityButton.classList.add('list-item-priority');
 
     setTimeout(() => {
@@ -70,15 +70,16 @@ const todoListMainContainer = () => {
     //  settingPriority();
     //});
 
-    if (listItemPriorityButton.innerHTML === '<i class="far fa-star"></i>') {
-      listItemPriorityButton.addEventListener('click', () => {
+    const setPriorityStatus = () => {
+      if (settingPriority() === 0) {
         listItemPriorityButton.innerHTML = '<i class="fas fa-star"></i>';
-      });
-    } else {
-      listItemPriorityButton.addEventListener('click', () => {
+      } else {
         listItemPriorityButton.innerHTML = '<i class="far fa-star"></i>';
-      });
-    }
+      }
+    };
+
+    listItemPriorityButton.addEventListener('click', setPriorityStatus);
+
 
     listItemSubmitButton.classList.add('hidden');
     listItemDeleteButton.type = 'button';

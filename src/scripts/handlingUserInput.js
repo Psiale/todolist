@@ -59,16 +59,21 @@ const editTask = () => {
 };
 
 const settingPriority = () => {
+  let number;
   const project = retrieveItem('project');
   const focusElement = document.querySelector(':focus');
-  console.log(focusElement.querySelector('.far'));
+  console.log(generateID(focusElement.parentNode));
   const focusContainerID = generateID(focusElement.parentNode);
-  if (focusElement.querySelector('.far')) {
-    project.items[0].priority = 0;
+  if (focusElement.firstChild.dataset.prefix === 'far') {
+    project.items[focusContainerID].priority = 1;
+    saveItem('project', project);
+    number = 0;
   } else {
-    project.items[0].priority = 1;
+    project.items[focusContainerID].priority = 0;
+    saveItem('project', project);
+    number = 1;
   }
-  saveItem('project', project);
+  return number;
 };
 
 const obliterateTask = () => {
