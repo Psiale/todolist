@@ -5,4 +5,6 @@ const saveItem = (string, object) => {
 
 const retrieveItem = (string) => JSON.parse(localStorage.getItem(string));
 
-export { saveItem, retrieveItem };
+const obliterateItem = string => localStorage.removeItem(string);
+
+export { saveItem, retrieveItem, obliterateItem };

@@ -23,10 +23,12 @@ h5 {
   margin: 0;
 }
 
+$primary-font: sans-serif, monospace;
+
 body {
   height: 100vh;
   width: 100%;
-  font: 400 16px/16px sans-serif, monospace;
+  font: 400 16px/16px $primary-font;
   color: #202020;
 }
 
@@ -75,11 +77,11 @@ body {
         border: none;
         outline: none;
         background-color: transparent;
-        font: 500 32px/32px sans-serif, monospace;
+        font: 500 32px/32px $primary-font;
         color: #dcdcdc;
 
         &::placeholder {
-          font: 500 32px/32px sans-serif, monospace;
+          font: 500 32px/32px $primary-font;
           color: #D7BDE2;
         }
       }
@@ -100,19 +102,49 @@ body {
     overflow: hidden;
     overflow-y: auto;
     background-color: rgba(0, 0, 0, 0.4);
-  
+
     .todo-list-item-container {
       color: wheat;
       width: 100%;
+      height: 70px;
       border-radius: 4px;
       background: rgba(256, 256, 256, 0.1);
       display: flex;
       margin: 3px 0;
       padding: 0;
-      height: min-content;
-      p {
-        text-align: center;
-        width: 80%;
+
+      .project-task-input {
+        background: transparent;
+        outline: none;
+        border: none;
+        width: 70%;
+        padding-left: 20px;
+        font: 400 22px/22px $primary-font;
+        color: #dcdcdc;
+
+        &::placeholder {
+          color: #D7BDE2;
+        }
+      }
+
+      .list-item-priority {
+        margin-left: auto;
+      }
+
+      .list-item-priority,
+      .list-item-delete-button {
+        background: transparent;
+        outline: none;
+        border: none;
+        width: 60px;
+        svg {
+          font-size: 22px;
+          color: #D7BDE2;
+        }
+      }
+      
+      .list-item-delete-button {
+        margin: 0 10px 0 0;
       }
     }
   }
