@@ -65,11 +65,11 @@ const settingPriority = () => {
   console.log(generateID(focusElement.parentNode));
   const focusContainerID = generateID(focusElement.parentNode);
   if (focusElement.firstChild.dataset.prefix === 'far') {
-    project.items[focusContainerID].priority = 1;
+    project.items[focusContainerID].priority = 0;
     saveItem('project', project);
     number = 0;
   } else {
-    project.items[focusContainerID].priority = 0;
+    project.items[focusContainerID].priority = 1;
     saveItem('project', project);
     number = 1;
   }

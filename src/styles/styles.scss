@@ -132,7 +132,8 @@ body {
       }
 
       .list-item-priority,
-      .list-item-delete-button {
+      .list-item-delete-button,
+      .list-item-down-arrow {
         background: transparent;
         outline: none;
         border: none;
@@ -142,9 +143,25 @@ body {
           color: #D7BDE2;
         }
       }
+
+      .list-item-down-arrow {
+        padding-bottom: 10px;
+        margin-left: -5px;
+      }
+    }
+
+    .drop-container {
+      display: flex;
+      flex-flow: column nowrap;
+      height: 150px;
+      background-color: #424242;
       
-      .list-item-delete-button {
-        margin: 0 10px 0 0;
+      .description-container {
+
+      }
+
+      .date-container {
+        
       }
     }
   }

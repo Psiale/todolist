@@ -38,37 +38,57 @@ const todoListMainContainer = () => {
     return mainContainer;
   };
 
+  const dropDownBuilder = (id) => {
+    const container = generator.htmlGenerator('div', 'drop-container', `dropContainer${id}`);
+
+    const descriptionSection = () => {
+      const descriptionContainer = generator.htmlGenerator('div', 'description-container', `descriptionContainer${id}`);
+      const descriptionInput = generator.htmlGenerator('input', 'description-input', `descriptionInput${id}`);
+      const descriptionSubmit = generator.htmlGenerator('button', 'description-submit-button', `descriptionSubmitButton${id}`);
+      const descriptionSubmitIcon = generator.textGenerator('i', '<i class="fas fa-save"></i>');
+      descriptionSubmit.appendChild(descriptionSubmitIcon);
+      descriptionContainer.append(descriptionInput, descriptionSubmit);
+      return descriptionContainer;
+    };
+
+    const dateSection = () => {
+      const dateContainer = generator.htmlGenerator('div', 'date-container', `dateContainer${id}`);
+      const dateInput = generator.htmlGenerator('input', 'date-input', `dateInput${id}`);
+      dateInput.type = 'date';
+      const dateSubmit = generator.htmlGenerator('button', 'date-submit-button', `dateSubmitButton${id}`);
+      const dateSubmitIcon = generator.textGenerator('i', '<i class="fas fa-stopwatch"></i>');
+      dateSubmit.appendChild(dateSubmitIcon);
+      dateContainer.append(dateInput, dateSubmit);
+      return dateContainer;
+    };
+
+    container.append(descriptionSection(), dateSection());
+    return container;
+  };
+
   const createSingleTask = (id) => {
     const savedProject = retrieveItem('project');
     const savedItems = retrieveItem('project').items;
     const savedItemsLength = savedItems.length;
+    const simpleListItemContainer = generator.htmlGenerator('div', 'simple-list-item-container', `simpleListItemContainer${id}`);
     const listItemContainer = generator.htmlGenerator('div', 'todo-list-item-container', `listItemContainer${id}`);
     const listItemInputContainer = generator.htmlGenerator('input', 'project-task-input', `projectTask${id}`);
     const listItemSubmitButton = generator.htmlGenerator('button', 'project-task-submit', `projectTaskSubmit${id}`);
     const listItemDeleteButtonText = generator.textGenerator('p', '<i class="fas fa-times"></i>');
     const listItemDeleteButton = generator.htmlGenerator('button', 'list-item-delete-button', `projectTaskDelete${id}`);
-
-    //const focusedContainer = document.querySelector(':focus').parentNode.firstChild;
-    //const focusedContainerID = generator.generateID(focusedContainer);
     const listItemPriorityButton = generator.htmlGenerator('button', 'todo-list-item-button', `listItemButton${id}`);
+    const listItemDownArrow = generator.htmlGenerator('button', 'list-item-down-arrow');
+    const listItemDownArrowIcon = generator.textGenerator('p', '<i class="fas fa-sort-down"></i>');
+    listItemDownArrow.appendChild(listItemDownArrowIcon);
     listItemPriorityButton.classList.add('list-item-priority');
 
     setTimeout(() => {
       if (savedProject.items[id].priority === 0) {
-        listItemPriorityButton.innerHTML = '<i class="far fa-star"></i>';
-      } else {
         listItemPriorityButton.innerHTML = '<i class="fas fa-star"></i>';
+      } else {
+        listItemPriorityButton.innerHTML = '<i class="far fa-star"></i>';
       }
     }, 1);
-
-    //listItemPriorityButton.addEventListener('click', () => {
-    //  if (listItemPriorityButton.innerHTML === '<i class="far fa-star"></i>') {
-    //    listItemPriorityButton.innerHTML = '<i class="fas fa-star"></i>';
-    //  } else {
-    //    listItemPriorityButton.innerHTML = '<i class="far fa-star"></i>';
-    //  }
-    //  settingPriority();
-    //});
 
     const setPriorityStatus = () => {
       if (settingPriority() === 0) {
@@ -112,8 +132,10 @@ const todoListMainContainer = () => {
       listItemSubmitButton,
       listItemPriorityButton,
       listItemDeleteButton,
+      listItemDownArrow,
     );
-    return listItemContainer;
+    simpleListItemContainer.append(listItemContainer, dropDownBuilder(id));
+    return simpleListItemContainer;
   };
 
   const todoListTasks = () => {
@@ -132,41 +154,13 @@ const todoListMainContainer = () => {
     return mainContainer;
   };
 
-  const dropDownBuilder = (id) => {
-    const container = generator.htmlGenerator('div', 'drop-container', `dropContainer${id}`);
-
-    const descriptionSection = () => {
-      const descriptionContainer = generator.htmlGenerator('div', 'description-container', `descriptionContainer${id}`);
-      const descriptionInput = generator.htmlGenerator('input', 'description-input', `descriptionInput${id}`);
-      const descriptionSubmit = generator.textGenerator('button', 'description-submit-button', `descriptionSubmitButton${id}`);
-      const descriptionSubmitIcon = generator.textGenerator('i', '<i class="fas fa-save"></i>');
-      descriptionSubmit.appendChild(descriptionSubmitIcon);
-      descriptionContainer.append(descriptionInput, descriptionSubmit);
-      return descriptionContainer;
-    };
-
-    const dateSection = () => {
-      const dateContainer = generator.htmlGenerator('div', 'date-container', `dateContainer${id}`);
-      const dateInput = generator.htmlGenerator('div', 'date-input', `dateInput${id}`);
-      dateInput.type = 'date';
-      const dateSubmit = generator.htmlGenerator('button', 'date-submit-button', `dateSubmitButton${id}`);
-      const dateSubmitIcon = generator.textGenerator('i', '<i class="fas fa-stopwatch"></i>');
-      dateSubmit.appendChild(dateSubmitIcon);
-      dateContainer.append(dateInput, dateSubmit);
-      return dateContainer;
-    };
-
-    container.append(descriptionSection(), dateSection());
-    return container;
-  };
-
   const listBuilder = () => {
     // if there is a list, render the list,  add a single one
     // if not, add a single one
     const savedProject = retrieveItem('project');
     const listLength = savedProject.items.length;
     const listContainer = document.getElementById('todoListTasks');
-    const domLength = listContainer.getElementsByTagName('div').length;
+    const domLength = listContainer.childNodes.length;
     if (listLength >= 0 && domLength <= listLength) {
       listContainer.appendChild(createSingleTask(listLength));
     } else if (listLength >= 0 && domLength <= listLength + 1) {
