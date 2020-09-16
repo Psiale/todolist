@@ -132,6 +132,34 @@ const todoListMainContainer = () => {
     return mainContainer;
   };
 
+  const dropDownBuilder = (id) => {
+    const container = generator.htmlGenerator('div', 'drop-container', `dropContainer${id}`);
+
+    const descriptionSection = () => {
+      const descriptionContainer = generator.htmlGenerator('div', 'description-container', `descriptionContainer${id}`);
+      const descriptionInput = generator.htmlGenerator('input', 'description-input', `descriptionInput${id}`);
+      const descriptionSubmit = generator.textGenerator('button', 'description-submit-button', `descriptionSubmitButton${id}`);
+      const descriptionSubmitIcon = generator.textGenerator('i', '<i class="fas fa-save"></i>');
+      descriptionSubmit.appendChild(descriptionSubmitIcon);
+      descriptionContainer.append(descriptionInput, descriptionSubmit);
+      return descriptionContainer;
+    };
+
+    const dateSection = () => {
+      const dateContainer = generator.htmlGenerator('div', 'date-container', `dateContainer${id}`);
+      const dateInput = generator.htmlGenerator('div', 'date-input', `dateInput${id}`);
+      dateInput.type = 'date';
+      const dateSubmit = generator.htmlGenerator('button', 'date-submit-button', `dateSubmitButton${id}`);
+      const dateSubmitIcon = generator.textGenerator('i', '<i class="fas fa-stopwatch"></i>');
+      dateSubmit.appendChild(dateSubmitIcon);
+      dateContainer.append(dateInput, dateSubmit);
+      return dateContainer;
+    };
+
+    container.append(descriptionSection(), dateSection());
+    return container;
+  };
+
   const listBuilder = () => {
     // if there is a list, render the list,  add a single one
     // if not, add a single one
