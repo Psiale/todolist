@@ -63,7 +63,7 @@ const todoListMainContainer = () => {
     });
 
     listItemDeleteButton.addEventListener('click', (event) => {
-      event.preventDefault();
+      // event.preventDefault();
       obliterateTask();
     });
     // implement save task when element loses focus

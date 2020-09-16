@@ -58,11 +58,15 @@ const editTask = () => {
 };
 const obliterateTask = () => {
   const project = retrieveItem('project');
-  const id = document.querySelector(':focus').id.split('').reverse().slice(0, 1).join('');
-  project.items.slice(id, id + 1);
+  const focusElement = document.querySelector(':focus');
+  const inputElement = focusElement.parentNode.firstChild;
+  const inputValue = inputElement.placeholder;
+  const result = project.items.filter((element) => element.title !== `${inputValue}`);
+
+  project.items = result;
   saveItem('project', project);
   console.log(project);
-  // location.reload();
+  location.reload();
 } 
 
 export { createNewProject, saveProject, itemHandler, saveTask, editTask, obliterateTask };
