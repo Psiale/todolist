@@ -61,9 +61,12 @@ const todoListMainContainer = () => {
         listItemSubmitButton.click();
       }
     });
+    // listItemInputContainer.addEventListener('focusout', saveTask);
+    // listItemInputContainer.addEventListener('focusout', editTask);
+    // a function that doesn't require the focus element, but takes back the content of the input;
 
     listItemDeleteButton.addEventListener('click', (event) => {
-      // event.preventDefault();
+      event.preventDefault();
       obliterateTask();
     });
     // implement save task when element loses focus
