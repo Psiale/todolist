@@ -11,4 +11,8 @@ const textGenerator = (tag, text) => {
   return element;
 };
 
-export { htmlGenerator, textGenerator };
+const generateID = (domElement) => {
+  domElement.id.split('').reverse().slice(0, 1).join('');
+};
+
+export { htmlGenerator, textGenerator, generateID };

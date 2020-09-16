@@ -24,6 +24,7 @@ const todoListMainContainer = () => {
     btn.appendChild(btnText);
     btn.setAttribute('type', 'button');
     btn.addEventListener('click', saveProject);
+
     inputElement.addEventListener('keypress', (event) => {
       if (event.keyCode === 13) {
         event.preventDefault();
@@ -38,27 +39,52 @@ const todoListMainContainer = () => {
   };
 
   const createSingleTask = (id) => {
+    const savedProject = retrieveItem('project');
     const savedItems = retrieveItem('project').items;
     const savedItemsLength = savedItems.length;
     const listItemContainer = generator.htmlGenerator('div', 'todo-list-item-container', `listItemContainer${id}`);
     const listItemInputContainer = generator.htmlGenerator('input', 'project-task-input', `projectTask${id}`);
     const listItemSubmitButton = generator.htmlGenerator('button', 'project-task-submit', `projectTaskSubmit${id}`);
-    listItemSubmitButton.classList.add('hidden');
-    const listItemPriorityButton = generator.textGenerator('button', '<i class="far fa-star"></i>');
-    listItemPriorityButton.classList.add('list-item-priority');
-    listItemPriorityButton.addEventListener('click', () => {
-      if (listItemPriorityButton.innerHTML = '<i class="far fa-star"></i>') {
-        listItemPriorityButton.innerHTML = '<i class="fas fa-star"></i>';
-      } else {
-        listItemPriorityButton.innerHTML = '<i class="far fa-star"></i>';
-      }
-      settingPriority();
-    });
     const listItemDeleteButtonText = generator.textGenerator('p', '<i class="fas fa-times"></i>');
     const listItemDeleteButton = generator.htmlGenerator('button', 'list-item-delete-button', `projectTaskDelete${id}`);
+
+    //const focusedContainer = document.querySelector(':focus').parentNode.firstChild;
+    //const focusedContainerID = generator.generateID(focusedContainer);
+    const listItemPriorityButton = document.createElement('button');
+    listItemPriorityButton.classList.add('list-item-priority');
+
+    setTimeout(() => {
+      if (savedProject.items[id].priority === 0) {
+        listItemPriorityButton.innerHTML = '<i class="far fa-star"></i>';
+      } else {
+        listItemPriorityButton.innerHTML = '<i class="fas fa-star"></i>';
+      }
+    }, 1);
+
+    //listItemPriorityButton.addEventListener('click', () => {
+    //  if (listItemPriorityButton.innerHTML === '<i class="far fa-star"></i>') {
+    //    listItemPriorityButton.innerHTML = '<i class="fas fa-star"></i>';
+    //  } else {
+    //    listItemPriorityButton.innerHTML = '<i class="far fa-star"></i>';
+    //  }
+    //  settingPriority();
+    //});
+
+    if (listItemPriorityButton.innerHTML === '<i class="far fa-star"></i>') {
+      listItemPriorityButton.addEventListener('click', () => {
+        listItemPriorityButton.innerHTML = '<i class="fas fa-star"></i>';
+      });
+    } else {
+      listItemPriorityButton.addEventListener('click', () => {
+        listItemPriorityButton.innerHTML = '<i class="far fa-star"></i>';
+      });
+    }
+
+    listItemSubmitButton.classList.add('hidden');
     listItemDeleteButton.type = 'button';
     listItemDeleteButton.appendChild(listItemDeleteButtonText);
-    const listItemID = listItemInputContainer.id.split('').reverse().slice(0, 1).join('');
+
+    const listItemID = generator.generateID(listItemInputContainer);
     if (listItemID >= savedItemsLength) {
       listItemSubmitButton.addEventListener('click', saveTask);
     } else {
@@ -109,7 +135,6 @@ const todoListMainContainer = () => {
     // if there is a list, render the list,  add a single one
     // if not, add a single one
     const savedProject = retrieveItem('project');
-    console.log(savedProject);
     const listLength = savedProject.items.length;
     const listContainer = document.getElementById('todoListTasks');
     const domLength = listContainer.getElementsByTagName('div').length;

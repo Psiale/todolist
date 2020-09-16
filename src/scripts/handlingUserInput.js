@@ -1,5 +1,6 @@
 import { todoItem, todoList } from './classes/todoListItem';
 import { saveItem, retrieveItem, obliterateItem } from './localStorage';
+import { generateID } from './domTools';
 
 const placeholderProject = todoList('New project');
 
@@ -22,7 +23,7 @@ const saveTask = () => {
   const project = retrieveItem('project');
   const listLength = project.items.length;
   const focusElement = document.querySelector(':focus');
-  const focusedID = focusElement.id.split('').reverse().slice(0, 1).join('');
+  const focusedID = generateID(focusElement)
   const inputValue = document.getElementById(`projectTask${listLength}`).value;
   project.items.push(todoItem(inputValue));
   saveItem('project', project);
@@ -50,7 +51,7 @@ const editTask = () => {
     input = document.querySelector(':focus');
   }
   const task = input.value;
-  const taskId = input.id.split('').reverse().slice(0, 1).join('');
+  const taskId = generateID(input);
   project.items[taskId].title = task;
   saveItem('project', project);
   console.log(document.querySelector(':focus').type);
@@ -60,11 +61,12 @@ const editTask = () => {
 const settingPriority = () => {
   const project = retrieveItem('project');
   const focusElement = document.querySelector(':focus');
-  const focusContainerID = focusElement.parentNode.id.split('').reverse().slice(0, 1).join('');
-  if (focusElement.firstChild.querySelector('far')) {
-    project.items[focusContainerID].priority = 0;
+  console.log(focusElement.querySelector('.far'));
+  const focusContainerID = generateID(focusElement.parentNode);
+  if (focusElement.querySelector('.far')) {
+    project.items[0].priority = 0;
   } else {
-    project.items[focusContainerID].priority = 1;
+    project.items[0].priority = 1;
   }
   saveItem('project', project);
 };
