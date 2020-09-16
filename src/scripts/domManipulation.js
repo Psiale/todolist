@@ -40,13 +40,14 @@ const todoListMainContainer = () => {
   const createSingleTask = (id) => {
     const savedItems = retrieveItem('project').items;
     const savedItemsLength = savedItems.length;
-    const listItemContainer = generator.htmlGenerator('div', 'todo-list-item-container', 'listItemContainer');
+    const listItemContainer = generator.htmlGenerator('div', 'todo-list-item-container', `listItemContainer${id}`);
     const listItemInputContainer = generator.htmlGenerator('input', 'project-task-input', `projectTask${id}`);
     const listItemSubmitButton = generator.htmlGenerator('button', 'project-task-submit', `projectTaskSubmit${id}`);
     const listItemPriorityButton = generator.textGenerator('button', '<i class="far fa-star"></i>');
     listItemPriorityButton.classList.add('list-item-priority');
     const listItemDeleteButtonText = generator.textGenerator('p', '<i class="fas fa-times"></i>');
     const listItemDeleteButton = generator.htmlGenerator('button', 'list-item-delete-button', `projectTaskDelete${id}`);
+    listItemDeleteButton.type = 'button';
     listItemDeleteButton.appendChild(listItemDeleteButtonText);
     const listItemID = listItemInputContainer.id.split('').reverse().slice(0, 1).join('');
     if (listItemID >= savedItemsLength) {
@@ -65,6 +66,8 @@ const todoListMainContainer = () => {
       event.preventDefault();
       obliterateTask();
     });
+    // implement save task when element loses focus
+    // Do not save if element value is empty
     listItemContainer.append(
       listItemInputContainer,
       listItemSubmitButton,

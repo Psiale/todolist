@@ -59,8 +59,8 @@ const editTask = () => {
 const obliterateTask = () => {
   const project = retrieveItem('project');
   const id = document.querySelector(':focus').id.split('').reverse().slice(0, 1).join('');
-  project.items.slice(parseInt(id, 10), parseInt(id, 10) + 1);
-  saveProject('project', project);
+  project.items.slice(id, id + 1);
+  saveItem('project', project);
   console.log(project);
   // location.reload();
 } 
