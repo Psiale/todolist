@@ -56,6 +56,19 @@ const editTask = () => {
   console.log(document.querySelector(':focus').type);
   location.reload();
 };
+
+const settingPriority = () => {
+  const project = retrieveItem('project');
+  const focusElement = document.querySelector(':focus');
+  const focusContainerID = focusElement.parentNode.id.split('').reverse().slice(0, 1).join('');
+  if (focusElement.firstChild.querySelector('far')) {
+    project.items[focusContainerID].priority = 0;
+  } else {
+    project.items[focusContainerID].priority = 1;
+  }
+  saveItem('project', project);
+};
+
 const obliterateTask = () => {
   const project = retrieveItem('project');
   const focusElement = document.querySelector(':focus');
@@ -67,6 +80,6 @@ const obliterateTask = () => {
   saveItem('project', project);
   console.log(project);
   location.reload();
-} 
+};
 
-export { createNewProject, saveProject, itemHandler, saveTask, editTask, obliterateTask };
+export { createNewProject, saveProject, itemHandler, saveTask, editTask, obliterateTask, settingPriority };

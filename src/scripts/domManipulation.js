@@ -1,6 +1,6 @@
 import * as generator from './domTools';
 import { retrieveItem } from './localStorage';
-import { createNewProject, saveProject, saveTask, editTask, obliterateTask } from './handlingUserInput';
+import { createNewProject, saveProject, saveTask, editTask, obliterateTask, settingPriority } from './handlingUserInput';
 
 const mainContainer = generator.htmlGenerator('div', 'todo-list-tasks', 'todoListTasks');
 
@@ -43,8 +43,17 @@ const todoListMainContainer = () => {
     const listItemContainer = generator.htmlGenerator('div', 'todo-list-item-container', `listItemContainer${id}`);
     const listItemInputContainer = generator.htmlGenerator('input', 'project-task-input', `projectTask${id}`);
     const listItemSubmitButton = generator.htmlGenerator('button', 'project-task-submit', `projectTaskSubmit${id}`);
+    listItemSubmitButton.classList.add('hidden');
     const listItemPriorityButton = generator.textGenerator('button', '<i class="far fa-star"></i>');
     listItemPriorityButton.classList.add('list-item-priority');
+    listItemPriorityButton.addEventListener('click', () => {
+      if (listItemPriorityButton.innerHTML = '<i class="far fa-star"></i>') {
+        listItemPriorityButton.innerHTML = '<i class="fas fa-star"></i>';
+      } else {
+        listItemPriorityButton.innerHTML = '<i class="far fa-star"></i>';
+      }
+      settingPriority();
+    });
     const listItemDeleteButtonText = generator.textGenerator('p', '<i class="fas fa-times"></i>');
     const listItemDeleteButton = generator.htmlGenerator('button', 'list-item-delete-button', `projectTaskDelete${id}`);
     listItemDeleteButton.type = 'button';
