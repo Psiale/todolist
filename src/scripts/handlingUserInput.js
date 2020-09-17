@@ -89,4 +89,24 @@ const obliterateTask = () => {
   location.reload();
 };
 
-export { createNewProject, saveProject, itemHandler, saveTask, editTask, obliterateTask, settingPriority };
+const setTaskProperty = (string, id, property) => {
+  const savedProject = retrieveItem('project');
+  console.log(`${property + id}`);
+  const dateInputElement = document.getElementById(`${string + id}`);
+  const project = savedProject.items[id];
+  const dateTask = dateInputElement.value;
+  project[property] = dateTask;
+  saveItem('project', savedProject);
+  console.log(savedProject);
+};
+
+const displayTaskProperty = (string, id, property) => {
+  const savedProject = retrieveItem('project');
+  const value = savedProject.items[id][property];
+  const dateInputElement = document.getElementById(`${string + id}`);
+  return dateInputElement;
+};
+
+export { createNewProject, saveProject,
+  itemHandler, saveTask, editTask, obliterateTask,
+  settingPriority, setTaskProperty, displayTaskProperty};

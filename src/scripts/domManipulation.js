@@ -1,6 +1,7 @@
 import * as generator from './domTools';
 import { retrieveItem } from './localStorage';
-import { createNewProject, saveProject, saveTask, editTask, obliterateTask, settingPriority } from './handlingUserInput';
+import { createNewProject, saveProject, saveTask, editTask,
+  obliterateTask, settingPriority, setTaskProperty, displayTaskProperty } from './handlingUserInput';
 
 const mainContainer = generator.htmlGenerator('div', 'todo-list-tasks', 'todoListTasks');
 
@@ -46,6 +47,9 @@ const todoListMainContainer = () => {
       const descriptionInput = generator.htmlGenerator('input', 'description-input', `descriptionInput${id}`);
       const descriptionSubmit = generator.htmlGenerator('button', 'description-submit-button', `descriptionSubmitButton${id}`);
       const descriptionSubmitIcon = generator.textGenerator('i', '<i class="fas fa-save"></i>');
+      descriptionSubmit.addEventListener('click', () => {
+        setTaskProperty('descriptionInput', id, 'description');
+      });
       descriptionSubmit.appendChild(descriptionSubmitIcon);
       descriptionContainer.append(descriptionInput, descriptionSubmit);
       return descriptionContainer;
