@@ -52,6 +52,8 @@ const todoListMainContainer = () => {
       descriptionSubmit.addEventListener('click', () => {
         setTaskProperty('descriptionInput', id, 'description');
       });
+      generator.enterShortcut(descriptionSubmit, descriptionInput);
+
       descriptionSubmit.appendChild(descriptionSubmitIcon);
       descriptionContainer.append(descriptionInput, descriptionSubmit);
       return descriptionContainer;

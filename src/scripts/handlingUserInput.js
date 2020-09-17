@@ -98,6 +98,7 @@ const setTaskProperty = (string, id, property) => {
   project[property] = dateTask;
   saveItem('project', savedProject);
   console.log(savedProject);
+  location.reload();
 };
 
 const getTaskProperty = (id, property) => {
