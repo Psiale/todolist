@@ -1,7 +1,7 @@
 import * as generator from './domTools';
 import { retrieveItem } from './localStorage';
 import { createNewProject, saveProject, saveTask, editTask,
-  obliterateTask, settingPriority, setTaskProperty, displayTaskProperty } from './handlingUserInput';
+  obliterateTask, settingPriority, setTaskProperty, getTaskProperty } from './handlingUserInput';
 
 const mainContainer = generator.htmlGenerator('div', 'todo-list-tasks', 'todoListTasks');
 
@@ -26,12 +26,7 @@ const todoListMainContainer = () => {
     btn.setAttribute('type', 'button');
     btn.addEventListener('click', saveProject);
 
-    inputElement.addEventListener('keypress', (event) => {
-      if (event.keyCode === 13) {
-        event.preventDefault();
-        btn.click();
-      }
-    });
+    generator.enterShortcut(btn, inputElement);
 
     inputContainer.append(inputLabel, inputElement);
     form.append(inputContainer, listContainer, btn);
@@ -45,6 +40,13 @@ const todoListMainContainer = () => {
     const descriptionSection = () => {
       const descriptionContainer = generator.htmlGenerator('div', 'description-container', `descriptionContainer${id}`);
       const descriptionInput = generator.htmlGenerator('input', 'description-input', `descriptionInput${id}`);
+
+      if (getTaskProperty(id, 'description')) {
+        descriptionInput.placeholder = `${getTaskProperty(id, 'description')}`;
+      } else {
+        descriptionInput.placeholder = 'Get Your Shit Together.'
+      }
+
       const descriptionSubmit = generator.htmlGenerator('button', 'description-submit-button', `descriptionSubmitButton${id}`);
       const descriptionSubmitIcon = generator.textGenerator('i', '<i class="fas fa-save"></i>');
       descriptionSubmit.addEventListener('click', () => {
@@ -86,13 +88,15 @@ const todoListMainContainer = () => {
     listItemDownArrow.appendChild(listItemDownArrowIcon);
     listItemPriorityButton.classList.add('list-item-priority');
 
-    setTimeout(() => {
-      if (savedProject.items[id].priority === 0) {
-        listItemPriorityButton.innerHTML = '<i class="fas fa-star"></i>';
-      } else {
-        listItemPriorityButton.innerHTML = '<i class="far fa-star"></i>';
-      }
-    }, 1);
+    if (id && savedProject.items[id]) {
+      setTimeout(() => {
+        if (savedProject.items[id].priority === 0) {
+          listItemPriorityButton.innerHTML = '<i class="fas fa-star"></i>';
+        } else {
+          listItemPriorityButton.innerHTML = '<i class="far fa-star"></i>';
+        }
+      }, 1);
+    }
 
     const setPriorityStatus = () => {
       if (settingPriority() === 0) {
@@ -115,12 +119,8 @@ const todoListMainContainer = () => {
     } else {
       listItemSubmitButton.addEventListener('click', editTask);
     }
-    listItemInputContainer.addEventListener('keypress', (event) => {
-      if (event.keyCode === 13) {
-        event.preventDefault();
-        listItemSubmitButton.click();
-      }
-    });
+
+    generator.enterShortcut(listItemSubmitButton, listItemInputContainer);
     // listItemInputContainer.addEventListener('focusout', saveTask);
     // listItemInputContainer.addEventListener('focusout', editTask);
     // a function that doesn't require the focus element, but takes back the content of the input;

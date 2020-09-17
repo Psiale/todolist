@@ -83,7 +83,7 @@ const obliterateTask = () => {
   const inputValue = inputElement.placeholder;
   const result = project.items.filter((element) => element.title !== `${inputValue}`);
 
-  project.items = result;
+  if (project.items) { project.items = result; }
   saveItem('project', project);
   console.log(project);
   location.reload();
@@ -100,13 +100,18 @@ const setTaskProperty = (string, id, property) => {
   console.log(savedProject);
 };
 
-const displayTaskProperty = (string, id, property) => {
+const getTaskProperty = (id, property) => {
   const savedProject = retrieveItem('project');
-  const value = savedProject.items[id][property];
-  const dateInputElement = document.getElementById(`${string + id}`);
-  return dateInputElement;
+  if (id && savedProject.items[id]) {
+    if (savedProject.items === []) {
+      return 'Give your task a description';
+    }
+  return savedProject.items[id][property];
+  }
 };
 
-export { createNewProject, saveProject,
+export {
+  createNewProject, saveProject,
   itemHandler, saveTask, editTask, obliterateTask,
-  settingPriority, setTaskProperty, displayTaskProperty};
+  settingPriority, setTaskProperty, getTaskProperty,
+};

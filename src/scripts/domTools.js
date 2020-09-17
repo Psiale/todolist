@@ -11,6 +11,15 @@ const textGenerator = (tag, text) => {
   return element;
 };
 
+const enterShortcut = (btn, element) => {
+  element.addEventListener('keypress', (event) => {
+    if (event.keyCode === 13) {
+      event.preventDefault();
+      btn.click();
+    }
+  });
+};
+
 const generateID = (domElement) => domElement.id.split('').reverse().slice(0, 1).join('');
 
-export { htmlGenerator, textGenerator, generateID };
+export { htmlGenerator, textGenerator, generateID, enterShortcut };
