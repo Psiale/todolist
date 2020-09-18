@@ -23,7 +23,7 @@ const saveTask = () => {
   const project = retrieveItem('project');
   const listLength = project.items.length;
   const focusElement = document.querySelector(':focus');
-  const focusedID = generateID(focusElement)
+  const focusedID = generateID(focusElement);
   const inputValue = document.getElementById(`projectTask${listLength}`).value;
   project.items.push(todoItem(inputValue));
   saveItem('project', project);
@@ -98,7 +98,7 @@ const setTaskProperty = (string, id, property) => {
   project[property] = dateTask;
   saveItem('project', savedProject);
   console.log(savedProject);
-  location.reload();
+  // location.reload();
 };
 
 const getTaskProperty = (id, property) => {
@@ -107,7 +107,7 @@ const getTaskProperty = (id, property) => {
     if (savedProject.items === []) {
       return 'Give your task a description';
     }
-  return savedProject.items[id][property];
+    return savedProject.items[id][property];
   }
 };
 

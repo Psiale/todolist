@@ -22,4 +22,6 @@ const enterShortcut = (btn, element) => {
 
 const generateID = (domElement) => domElement.id.split('').reverse().slice(0, 1).join('');
 
-export { htmlGenerator, textGenerator, generateID, enterShortcut };
+export {
+  htmlGenerator, textGenerator, generateID, enterShortcut,
+};

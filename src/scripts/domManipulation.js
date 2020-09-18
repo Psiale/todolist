@@ -1,8 +1,10 @@
 import * as generator from './domTools';
 import { retrieveItem } from './localStorage';
 import { setDate, getDate } from './viewProjectTasks';
-import { createNewProject, saveProject, saveTask, editTask,
-  obliterateTask, settingPriority, setTaskProperty, getTaskProperty } from './handlingUserInput';
+import {
+  createNewProject, saveProject, saveTask, editTask,
+  obliterateTask, settingPriority, setTaskProperty, getTaskProperty,
+} from './handlingUserInput';
 
 const mainContainer = generator.htmlGenerator('div', 'todo-list-tasks', 'todoListTasks');
 
@@ -69,6 +71,7 @@ const todoListMainContainer = () => {
 
       const dateDisplay = generator.htmlGenerator('input', 'date-display', `dateDisplay${id}`);
       dateDisplay.disabled = true;
+      console.log(getDate(id));
       dateDisplay.placeholder = getDate(id);
 
 
@@ -78,6 +81,7 @@ const todoListMainContainer = () => {
       dateSubmit.addEventListener('click', (event) => {
         event.preventDefault();
         setDate(id);
+        location.reload();
       });
       generator.enterShortcut(dateSubmit, dateInput);
 
@@ -205,7 +209,7 @@ const todoListMainContainer = () => {
     const btn = generator.htmlGenerator('button', 'todo-submit-btn', 'todoSubmitBtn');
     btn.setAttribute('type', 'button');
     btn.appendChild(btnText);
-    //btn.addEventListener('click', itemHandler);
+    // btn.addEventListener('click', itemHandler);
     btn.addEventListener('click', listBuilder);
 
     form.append(inputContainer, btn);
