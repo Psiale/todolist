@@ -1,6 +1,6 @@
 import * as generator from './domTools';
 import { retrieveItem } from './localStorage';
-import { setDate, getDate } from './viewProjectTasks';
+import { setDate, getDate, hideShowDropwdown } from './viewProjectTasks';
 import {
   createNewProject, saveProject, saveTask, editTask,
   obliterateTask, settingPriority, setTaskProperty, getTaskProperty,
@@ -39,6 +39,8 @@ const todoListMainContainer = () => {
 
   const dropDownBuilder = (id) => {
     const container = generator.htmlGenerator('div', 'drop-container', `dropContainer${id}`);
+    container.classList.add('hidden');
+    container.classList.add('slide-in-bottom');
 
     const descriptionSection = () => {
       const descriptionContainer = generator.htmlGenerator('div', 'description-container', `descriptionContainer${id}`);
@@ -118,11 +120,14 @@ const todoListMainContainer = () => {
     const listItemDeleteButtonText = generator.textGenerator('p', '<i class="fas fa-times"></i>');
     const listItemDeleteButton = generator.htmlGenerator('button', 'list-item-delete-button', `projectTaskDelete${id}`);
     const listItemPriorityButton = generator.htmlGenerator('button', 'todo-list-item-button', `listItemButton${id}`);
-    const listItemDownArrow = generator.htmlGenerator('button', 'list-item-down-arrow');
+    const listItemDownArrow = generator.htmlGenerator('button', 'list-item-down-arrow', `listItemDownArrow${id}`);
     const listItemDownArrowIcon = generator.textGenerator('p', '<i class="fas fa-sort-down"></i>');
+    
     listItemDownArrow.appendChild(listItemDownArrowIcon);
     listItemPriorityButton.classList.add('list-item-priority');
-
+    listItemDownArrow.addEventListener('click', () => {
+      hideShowDropwdown(id);
+    });
     if (id && savedProject.items[id]) {
       setTimeout(() => {
         if (savedProject.items[id].priority === 0) {
