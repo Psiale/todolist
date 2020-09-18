@@ -1,5 +1,6 @@
 import * as generator from './domTools';
 import { retrieveItem } from './localStorage';
+import { setDate, getDate } from './viewProjectTasks';
 import { createNewProject, saveProject, saveTask, editTask,
   obliterateTask, settingPriority, setTaskProperty, getTaskProperty } from './handlingUserInput';
 
@@ -44,7 +45,7 @@ const todoListMainContainer = () => {
       if (getTaskProperty(id, 'description')) {
         descriptionInput.placeholder = `${getTaskProperty(id, 'description')}`;
       } else {
-        descriptionInput.placeholder = 'Get Your Shit Together.'
+        descriptionInput.placeholder = 'Give your task a description...';
       }
 
       const descriptionSubmit = generator.htmlGenerator('button', 'description-submit-button', `descriptionSubmitButton${id}`);
@@ -52,6 +53,7 @@ const todoListMainContainer = () => {
       descriptionSubmit.addEventListener('click', () => {
         setTaskProperty('descriptionInput', id, 'description');
       });
+      descriptionSubmit.classList.add('hidden');
       generator.enterShortcut(descriptionSubmit, descriptionInput);
 
       descriptionSubmit.appendChild(descriptionSubmitIcon);
@@ -62,11 +64,24 @@ const todoListMainContainer = () => {
     const dateSection = () => {
       const dateContainer = generator.htmlGenerator('div', 'date-container', `dateContainer${id}`);
       const dateInput = generator.htmlGenerator('input', 'date-input', `dateInput${id}`);
-      dateInput.type = 'date';
+      dateInput.type = 'datetime-local';
+
+
+      const dateDisplay = generator.htmlGenerator('input', 'date-display', `dateDisplay${id}`);
+      dateDisplay.disabled = true;
+      dateDisplay.placeholder = getDate(id);
+
+
       const dateSubmit = generator.htmlGenerator('button', 'date-submit-button', `dateSubmitButton${id}`);
       const dateSubmitIcon = generator.textGenerator('i', '<i class="fas fa-stopwatch"></i>');
       dateSubmit.appendChild(dateSubmitIcon);
-      dateContainer.append(dateInput, dateSubmit);
+      dateSubmit.addEventListener('click', (event) => {
+        event.preventDefault();
+        setDate(id);
+      });
+      generator.enterShortcut(dateSubmit, dateInput);
+
+      dateContainer.append(dateSubmit, dateInput, dateDisplay);
       return dateContainer;
     };
 
