@@ -54,6 +54,7 @@ const todoListMainContainer = () => {
       const descriptionSubmitIcon = generator.textGenerator('i', '<i class="fas fa-save"></i>');
       descriptionSubmit.addEventListener('click', () => {
         setTaskProperty('descriptionInput', id, 'description');
+        location.reload();
       });
       descriptionSubmit.classList.add('hidden');
       generator.enterShortcut(descriptionSubmit, descriptionInput);
@@ -67,13 +68,24 @@ const todoListMainContainer = () => {
       const dateContainer = generator.htmlGenerator('div', 'date-container', `dateContainer${id}`);
       const dateInput = generator.htmlGenerator('input', 'date-input', `dateInput${id}`);
       dateInput.type = 'datetime-local';
-
+      dateInput.setAttribute('min', '1066-01-01T00:00');
+      dateInput.setAttribute('max', '2100-01-01T00:00');
+      dateInput.classList.add('hidden');
 
       const dateDisplay = generator.htmlGenerator('input', 'date-display', `dateDisplay${id}`);
-      dateDisplay.disabled = true;
-      console.log(getDate(id));
       dateDisplay.placeholder = getDate(id);
+      dateDisplay.addEventListener('click', (event) => {
+        event.preventDefault();
+        generator.hideAndShow(dateDisplay, dateInput, dateBackButton);
+      });
 
+      const dateBackButton = generator.htmlGenerator('button', 'date-back-button', `dateBackButton${id}`);
+      dateBackButton.innerHTML = 'Cancel';
+      dateBackButton.addEventListener('click', (event) => {
+        event.preventDefault();
+        generator.hideAndShow(dateInput, dateDisplay, dateBackButton);
+      });
+      dateBackButton.classList.add('hidden');
 
       const dateSubmit = generator.htmlGenerator('button', 'date-submit-button', `dateSubmitButton${id}`);
       const dateSubmitIcon = generator.textGenerator('i', '<i class="fas fa-stopwatch"></i>');
@@ -81,11 +93,13 @@ const todoListMainContainer = () => {
       dateSubmit.addEventListener('click', (event) => {
         event.preventDefault();
         setDate(id);
+        generator.hideAndShow(dateInput, dateDisplay, dateBackButton);
         location.reload();
       });
+      dateSubmit.classList.add('hidden');
       generator.enterShortcut(dateSubmit, dateInput);
 
-      dateContainer.append(dateSubmit, dateInput, dateDisplay);
+      dateContainer.append(dateSubmit, dateInput, dateDisplay, dateBackButton);
       return dateContainer;
     };
 

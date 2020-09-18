@@ -20,8 +20,14 @@ const enterShortcut = (btn, element) => {
   });
 };
 
+const hideAndShow = (a, b, c = null) => {
+  a.classList.toggle('hidden');
+  b.classList.toggle('hidden');
+  if (c) c.classList.toggle('hidden');
+};
+
 const generateID = (domElement) => domElement.id.split('').reverse().slice(0, 1).join('');
 
 export {
-  htmlGenerator, textGenerator, generateID, enterShortcut,
+  htmlGenerator, textGenerator, generateID, enterShortcut, hideAndShow,
 };

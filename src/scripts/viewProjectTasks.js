@@ -7,15 +7,17 @@ import * as localStorage from './localStorage';
 const setDate = (id) => { handleInput.setTaskProperty('dateInput', id, 'dueDate'); };
 
 const dateParser = (task) => {
-  if (!task) return;
-  const initialDate = new Date(task);
-  const timeFormatted = format(initialDate, 'Pp');
-  return `${timeFormatted}`;
+  if (task) {
+    const initialDate = new Date(task);
+    const timeFormatted = format(initialDate, 'Pp');
+    return `${timeFormatted}`;
+  };
+  return;
 };
 
 const getDate = (id) => {
   const project = localStorage.retrieveItem('project');
-    
+
   if (id && project.items[id]) {
     const task = project.items[id].dueDate;
     console.log(`${dateParser(task)}`);

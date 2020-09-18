@@ -174,15 +174,44 @@ body {
         height: 30%;
         justify-content: center;
         align-items: center;
+        position: relative;
 
         input {
           height: 70%;
         }
 
-        .date-display {
-          &:disabled {
-            background: white;
-            border: 1px solid #404040;
+        .date-display,
+        .date-input {
+          max-width: 50%;
+          background-color: transparent;
+          border: none;
+          outline: none;
+          font: 400 20px/20px $primary-font;
+          &::placeholder {
+            color: #D7BDE2;
+          }
+        }
+
+        .date-input {
+          color: #dcdcdc;
+        }
+
+        .date-back-button {
+          position: absolute;
+          right: 10px;
+          top: 4px;
+          border: 50%;
+          height: 35px;
+          width: 75px;
+          background-color: #D7BDE2;
+          border-radius: 4px;
+          border: none;
+          color: #303030;
+          font: 600 14px/14px $primary-font;
+
+          &:focus {
+            outline: none;
+            border: none;
           }
         }
       }
