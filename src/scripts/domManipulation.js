@@ -1,6 +1,6 @@
 import * as generator from './domTools';
 import { retrieveItem } from './localStorage';
-import { setDate, getDate, hideShowDropwdown } from './viewProjectTasks';
+import { setDate, getDate, hideShowDropdown } from './viewProjectTasks';
 import {
   renderProject, saveProject, saveTask, editTask,
   obliterateTask, settingPriority, setTaskProperty, getTaskProperty,
@@ -126,7 +126,7 @@ const todoListMainContainer = () => {
     listItemDownArrow.appendChild(listItemDownArrowIcon);
     listItemPriorityButton.classList.add('list-item-priority');
     listItemDownArrow.addEventListener('click', () => {
-      hideShowDropwdown(id);
+      hideShowDropdown(id);
     });
     if (id && savedProject.items[id]) {
       setTimeout(() => {

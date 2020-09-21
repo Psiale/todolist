@@ -1,5 +1,5 @@
 import { todoItem, todoList } from './classes/todoListItem';
-import { saveItem, retrieveItem, obliterateItem } from './localStorage';
+import { saveItem, retrieveItem } from './localStorage';
 import { generateID } from './domTools';
 
 const placeholderProject = todoList('New project');

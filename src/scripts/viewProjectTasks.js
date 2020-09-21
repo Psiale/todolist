@@ -28,7 +28,7 @@ const getDate = (id) => {
   }
 };
 
-const hideShowDropwdown = (id) => {
+const hideShowDropdown = (id) => {
   const arrow = document.getElementById(`listItemDownArrow${id}`);
   const dropdown = document.getElementById(`dropContainer${id}`);
   dropdown.classList.toggle('flex');
@@ -43,4 +43,4 @@ const hideShowDropwdown = (id) => {
 
 
 
-export { setDate, getDate, hideShowDropwdown };
+export { setDate, getDate, hideShowDropdown };
