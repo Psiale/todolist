@@ -3,19 +3,30 @@ import { saveItem, retrieveItem, obliterateItem } from './localStorage';
 import { generateID } from './domTools';
 
 const placeholderProject = todoList('New project');
+const projectArr = [];
 
-const createNewProject = () => {
-  if (!retrieveItem('project')) return placeholderProject;
-  return retrieveItem('project');
+const renderProject = (indx) => {
+  if (!retrieveItem('project')) {
+    return placeholderProject;
+  }
+  console.log(retrieveItem('project'))
+  return retrieveItem('project')[indx];
 };
 
 const saveProject = () => {
+  let count;
+  if (!retrieveItem('project')) {
+    count = 0;
+  } else {
+    count = retrieveItem('project').length + 1;
+  }
   const newProjectTitle = document.getElementById('projectTitleInput').value;
   placeholderProject.projectTitle = newProjectTitle;
+  projectArr.push(placeholderProject);
   if (retrieveItem('project')) {
-    placeholderProject.items = retrieveItem('project').items;
+    placeholderProject.items = retrieveItem('project')[count].items;
   }
-  saveItem('project', placeholderProject);
+  saveItem('project', projectArr);
   location.reload();
 };
 
@@ -122,7 +133,7 @@ const getTaskProperty = (id, property) => {
 };
 
 export {
-  createNewProject, saveProject,
+  renderProject, saveProject,
   itemHandler, saveTask, editTask, obliterateTask,
   settingPriority, setTaskProperty, getTaskProperty,
 };

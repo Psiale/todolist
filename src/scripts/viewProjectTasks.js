@@ -10,7 +10,7 @@ const dateParser = (task) => {
     const initialDate = new Date(task);
     const timeFormatted = format(initialDate, 'Pp');
     return `${timeFormatted}`;
-  };
+  }
   return;
 };
 

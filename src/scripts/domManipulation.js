@@ -2,7 +2,7 @@ import * as generator from './domTools';
 import { retrieveItem } from './localStorage';
 import { setDate, getDate, hideShowDropwdown } from './viewProjectTasks';
 import {
-  createNewProject, saveProject, saveTask, editTask,
+  renderProject, saveProject, saveTask, editTask,
   obliterateTask, settingPriority, setTaskProperty, getTaskProperty,
 } from './handlingUserInput';
 
@@ -12,7 +12,7 @@ const todoListMainContainer = () => {
   const todoListMainContainer = generator.htmlGenerator('div', 'todo-list-main-container', 'todoListMainContainer');
 
   const projectGenerator = () => {
-    const project = createNewProject();
+    const project = renderProject(0);
     const mainContainer = generator.htmlGenerator('div', 'project-form-container');
 
     const form = generator.htmlGenerator('form', 'edit-project-title-container', 'editProjectTitleContainer');
@@ -183,7 +183,7 @@ const todoListMainContainer = () => {
   };
 
   const todoListTasks = () => {
-    const savedProject = retrieveItem('project');
+    const savedProject = retrieveItem('project')[0];
     // const listLength = listContainer.getElementsByTagName('*').length;
     if (savedProject) {
       for (let i = 0; i < savedProject.items.length; i++) {
