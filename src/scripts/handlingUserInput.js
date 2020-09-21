@@ -16,7 +16,7 @@ const renderProject = () => {
 };
 
 const retrieveProject = (indx) => {
-  if (!retrieveItem('project')[indx]) {
+  if ( !retrieveItem('project') || !retrieveItem('project')[indx]) {
     return placeholderProject;
   }
   console.log(retrieveItem('project'));
@@ -24,7 +24,7 @@ const retrieveProject = (indx) => {
 };
 
 const saveProject = () => {
-  const count = renderProject();
+  const count = retrieveProject();
   const newProjectTitle = document.getElementById('projectTitleInput').value;
   placeholderProject.projectTitle = newProjectTitle;
   projectArr.push(placeholderProject);
