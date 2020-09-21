@@ -24,7 +24,12 @@ const saveTask = () => {
   const listLength = project.items.length;
   const focusElement = document.querySelector(':focus');
   const focusedID = generateID(focusElement);
-  const inputValue = document.getElementById(`projectTask${listLength}`).value;
+  let inputValue;
+  if (document.getElementById(`projectTask${listLength}`).value !== '') {
+    inputValue = document.getElementById(`projectTask${listLength}`).value;
+  } else {
+    return;
+  }
   project.items.push(todoItem(inputValue));
   saveItem('project', project);
   location.reload();
@@ -50,7 +55,12 @@ const editTask = () => {
   } else {
     input = document.querySelector(':focus');
   }
-  const task = input.value;
+  let task;
+  if (input.value !== '') { 
+    task = input.value;
+  } else {
+    return;
+  }
   const taskId = generateID(input);
   project.items[taskId].title = task;
   saveItem('project', project);

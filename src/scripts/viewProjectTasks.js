@@ -35,10 +35,9 @@ const hideShowDropwdown = (id) => {
   dropdown.classList.toggle('slide-in-top');
   dropdown.classList.toggle('slide-in-bottom');
   // setTimeout(() => {
-  dropdown.classList.toggle('hidden'); 
+  dropdown.classList.toggle('hidden');
   // }, 1200);
   arrow.classList.toggle('rotate');
-
 }
 
 
