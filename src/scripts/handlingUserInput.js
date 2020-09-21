@@ -2,28 +2,33 @@ import { todoItem, todoList } from './classes/todoListItem';
 import { saveItem, retrieveItem } from './localStorage';
 import { generateID } from './domTools';
 
-const placeholderProject = todoList('New project');
-const projectArr = [];
+const placeholderProject = todoList('New Project');
+const projectArr = retrieveItem('project');
 
-const renderProject = (indx) => {
-  if (!retrieveItem('project')) {
-    return placeholderProject;
-  }
-  console.log(retrieveItem('project'))
-  return retrieveItem('project')[indx];
-};
-
-const saveProject = () => {
+const renderProject = () => {
   let count;
   if (!retrieveItem('project')) {
     count = 0;
   } else {
     count = retrieveItem('project').length + 1;
   }
+  return count;
+};
+
+const retrieveProject = (indx) => {
+  if (!retrieveItem('project')[indx]) {
+    return placeholderProject;
+  }
+  console.log(retrieveItem('project'));
+  return retrieveItem('project')[indx];
+};
+
+const saveProject = () => {
+  const count = renderProject();
   const newProjectTitle = document.getElementById('projectTitleInput').value;
   placeholderProject.projectTitle = newProjectTitle;
   projectArr.push(placeholderProject);
-  if (retrieveItem('project')) {
+  if (retrieveItem('project')[count]) {
     placeholderProject.items = retrieveItem('project')[count].items;
   }
   saveItem('project', projectArr);
@@ -31,7 +36,7 @@ const saveProject = () => {
 };
 
 const saveTask = () => {
-  const project = retrieveItem('project');
+  const project = renderProject(0);
   const listLength = project.items.length;
   const focusElement = document.querySelector(':focus');
   const focusedID = generateID(focusElement);
@@ -133,7 +138,7 @@ const getTaskProperty = (id, property) => {
 };
 
 export {
-  renderProject, saveProject,
+  retrieveProject, saveProject,
   itemHandler, saveTask, editTask, obliterateTask,
   settingPriority, setTaskProperty, getTaskProperty,
 };

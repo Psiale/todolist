@@ -2,24 +2,32 @@ import * as generator from './domTools';
 import { retrieveItem } from './localStorage';
 import { setDate, getDate, hideShowDropdown } from './viewProjectTasks';
 import {
-  renderProject, saveProject, saveTask, editTask,
+  retrieveProject, saveProject, saveTask, editTask,
   obliterateTask, settingPriority, setTaskProperty, getTaskProperty,
 } from './handlingUserInput';
 
 const mainContainer = generator.htmlGenerator('div', 'todo-list-tasks', 'todoListTasks');
 
+//const addNewProject = () => {
+//  btn.addEventListener('click', () => {
+//    const currentProject = retrieveProject(true);
+//    return currentProject;
+//  });
+//  return currentProject;
+//};
+
 const todoListMainContainer = () => {
   const todoListMainContainer = generator.htmlGenerator('div', 'todo-list-main-container', 'todoListMainContainer');
+  const currentProject = retrieveProject(0);
 
   const projectGenerator = () => {
-    const project = renderProject(0);
     const mainContainer = generator.htmlGenerator('div', 'project-form-container');
 
     const form = generator.htmlGenerator('form', 'edit-project-title-container', 'editProjectTitleContainer');
     const inputContainer = generator.htmlGenerator('div', 'project-input-container');
     const inputLabel = generator.htmlGenerator('label', 'project-label-input');
     const inputElement = generator.htmlGenerator('input', 'project-title-input', 'projectTitleInput');
-    inputElement.placeholder = `${project.projectTitle}`;
+    inputElement.placeholder = `${currentProject.projectTitle}`;
 
     const listContainer = generator.htmlGenerator('div', 'project-item-container', 'projectItemContainer');
     const btnText = generator.textGenerator('p', 'Save');
@@ -110,8 +118,7 @@ const todoListMainContainer = () => {
   };
 
   const createSingleTask = (id) => {
-    const savedProject = retrieveItem('project');
-    const savedItems = retrieveItem('project').items;
+    const savedItems = currentProject.items;
     const savedItemsLength = savedItems.length;
     const simpleListItemContainer = generator.htmlGenerator('div', 'simple-list-item-container', `simpleListItemContainer${id}`);
     const listItemContainer = generator.htmlGenerator('div', 'todo-list-item-container', `listItemContainer${id}`);
@@ -128,9 +135,9 @@ const todoListMainContainer = () => {
     listItemDownArrow.addEventListener('click', () => {
       hideShowDropdown(id);
     });
-    if (id && savedProject.items[id]) {
+    if (id && currentProject.items[id]) {
       setTimeout(() => {
-        if (savedProject.items[id].priority === 0) {
+        if (currentProject.items[id].priority === 0) {
           listItemPriorityButton.innerHTML = '<i class="fas fa-star"></i>';
         } else {
           listItemPriorityButton.innerHTML = '<i class="far fa-star"></i>';
@@ -183,14 +190,12 @@ const todoListMainContainer = () => {
   };
 
   const todoListTasks = () => {
-    const savedProject = retrieveItem('project')[0];
-    // const listLength = listContainer.getElementsByTagName('*').length;
-    if (savedProject) {
-      for (let i = 0; i < savedProject.items.length; i++) {
+    if (currentProject) {
+      for (let i = 0; i < currentProject.items.length; i++) {
         mainContainer.appendChild(createSingleTask(`${i}`));
         setTimeout(() => {
           const inputField = document.getElementById(`projectTask${i}`);
-          inputField.placeholder = `${savedProject.items[i].title}`;
+          inputField.placeholder = `${currentProject.items[i].title}`;
         }, 1);
       }
     }
@@ -201,16 +206,17 @@ const todoListMainContainer = () => {
   const listBuilder = () => {
     // if there is a list, render the list,  add a single one
     // if not, add a single one
-    const savedProject = retrieveItem('project');
-    const listLength = savedProject.items.length;
+    const listLength = currentProject.items.length;
     const listContainer = document.getElementById('todoListTasks');
     const domLength = listContainer.childNodes.length;
-    if (listLength >= 0 && domLength <= listLength) {
-      listContainer.appendChild(createSingleTask(listLength));
-    } else if (listLength >= 0 && domLength <= listLength + 1) {
-      listContainer.innerHTML = '';
-      todoListTasks();
-      listContainer.appendChild(createSingleTask(listLength));
+    if (currentProject) {
+      if (listLength >= 0 && domLength <= listLength) {
+        listContainer.appendChild(createSingleTask(listLength));
+      } else if (listLength >= 0 && domLength <= listLength + 1) {
+        listContainer.innerHTML = '';
+        todoListTasks();
+        listContainer.appendChild(createSingleTask(listLength));
+      }
     }
   };
 
