@@ -19,7 +19,7 @@ const addNewProject = (id) => {
 
 const todoListMainContainer = () => {
   const todoListMainContainer = generator.htmlGenerator('div', 'todo-list-main-container', 'todoListMainContainer');
-  const currentProject = retrieveProject(renderProject);
+  const currentProject = retrieveProject(renderProject());
 
   const projectGenerator = () => {
     const mainContainer = generator.htmlGenerator('div', 'project-form-container');
