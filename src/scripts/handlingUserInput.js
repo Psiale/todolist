@@ -30,6 +30,17 @@ const retrieveProject = (indx) => {
   return retrieveItem('project')[indx];
 };
 
+const renderTodoListToDom = () => {
+  const count = renderProject();
+  const newProjectTitle = document.getElementById('projectTitleInput').value;
+  placeholderProject.projectTitle = newProjectTitle;
+  projectArr.push(placeholderProject);
+  // 3. after pushing the placeholder to the arr I saved the element into local storage
+  saveItem('project', projectArr);
+  const todoListArr = retrieveItem('project');
+  return todoListArr;
+}
+
 const saveProject = () => {
   const count = renderProject();
   const newProjectTitle = document.getElementById('projectTitleInput').value;
@@ -155,5 +166,5 @@ const getTaskProperty = (id, property) => {
 export {
   retrieveProject, saveProject, renderProject,
   itemHandler, saveTask, editTask, obliterateTask,
-  settingPriority, setTaskProperty, getTaskProperty,
+  settingPriority, setTaskProperty, getTaskProperty, renderTodoListToDom, projectArr,
 };

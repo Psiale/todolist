@@ -4,7 +4,7 @@ import { setDate, getDate, hideShowDropdown } from './viewProjectTasks';
 import {
   retrieveProject, saveProject, saveTask, editTask,
   obliterateTask, settingPriority, setTaskProperty, getTaskProperty,
-  renderProject
+  renderProject, renderTodoListToDom, projectArr
 } from './handlingUserInput';
 
 const mainContainer = generator.htmlGenerator('div', 'todo-list-tasks', 'todoListTasks');
@@ -21,6 +21,20 @@ const todoListMainContainer = () => {
   const todoListMainContainer = generator.htmlGenerator('div', 'todo-list-main-container', 'todoListMainContainer');
   const currentProject = retrieveProject(renderProject());
 
+  const todoListItemGenerator = (arr = []) => {
+    const todoListArrContainer = generator.htmlGenerator('div', 'project-todoList-arr-container');
+    for (let i = 0; i < arr.length; i++) {
+      const element = arr[i];
+      const todoListItemContainer = generator.htmlGenerator('div', 'todolist-item-container', `todoListItemContainer${i}`);
+      const textContet = generator.textGenerator('p', `${element.projectTitle}`);
+      todoListItemContainer.addEventListener('click', () => console.log(i));
+      todoListItemContainer.append(textContet);
+      todoListArrContainer.appendChild(todoListItemContainer);
+      
+    }
+    
+    return todoListArrContainer;
+  } 
   const projectGenerator = () => {
     const mainContainer = generator.htmlGenerator('div', 'project-form-container');
 
@@ -28,6 +42,8 @@ const todoListMainContainer = () => {
     const inputContainer = generator.htmlGenerator('div', 'project-input-container');
     const inputLabel = generator.htmlGenerator('label', 'project-label-input');
     const inputElement = generator.htmlGenerator('input', 'project-title-input', 'projectTitleInput');
+    
+    // create a loop to render items to append on todoListArrContainer
     inputElement.placeholder = `${currentProject.projectTitle}`;
 
     const listContainer = generator.htmlGenerator('div', 'project-item-container', 'projectItemContainer');
@@ -42,7 +58,9 @@ const todoListMainContainer = () => {
 
     inputContainer.append(inputLabel, inputElement);
     form.append(inputContainer, listContainer, btn);
-    mainContainer.appendChild(form);
+    setTimeout(() => {
+      mainContainer.appendChild(form);
+    }, 1);
     return mainContainer;
   };
 
@@ -251,7 +269,7 @@ const todoListMainContainer = () => {
     return mainContainer;
   };
 
-  todoListMainContainer.append(projectGenerator(), todoListTasks(), todoItemGenerator());
+  todoListMainContainer.append(projectGenerator(), todoListTasks(), todoItemGenerator(), todoListItemGenerator(projectArr));
   return todoListMainContainer;
 };
 
