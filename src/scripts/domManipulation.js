@@ -4,18 +4,22 @@ import { setDate, getDate, hideShowDropdown } from './viewProjectTasks';
 import {
   retrieveProject, saveProject, saveTask, editTask,
   obliterateTask, settingPriority, setTaskProperty, getTaskProperty,
+  renderProject
 } from './handlingUserInput';
 
 const mainContainer = generator.htmlGenerator('div', 'todo-list-tasks', 'todoListTasks');
 
-const addNewProject = () => {
-  const currentProject = retrieveProject(true);
+const addNewProject = (id) => {
+  // 7. Changed the definition of currentproject to  use retrieveProject and return a todoList item
+  // 8. addNewProject has a parameter of id because retrieveProject needs the index of the 
+  // todoList project you want to retrieve
+  const currentProject = retrieveProject(id);
   return currentProject;
 };
 
 const todoListMainContainer = () => {
   const todoListMainContainer = generator.htmlGenerator('div', 'todo-list-main-container', 'todoListMainContainer');
-  const currentProject = retrieveProject(0);
+  const currentProject = retrieveProject(renderProject);
 
   const projectGenerator = () => {
     const mainContainer = generator.htmlGenerator('div', 'project-form-container');
@@ -238,8 +242,8 @@ const todoListMainContainer = () => {
     // btn.addEventListener('click', itemHandler);
     btn.addEventListener('click', listBuilder);
     btn.addEventListener('click', () => {
-      addNewProject();
-      location.reload();
+      // 9. Passed renderProject as the id fetcher to return the proper project
+      addNewProject(renderProject());
     });
 
     form.append(inputContainer, btn, btnP);

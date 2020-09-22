@@ -15,7 +15,8 @@ const dateParser = (task) => {
 };
 
 const getDate = (id) => {
-  const project = localStorage.retrieveItem('project');
+  // 6. Changed the definition of project to return a todoList item
+  const project = handleInput.retrieveProject(id);
 
   if (id && project.items[id]) {
     const task = project.items[id].dueDate;
