@@ -52,6 +52,10 @@ const saveProject = () => {
   projectArr.push(placeholderProject);
   // 3. after pushing the placeholder to the arr I saved the element into local storage
   saveItem('project', projectArr);
+  if (!retrieveItem('requested-project')) {
+    const initialRequestedProject = projectArr[0];
+    saveItem('requested-project', initialRequestedProject);
+  }
   if (retrieveItem('project')[count]) {
     placeholderProject.items = retrieveItem('project')[count].items;
   }
@@ -61,8 +65,12 @@ const saveProject = () => {
 };
 
 const saveTask = () => {
-  const project = retrieveItem('requested-project');
   const allProjects = retrieveItem('project');
+  if (!retrieveItem('requested-project')) {
+    const initialRequestedProject = allProjects[0];
+    saveItem('requested-project', initialRequestedProject);
+  }
+  const project = retrieveItem('requested-project');
   const projectID = project.id;
   const listLength = project.items.length;
   if (document.getElementById(`projectTask${listLength}`).value === '') return;
@@ -89,7 +97,9 @@ const itemHandler = () => {
 
 
 const editTask = () => {
-  const project = retrieveItem('project');
+  const allProjects = retrieveItem('project');
+  const project = retrieveItem('requested-project');
+  const projectID = project.id;
   let input;
   if (document.querySelector(':focus').type === 'submit') {
     input = document.querySelector(':focus').previousSibling;
@@ -104,24 +114,32 @@ const editTask = () => {
   }
   const taskId = generateID(input);
   project.items[taskId].title = task;
-  saveItem('project', project);
+  allProjects[projectID] = project;
+  saveItem('project', allProjects);
   saveItem('lastEdited', project);
+  saveItem('requested-project', project);
   location.reload();
 };
 
 const settingPriority = () => {
   let number;
-  const project = retrieveItem('project');
+  const allProjects = retrieveItem('project');
+  const project = retrieveItem('requested-project');
+  const projectID = project.id;
   const focusElement = document.querySelector(':focus');
   const focusContainerID = generateID(focusElement.parentNode);
   if (focusElement.firstChild.dataset.prefix === 'far') {
     project.items[focusContainerID].priority = 0;
-    saveItem('project', project);
+    allProjects[projectID] = project;
+    saveItem('project', allProjects);
+    saveItem('requested-project', project);
     saveItem('lastEdited', project);
     number = 0;
   } else {
     project.items[focusContainerID].priority = 1;
-    saveItem('project', project);
+    allProjects[projectID] = project;
+    saveItem('project', allProjects);
+    saveItem('requested-project', project);
     saveItem('lastEdited', project);
     number = 1;
   }
@@ -129,35 +147,40 @@ const settingPriority = () => {
 };
 
 const obliterateTask = () => {
-  const project = retrieveItem('project');
+  const allProjects = retrieveItem('project')
+  const project = retrieveItem('requested-project');
+  const projectID = project.id;
   const focusElement = document.querySelector(':focus');
   const inputElement = focusElement.parentNode.firstChild;
   const inputValue = inputElement.placeholder;
   const result = project.items.filter((element) => element.title !== `${inputValue}`);
 
   if (project.items) { project.items = result; }
-  saveItem('project', project);
+  allProjects[projectID] = project;
+  saveItem('project', allProjects);
+  saveItem('requested-project', project);
   saveItem('lastEdited', project);
-  console.log(project);
   location.reload();
 };
 
 const setTaskProperty = (string, id, property) => {
-  const savedProject = retrieveItem('project');
-  console.log(`${property + id}`);
+  const allProjects = retrieveItem('project');
+  const savedProject = retrieveItem('requested-project');
+  const projectID = savedProject.id;
   const dateInputElement = document.getElementById(`${string + id}`);
   const project = savedProject.items[id];
   const dateTask = dateInputElement.value;
   project[property] = dateTask;
-  saveItem('project', savedProject);
+  allProjects[projectID] = project;
+  saveItem('project', allProjects)
+  saveItem('requested-project', savedProject);
   saveItem('lastEdited', project);
-  console.log(savedProject);
-  // location.reload();
+  location.reload();
 };
 
 const getTaskProperty = (id, property) => {
   // 5. Changed savedProject definition to retrieve a TodoList item
-  const savedProject = retrieveProject(1);
+  const savedProject = retrieveItem('requested-project');
   if (id && savedProject.items[id]) {
     if (savedProject.items === []) {
       return 'Give your task a description';

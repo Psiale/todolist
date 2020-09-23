@@ -18,13 +18,11 @@ const getDate = (id) => {
   // 6. Changed the definition of project to return a todoList item
   const project = handleInput.retrieveProject(id);
 
-  if (id && project.items[id]) {
+  if (id && project.items) {
     const task = project.items[id].dueDate;
-    console.log(`${dateParser(task)}`);
     if (!task) {
       return 'Set a date';
     }
-    console.log(dateParser(task)); // <---- always returns 1:00 AM, 1st Jan and then the inputted year!
     return dateParser(task);
   }
 };
@@ -32,12 +30,19 @@ const getDate = (id) => {
 const hideShowDropdown = (id) => {
   const arrow = document.getElementById(`listItemDownArrow${id}`);
   const dropdown = document.getElementById(`dropContainer${id}`);
+  //let dropState;
+  //if (localStorage.retrieveItem('dropdownState')) {
+  //  dropState = localStorage.retrieveItem('dropdownState');
+  //  dropState = false;
+  //  localStorage.saveItem('dropdownState', dropState);
+  //} else {
+  //  dropState = false;
+  //  localStorage.saveItem('dropdownState', dropState);
+  //}
   dropdown.classList.toggle('flex');
   dropdown.classList.toggle('slide-in-top');
   dropdown.classList.toggle('slide-in-bottom');
-  // setTimeout(() => {
   dropdown.classList.toggle('hidden');
-  // }, 1200);
   arrow.classList.toggle('rotate');
 }
 

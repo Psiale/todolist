@@ -1,5 +1,5 @@
 import * as generator from './domTools';
-import { retrieveItem } from './localStorage';
+import { retrieveItem, saveItem } from './localStorage';
 import { setDate, getDate, hideShowDropdown } from './viewProjectTasks';
 import { todoList } from './classes/todoListItem';
 import {
@@ -9,6 +9,9 @@ import {
 } from './handlingUserInput';
 
 const mainContainer = generator.htmlGenerator('div', 'todo-list-tasks', 'todoListTasks');
+let dropstate = retrieveItem('dropdownState');
+dropstate = false;
+saveItem('dropdownState', dropstate);
 
 const addNewProject = () => {
   // 7. Changed the definition of currentproject to  use retrieveProject and return a todoList item
@@ -81,8 +84,13 @@ const todoListMainContainer = () => {
 
   const dropDownBuilder = (id) => {
     const container = generator.htmlGenerator('div', 'drop-container', `dropContainer${id}`);
-    container.classList.add('hidden');
-    container.classList.add('slide-in-bottom');
+    if (retrieveItem('dropdownState')) {
+      const dropdown = retrieveItem('dropdownState');
+      if (dropdown === false) {
+        container.classList.add('hidden');
+        container.classList.add('slide-in-bottom');
+      }
+    }
 
     const descriptionSection = () => {
       const descriptionContainer = generator.htmlGenerator('div', 'description-container', `descriptionContainer${id}`);

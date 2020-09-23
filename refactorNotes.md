@@ -3,3 +3,5 @@
 
 // ------- GENERAL FUNCTIONS ---------//
 - Function to verify if there are any projects in local storage (or if a given local storage cache has anything in it)
+
+Add placeholder to new tasks - seems to have dissapeared
