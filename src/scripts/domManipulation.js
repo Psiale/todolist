@@ -84,9 +84,9 @@ const todoListMainContainer = () => {
 
   const dropDownBuilder = (id) => {
     const container = generator.htmlGenerator('div', 'drop-container', `dropContainer${id}`);
-    if (retrieveItem('dropdownState')) {
+    if (retrieveItem('dropdownState')) { // Dropdown container is always down. Should be that when the stored state is false, it appears in default mode (hidden). When true, it is down (for when weve just modified a field inside the dropdown)
       const dropdown = retrieveItem('dropdownState');
-      if (dropdown === false) {
+      if (!dropdown) {
         container.classList.add('hidden');
         container.classList.add('slide-in-bottom');
       }
