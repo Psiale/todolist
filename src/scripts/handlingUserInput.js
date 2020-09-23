@@ -10,20 +10,20 @@ if (retrieveItem('project')) {
 }
 
 const retrieveProject = (indx) => {
-  if ( !retrieveItem('project') || !retrieveItem('project')[indx]) {
+  if (!retrieveItem('project') || !retrieveItem('project')[indx]) {
     return placeholderProject;
   }
   console.log(retrieveItem('project'));
   return retrieveItem('project')[indx];
 };
 
-const getIdFromProject = (element) => retrieveProject(generateID(element));
+const getIdFromProject = (element) => generateID(element);
 
 
 
 const renderProject = () => {
   let count = 0;
-  if (retrieveItem('project')) { 
+  if (retrieveItem('project')) {
     if (retrieveItem('project').length > 0) {
       console.log(`I'm the bug, this is project ${retrieveItem('project')}`);
       count = retrieveItem('project').length - 1;
@@ -100,7 +100,7 @@ const editTask = () => {
     input = document.querySelector(':focus');
   }
   let task;
-  if (input.value !== '') { 
+  if (input.value !== '') {
     task = input.value;
   } else {
     return;

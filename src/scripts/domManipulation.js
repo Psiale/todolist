@@ -17,35 +17,42 @@ const addNewProject = (id) => {
   return currentProject;
 };
 
+const projectPicker = (id = null) => {
+  let currentProject;
+  if (id) {
+    currentProject = retrieveProject(id);
+  }
+  currentProject = retrieveProject(renderProject());
+  return currentProject;
+};
+
 const todoListMainContainer = () => {
   const todoListMainContainer = generator.htmlGenerator('div', 'todo-list-main-container', 'todoListMainContainer');
-  let currentProject = retrieveProject(renderProject());
-  
+
   const todoListItemGenerator = (arr = []) => {
+    let currentProject;
     const todoListArrContainer = generator.htmlGenerator('div', 'project-todoList-arr-container');
     for (let i = 0; i < arr.length; i++) {
       const element = arr[i];
       const todoListItemContainer = generator.htmlGenerator('div', 'todolist-item-container', `todoListItemContainer${i}`);
-      const textContet = generator.textGenerator('p', `${element.projectTitle}`);
+      const textContent = generator.textGenerator('p', `${element.projectTitle}`);
       todoListItemContainer.addEventListener('click', () => {
-       currentProject =  getIdFromProject(todoListItemContainer);
-       console.log(currentProject) 
+        currentProject = getIdFromProject(todoListItemContainer);
+        projectPicker(currentProject);
       });
-      todoListItemContainer.append(textContet);
+      todoListItemContainer.append(textContent);
       todoListArrContainer.appendChild(todoListItemContainer);
-      
     }
-    
     return todoListArrContainer;
-  } 
+  }
+
   const projectGenerator = () => {
     const mainContainer = generator.htmlGenerator('div', 'project-form-container');
-
     const form = generator.htmlGenerator('form', 'edit-project-title-container', 'editProjectTitleContainer');
     const inputContainer = generator.htmlGenerator('div', 'project-input-container');
     const inputLabel = generator.htmlGenerator('label', 'project-label-input');
     const inputElement = generator.htmlGenerator('input', 'project-title-input', 'projectTitleInput');
-    
+
     // create a loop to render items to append on todoListArrContainer
     inputElement.placeholder = `${currentProject.projectTitle}`;
 
@@ -151,7 +158,7 @@ const todoListMainContainer = () => {
     const listItemPriorityButton = generator.htmlGenerator('button', 'todo-list-item-button', `listItemButton${id}`);
     const listItemDownArrow = generator.htmlGenerator('button', 'list-item-down-arrow', `listItemDownArrow${id}`);
     const listItemDownArrowIcon = generator.textGenerator('p', '<i class="fas fa-sort-down"></i>');
-    
+
     listItemDownArrow.appendChild(listItemDownArrowIcon);
     listItemPriorityButton.classList.add('list-item-priority');
     listItemDownArrow.addEventListener('click', () => {
