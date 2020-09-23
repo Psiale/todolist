@@ -61,20 +61,19 @@ const saveProject = () => {
 };
 
 const saveTask = () => {
-  const project = retrieveItem('requested-project').items;
+  const project = retrieveItem('requested-project');
+  const allProjects = retrieveItem('project');
+  const projectID = project.id;
   const listLength = project.items.length;
-  let inputValue;
-  if (document.getElementById(`projectTask${listLength}`).value !== '') {
-    inputValue = document.getElementById(`projectTask${listLength}`).value;
-  } else {
-    return;
-  }
+  if (document.getElementById(`projectTask${listLength}`).value === '') return;
+  const inputValue = document.getElementById(`projectTask${listLength}`).value;
   project.items.push(todoItem(inputValue));
-  console.log(project);
-  saveItem('project', project);
-  console.log(renderProject());
-  //  location.reload();
-  console.log(retrieveItem('project'));
+  allProjects[projectID] = project;
+  saveItem('project', allProjects);
+  saveItem('lastEdited', project);
+  saveItem('requested-project', project);
+  console.log(retrieveItem('lastEdited'));
+  location.reload();
 };
 
 const itemHandler = () => {

@@ -23,6 +23,7 @@ const addNewProject = () => {
   currentProject = retrieveProject(retrieveItem('project').length - 1);
   return currentProject;
 };
+
 let currentProject;
 if (retrieveItem('requested-project')) {
   currentProject = retrieveItem('requested-project');
