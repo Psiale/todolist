@@ -19,13 +19,14 @@ const addNewProject = (id) => {
 
 const projectPicker = (id = null) => {
   let currentProject;
-  if (id) {
-    currentProject = retrieveProject(id);
+  if (!id && retrieveItem('lastEdited')) {
+    currentProject = retrieveProject(retrieveItem('lastEdited').length - 1);
   }
   currentProject = retrieveProject(renderProject());
   return currentProject;
 };
 
+let currentProject = projectPicker(1);
 const todoListMainContainer = () => {
   const todoListMainContainer = generator.htmlGenerator('div', 'todo-list-main-container', 'todoListMainContainer');
 
@@ -38,7 +39,7 @@ const todoListMainContainer = () => {
       const textContent = generator.textGenerator('p', `${element.projectTitle}`);
       todoListItemContainer.addEventListener('click', () => {
         currentProject = getIdFromProject(todoListItemContainer);
-        projectPicker(currentProject);
+        projectPicker(renderProject);
       });
       todoListItemContainer.append(textContent);
       todoListArrContainer.appendChild(todoListItemContainer);
@@ -164,6 +165,7 @@ const todoListMainContainer = () => {
     listItemDownArrow.addEventListener('click', () => {
       hideShowDropdown(id);
     });
+
     if (id && currentProject.items[id]) {
       setTimeout(() => {
         if (currentProject.items[id].priority === 0) {

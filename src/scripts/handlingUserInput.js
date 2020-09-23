@@ -13,24 +13,18 @@ const retrieveProject = (indx) => {
   if (!retrieveItem('project') || !retrieveItem('project')[indx]) {
     return placeholderProject;
   }
-  console.log(retrieveItem('project'));
   return retrieveItem('project')[indx];
 };
 
 const getIdFromProject = (element) => generateID(element);
 
-
-
 const renderProject = () => {
-  let count = 0;
-  if (retrieveItem('project')) {
-    if (retrieveItem('project').length > 0) {
-      console.log(`I'm the bug, this is project ${retrieveItem('project')}`);
-      count = retrieveItem('project').length - 1;
-    }
+  let count;
+  if (retrieveItem('project') && retrieveItem('project').length > 0) {
+    count = retrieveItem('project').length;
+    return count;
   }
-  // 2. added a console log to the count
-  console.log(` ${count} `);
+  count = 0;
   return count;
 };
 
@@ -43,12 +37,13 @@ const renderTodoListToDom = () => {
   saveItem('project', projectArr);
   const todoListArr = retrieveItem('project');
   return todoListArr;
-}
+};
 
 const saveProject = () => {
   const count = renderProject();
   const newProjectTitle = document.getElementById('projectTitleInput').value;
   placeholderProject.projectTitle = newProjectTitle;
+  placeholderProject.id = count;
   projectArr.push(placeholderProject);
   // 3. after pushing the placeholder to the arr I saved the element into local storage
   saveItem('project', projectArr);
@@ -56,6 +51,7 @@ const saveProject = () => {
     placeholderProject.items = retrieveItem('project')[count].items;
   }
   saveItem('project', projectArr);
+  saveItem('lastEdited', projectArr[projectArr.length - 1]);
   location.reload();
 };
 
@@ -72,9 +68,9 @@ const saveTask = () => {
     return;
   }
   project.items.push(todoItem(inputValue));
-  console.log(project)
+  console.log(project);
   saveItem('project', project);
-  console.log(renderProject())
+  console.log(renderProject());
   //  location.reload();
   console.log(retrieveItem('project'));
 };
@@ -108,7 +104,7 @@ const editTask = () => {
   const taskId = generateID(input);
   project.items[taskId].title = task;
   saveItem('project', project);
-  console.log(document.querySelector(':focus').type);
+  saveItem('lastEdited', project);
   location.reload();
 };
 
@@ -116,15 +112,16 @@ const settingPriority = () => {
   let number;
   const project = retrieveItem('project');
   const focusElement = document.querySelector(':focus');
-  console.log(generateID(focusElement.parentNode));
   const focusContainerID = generateID(focusElement.parentNode);
   if (focusElement.firstChild.dataset.prefix === 'far') {
     project.items[focusContainerID].priority = 0;
     saveItem('project', project);
+    saveItem('lastEdited', project);
     number = 0;
   } else {
     project.items[focusContainerID].priority = 1;
     saveItem('project', project);
+    saveItem('lastEdited', project);
     number = 1;
   }
   return number;
@@ -139,6 +136,7 @@ const obliterateTask = () => {
 
   if (project.items) { project.items = result; }
   saveItem('project', project);
+  saveItem('lastEdited', project);
   console.log(project);
   location.reload();
 };
@@ -151,6 +149,7 @@ const setTaskProperty = (string, id, property) => {
   const dateTask = dateInputElement.value;
   project[property] = dateTask;
   saveItem('project', savedProject);
+  saveItem('lastEdited', project);
   console.log(savedProject);
   // location.reload();
 };
@@ -158,7 +157,6 @@ const setTaskProperty = (string, id, property) => {
 const getTaskProperty = (id, property) => {
   // 5. Changed savedProject definition to retrieve a TodoList item
   const savedProject = retrieveProject(1);
-  console.log(savedProject)
   if (id && savedProject.items[id]) {
     if (savedProject.items === []) {
       return 'Give your task a description';
@@ -170,5 +168,5 @@ const getTaskProperty = (id, property) => {
 export {
   retrieveProject, saveProject, renderProject,
   itemHandler, saveTask, editTask, obliterateTask,
-  settingPriority, setTaskProperty, getTaskProperty, renderTodoListToDom, projectArr, getIdFromProject
+  settingPriority, setTaskProperty, getTaskProperty, renderTodoListToDom, projectArr, getIdFromProject,
 };
