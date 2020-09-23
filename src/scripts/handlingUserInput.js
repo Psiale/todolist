@@ -16,12 +16,16 @@ const retrieveProject = (indx) => {
   return retrieveItem('project')[indx];
 };
 
-const getIdFromProject = (element) => generateID(element);
+const getIdFromProject = (i) => {
+   saveItem('requested-project', retrieveItem('project')[i]);
+   console.log('requested-project');
+}
 
 const renderProject = () => {
   let count;
   if (retrieveItem('project') && retrieveItem('project').length > 0) {
     count = retrieveItem('project').length;
+    console.log(count);
     return count;
   }
   count = 0;
@@ -41,6 +45,7 @@ const renderTodoListToDom = () => {
 
 const saveProject = () => {
   const count = renderProject();
+  console.log(count);
   const newProjectTitle = document.getElementById('projectTitleInput').value;
   placeholderProject.projectTitle = newProjectTitle;
   placeholderProject.id = count;

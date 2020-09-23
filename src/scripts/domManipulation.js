@@ -9,37 +9,44 @@ import {
 
 const mainContainer = generator.htmlGenerator('div', 'todo-list-tasks', 'todoListTasks');
 
-const addNewProject = (id) => {
+const addNewProject = () => {
   // 7. Changed the definition of currentproject to  use retrieveProject and return a todoList item
   // 8. addNewProject has a parameter of id because retrieveProject needs the index of the 
   // todoList project you want to retrieve
-  const currentProject = retrieveProject(id);
+  const currentProject = retrieveProject(true);
   return currentProject;
 };
+let currentProject;
+  if (retrieveItem('requested-project')) {
+    currentProject = retrieveItem('requested-project');
+    console.log(`${currentProject.projectTitle}`);
+   } else {
+     currentProject = addNewProject();
+    }  
 
-const projectPicker = (id = null) => {
-  let currentProject;
-  if (!id && retrieveItem('lastEdited')) {
-    currentProject = retrieveProject(retrieveItem('lastEdited').length - 1);
-  }
-  currentProject = retrieveProject(renderProject());
-  return currentProject;
-};
+// const projectPicker = (id = null) => {
+//   let currentProject;
+//   if (!id && retrieveItem('lastEdited')) {
+//     currentProject = retrieveProject(retrieveItem('lastEdited').length - 1);
+//   }
+//   currentProject = retrieveProject(renderProject());
+//   return currentProject;
+// };
 
-let currentProject = projectPicker(1);
+// let currentProject = projectPicker(1);
 const todoListMainContainer = () => {
   const todoListMainContainer = generator.htmlGenerator('div', 'todo-list-main-container', 'todoListMainContainer');
 
   const todoListItemGenerator = (arr = []) => {
-    let currentProject;
+    // let currentProject;
     const todoListArrContainer = generator.htmlGenerator('div', 'project-todoList-arr-container');
     for (let i = 0; i < arr.length; i++) {
       const element = arr[i];
       const todoListItemContainer = generator.htmlGenerator('div', 'todolist-item-container', `todoListItemContainer${i}`);
       const textContent = generator.textGenerator('p', `${element.projectTitle}`);
       todoListItemContainer.addEventListener('click', () => {
-        currentProject = getIdFromProject(todoListItemContainer);
-        projectPicker(renderProject);
+        getIdFromProject(i);
+        location.reload();
       });
       todoListItemContainer.append(textContent);
       todoListArrContainer.appendChild(todoListItemContainer);
@@ -271,9 +278,11 @@ const todoListMainContainer = () => {
     btnP.appendChild(btnTextP);
     // btn.addEventListener('click', itemHandler);
     btn.addEventListener('click', listBuilder);
-    btn.addEventListener('click', () => {
+    btnP.addEventListener('click', () => {
       // 9. Passed renderProject as the id fetcher to return the proper project
-      addNewProject(renderProject());
+      
+      addNewProject();
+      location.reload()
     });
 
     form.append(inputContainer, btn, btnP);
