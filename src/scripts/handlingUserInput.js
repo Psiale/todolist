@@ -17,8 +17,8 @@ const retrieveProject = (indx) => {
 };
 
 const getIdFromProject = (i) => {
-   saveItem('requested-project', retrieveItem('project')[i]);
-   console.log('requested-project');
+  saveItem('requested-project', retrieveItem('project')[i]);
+  console.log('requested-project');
 }
 
 const renderProject = () => {
@@ -61,11 +61,8 @@ const saveProject = () => {
 };
 
 const saveTask = () => {
-  // 4. Changed project declaration to acess a todoList item
-  const project = retrieveItem('project')[renderProject()];
+  const project = retrieveItem('requested-project').items;
   const listLength = project.items.length;
-  const focusElement = document.querySelector(':focus');
-  const focusedID = generateID(focusElement);
   let inputValue;
   if (document.getElementById(`projectTask${listLength}`).value !== '') {
     inputValue = document.getElementById(`projectTask${listLength}`).value;
