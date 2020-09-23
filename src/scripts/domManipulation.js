@@ -4,7 +4,7 @@ import { setDate, getDate, hideShowDropdown } from './viewProjectTasks';
 import {
   retrieveProject, saveProject, saveTask, editTask,
   obliterateTask, settingPriority, setTaskProperty, getTaskProperty,
-  renderProject, renderTodoListToDom, projectArr
+  renderProject, renderTodoListToDom, projectArr, getIdFromProject,
 } from './handlingUserInput';
 
 const mainContainer = generator.htmlGenerator('div', 'todo-list-tasks', 'todoListTasks');
@@ -19,15 +19,18 @@ const addNewProject = (id) => {
 
 const todoListMainContainer = () => {
   const todoListMainContainer = generator.htmlGenerator('div', 'todo-list-main-container', 'todoListMainContainer');
-  const currentProject = retrieveProject(renderProject());
-
+  let currentProject = retrieveProject(renderProject());
+  
   const todoListItemGenerator = (arr = []) => {
     const todoListArrContainer = generator.htmlGenerator('div', 'project-todoList-arr-container');
     for (let i = 0; i < arr.length; i++) {
       const element = arr[i];
       const todoListItemContainer = generator.htmlGenerator('div', 'todolist-item-container', `todoListItemContainer${i}`);
       const textContet = generator.textGenerator('p', `${element.projectTitle}`);
-      todoListItemContainer.addEventListener('click', () => console.log(i));
+      todoListItemContainer.addEventListener('click', () => {
+       currentProject =  getIdFromProject(todoListItemContainer);
+       console.log(currentProject) 
+      });
       todoListItemContainer.append(textContet);
       todoListArrContainer.appendChild(todoListItemContainer);
       

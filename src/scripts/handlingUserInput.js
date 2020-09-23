@@ -9,6 +9,18 @@ if (retrieveItem('project')) {
   if (retrieveItem('project').length > 0) projectArr = retrieveItem('project');
 }
 
+const retrieveProject = (indx) => {
+  if ( !retrieveItem('project') || !retrieveItem('project')[indx]) {
+    return placeholderProject;
+  }
+  console.log(retrieveItem('project'));
+  return retrieveItem('project')[indx];
+};
+
+const getIdFromProject = (element) => retrieveProject(generateID(element));
+
+
+
 const renderProject = () => {
   let count = 0;
   if (retrieveItem('project')) { 
@@ -20,14 +32,6 @@ const renderProject = () => {
   // 2. added a console log to the count
   console.log(` ${count} `);
   return count;
-};
-
-const retrieveProject = (indx) => {
-  if ( !retrieveItem('project') || !retrieveItem('project')[indx]) {
-    return placeholderProject;
-  }
-  console.log(retrieveItem('project'));
-  return retrieveItem('project')[indx];
 };
 
 const renderTodoListToDom = () => {
@@ -166,5 +170,5 @@ const getTaskProperty = (id, property) => {
 export {
   retrieveProject, saveProject, renderProject,
   itemHandler, saveTask, editTask, obliterateTask,
-  settingPriority, setTaskProperty, getTaskProperty, renderTodoListToDom, projectArr,
+  settingPriority, setTaskProperty, getTaskProperty, renderTodoListToDom, projectArr, getIdFromProject
 };
