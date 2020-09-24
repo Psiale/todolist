@@ -10,10 +10,6 @@ import {
 
 const mainContainer = generator.htmlGenerator('div', 'todo-list-tasks', 'todoListTasks');
 
-let dropstate = retrieveItem('dropdownState');
-dropstate = false;
-saveItem('dropdownState', dropstate);
-
 let currentProject;
 if (retrieveItem('project') && retrieveItem('project').length > 0) {
   currentProject = retrieveItem('requested-project');
@@ -70,11 +66,13 @@ const todoListMainContainer = () => {
 
   const dropDownBuilder = (id) => {
     const container = generator.htmlGenerator('div', 'drop-container', `dropContainer${id}`);
-    if (retrieveItem('dropdownState')) { // Dropdown container is always down. Should be that when the stored state is false, it appears in default mode (hidden). When true, it is down (for when weve just modified a field inside the dropdown)
-      const dropdown = retrieveItem('dropdownState');
-      if (!dropdown) {
-        container.classList.add('hidden');
-        container.classList.add('slide-in-bottom');
+    container.classList.add('hidden');
+    container.classList.add('slide-in-bottom');
+    const dropdownQuery = retrieveItem('dropdownState');
+    if (dropdownQuery[1] === id) {
+      if (dropdownQuery[0] === false) {
+        container.classList.remove('hidden');
+        container.classList.remove('slide-in-bottom');
       }
     }
 
@@ -92,7 +90,7 @@ const todoListMainContainer = () => {
       const descriptionSubmitIcon = generator.textGenerator('i', '<i class="fas fa-save"></i>');
       descriptionSubmit.addEventListener('click', () => {
         setTaskProperty('descriptionInput', id, 'description');
-        location.reload();
+        //location.reload();
       });
       descriptionSubmit.classList.add('hidden');
       generator.enterShortcut(descriptionSubmit, descriptionInput);

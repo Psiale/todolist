@@ -186,11 +186,16 @@ const obliterateTask = () => {
 const setTaskProperty = (string, id, property) => {
   const allProjects = retrieveItem('project');
   const savedProject = retrieveItem('requested-project');
+  let dropState = retrieveItem('dropdownState');
   const projectID = savedProject.id;
   const dateInputElement = document.getElementById(`${string + id}`);
   const dateTask = dateInputElement.value;
   savedProject.items[id][property] = dateTask;
   allProjects[projectID] = savedProject;
+  console.log(projectID)
+  console.log(id);
+  dropState = [false, id];
+  saveItem('dropdownState', dropState);
   saveItem('project', allProjects)
   saveItem('requested-project', savedProject);
   saveItem('lastEdited', savedProject);
