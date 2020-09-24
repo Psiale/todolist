@@ -16,9 +16,9 @@ const dateParser = (task) => {
 
 const getDate = (id) => {
   // 6. Changed the definition of project to return a todoList item
-  const project = handleInput.retrieveProject(id);
+  const project = localStorage.retrieveItem('requested-project');
 
-  if (id && project.items) {
+  if (id && project.items[id]) {
     const task = project.items[id].dueDate;
     if (!task) {
       return 'Set a date';
@@ -32,12 +32,12 @@ const hideShowDropdown = (id) => {
   const dropdown = document.getElementById(`dropContainer${id}`);
   let dropState;
   if (localStorage.retrieveItem('dropdownState')) {
-   dropState = localStorage.retrieveItem('dropdownState');
-   dropState = false;
-   localStorage.saveItem('dropdownState', dropState);
+    dropState = localStorage.retrieveItem('dropdownState');
+    dropState = false;
+    localStorage.saveItem('dropdownState', dropState);
   } else {
-   dropState = false;
-   localStorage.saveItem('dropdownState', dropState);
+    dropState = false;
+    localStorage.saveItem('dropdownState', dropState);
   }
   dropdown.classList.toggle('flex');
   dropdown.classList.toggle('slide-in-top');
