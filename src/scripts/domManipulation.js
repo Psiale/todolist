@@ -10,6 +10,13 @@ import {
 
 const mainContainer = generator.htmlGenerator('div', 'todo-list-tasks', 'todoListTasks');
 
+(function () {
+  if (!retrieveItem('dropdownState')) {
+    let dropState = [true, 999];
+    saveItem('dropdownState', dropState);
+  }
+}());
+
 let currentProject;
 if (retrieveItem('project') && retrieveItem('project').length > 0) {
   currentProject = retrieveItem('requested-project');
