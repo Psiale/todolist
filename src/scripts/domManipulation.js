@@ -162,7 +162,7 @@ const todoListMainContainer = () => {
     const listItemPriorityButton = generator.htmlGenerator('button', 'todo-list-item-button', `listItemButton${id}`);
     const listItemDownArrow = generator.htmlGenerator('button', 'list-item-down-arrow', `listItemDownArrow${id}`);
     const listItemDownArrowIcon = generator.textGenerator('p', '<i class="fas fa-sort-down"></i>');
-
+    listItemInputContainer.placeholder = 'New task...';
     listItemDownArrow.appendChild(listItemDownArrowIcon);
     listItemPriorityButton.classList.add('list-item-priority');
     listItemDownArrow.addEventListener('click', () => {

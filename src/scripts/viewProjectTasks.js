@@ -28,6 +28,7 @@ const getDate = (id) => {
 };
 
 const hideShowDropdown = (id) => {
+  const descriptionInput = document.getElementById(`descriptionInput${id}`);
   const arrow = document.getElementById(`listItemDownArrow${id}`);
   const dropdown = document.getElementById(`dropContainer${id}`);
   dropdown.classList.toggle('flex');
@@ -46,6 +47,7 @@ const hideShowDropdown = (id) => {
       localStorage.saveItem('dropdownState', dropState);
     }
   }
+  descriptionInput.focus();
 }
 
 
