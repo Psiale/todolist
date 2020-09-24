@@ -5,35 +5,21 @@ import { todoList } from './classes/todoListItem';
 import {
   retrieveProject, saveProject, saveTask, editTask,
   obliterateTask, settingPriority, setTaskProperty, getTaskProperty,
-  renderProject, renderTodoListToDom, projectArr, getIdFromProject,
+  renderProject, renderTodoListToDom, projectArr, getIdFromProject, addNewProject,
 } from './handlingUserInput';
 
 const mainContainer = generator.htmlGenerator('div', 'todo-list-tasks', 'todoListTasks');
+
 let dropstate = retrieveItem('dropdownState');
 dropstate = false;
 saveItem('dropdownState', dropstate);
 
-const addNewProject = () => {
-  // 7. Changed the definition of currentproject to  use retrieveProject and return a todoList item
-  // 8. addNewProject has a parameter of id because retrieveProject needs the index of the 
-  // todoList project you want to retrieve
-  let currentProject;
-  if (!retrieveItem('project')) {
-    currentProject = todoList('New Project');
-    currentProject.items = [];
-    return currentProject;
-  }
-  currentProject = retrieveProject(retrieveItem('project').length - 1);
-  return currentProject;
-};
-
 let currentProject;
-if (retrieveItem('requested-project')) {
+if (retrieveItem('project') && retrieveItem('project').length > 0) {
   currentProject = retrieveItem('requested-project');
-  console.log(`${currentProject.projectTitle}`);
 } else {
   currentProject = addNewProject();
-}
+};
 
 const todoListMainContainer = () => {
   const todoListMainContainer = generator.htmlGenerator('div', 'todo-list-main-container', 'todoListMainContainer');

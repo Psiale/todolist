@@ -9,6 +9,18 @@ if (retrieveItem('project')) {
   if (retrieveItem('project').length > 0) projectArr = retrieveItem('project');
 }
 
+const addNewProject = () => {
+  if (retrieveItem('project') && retrieveItem('project').length > 0) {
+    const currentProject = todoList('New Project');
+    saveItem('requested-project', currentProject);
+    saveItem('lastEdited', currentProject);
+    return currentProject;
+  } else {
+    const firstProject = placeholderProject;
+    return firstProject;
+  }
+};
+
 const retrieveProject = (indx) => {
   if (!retrieveItem('project') || !retrieveItem('project')[indx]) {
     return placeholderProject;
@@ -44,23 +56,30 @@ const renderTodoListToDom = () => {
 };
 
 const saveProject = () => {
-  const count = renderProject();
-  console.log(count);
   const newProjectTitle = document.getElementById('projectTitleInput').value;
-  placeholderProject.projectTitle = newProjectTitle;
-  placeholderProject.id = count;
-  projectArr.push(placeholderProject);
-  // 3. after pushing the placeholder to the arr I saved the element into local storage
-  saveItem('project', projectArr);
-  if (!retrieveItem('requested-project')) {
-    const initialRequestedProject = projectArr[0];
-    saveItem('requested-project', initialRequestedProject);
+  if (retrieveItem('project') && retrieveItem('project').length > 0) {
+    projectArr = retrieveItem('project');
+    const project = retrieveItem('requested-project');
+    const projectID = project.id;
+    project.projectTitle = newProjectTitle;
+
+    // Need to establish if we're overwriting an exisitng project or pushing a new one
+    //projectArr[projectID] = project;
+
+    projectArr.push(project);
+
+
+    saveItem('project', projectArr);
+    saveItem('requested-project', project);
+    saveItem('lastEdited', project);
+  } else {
+    placeholderProject.projectTitle = newProjectTitle;
+    placeholderProject.id = 0;
+    projectArr.push(placeholderProject);
+    saveItem('project', projectArr);
+    saveItem('requested-project', placeholderProject);
+    saveItem('lastEdited', placeholderProject);
   }
-  if (retrieveItem('project')[count]) {
-    placeholderProject.items = retrieveItem('project')[count].items;
-  }
-  saveItem('project', projectArr);
-  saveItem('lastEdited', projectArr[projectArr.length - 1]);
   location.reload();
 };
 
@@ -80,7 +99,6 @@ const saveTask = () => {
   saveItem('project', allProjects);
   saveItem('lastEdited', project);
   saveItem('requested-project', project);
-  console.log(retrieveItem('lastEdited'));
   location.reload();
 };
 
@@ -171,8 +189,6 @@ const setTaskProperty = (string, id, property) => {
   const dateTask = dateInputElement.value;
   savedProject.items[id][property] = dateTask;
   allProjects[projectID] = savedProject;
-  console.log(`
-                dateTask: ${dateTask} savedProject[property]: ${savedProject.items[id][property]}`);
   saveItem('project', allProjects)
   saveItem('requested-project', savedProject);
   saveItem('lastEdited', savedProject);
@@ -193,5 +209,5 @@ const getTaskProperty = (id, property) => {
 export {
   retrieveProject, saveProject, renderProject,
   itemHandler, saveTask, editTask, obliterateTask,
-  settingPriority, setTaskProperty, getTaskProperty, renderTodoListToDom, projectArr, getIdFromProject,
+  settingPriority, setTaskProperty, getTaskProperty, renderTodoListToDom, projectArr, getIdFromProject, addNewProject,
 };
