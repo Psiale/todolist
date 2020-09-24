@@ -11,12 +11,16 @@ if (retrieveItem('project')) {
 
 const addNewProject = () => {
   if (retrieveItem('project') && retrieveItem('project').length > 0) {
+    console.log('I should be second');
     const currentProject = todoList('New Project');
+    currentProject.id = retrieveItem('project').length;
     saveItem('requested-project', currentProject);
     saveItem('lastEdited', currentProject);
     return currentProject;
   } else {
+    console.log('I should be first');
     const firstProject = placeholderProject;
+    firstProject.id = 0;
     return firstProject;
   }
 };
@@ -62,13 +66,11 @@ const saveProject = () => {
     const project = retrieveItem('requested-project');
     const projectID = project.id;
     project.projectTitle = newProjectTitle;
-
-    // Need to establish if we're overwriting an exisitng project or pushing a new one
-    //projectArr[projectID] = project;
-
-    projectArr.push(project);
-
-
+    if (projectID > project.length - 1) {
+      projectArr.push(project);
+    } else {
+      projectArr[projectID] = project;
+    }
     saveItem('project', projectArr);
     saveItem('requested-project', project);
     saveItem('lastEdited', project);
