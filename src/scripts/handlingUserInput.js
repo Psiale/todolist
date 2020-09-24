@@ -168,13 +168,14 @@ const setTaskProperty = (string, id, property) => {
   const savedProject = retrieveItem('requested-project');
   const projectID = savedProject.id;
   const dateInputElement = document.getElementById(`${string + id}`);
-  const project = savedProject.items[id];
   const dateTask = dateInputElement.value;
-  project[property] = dateTask;
-  allProjects[projectID] = project;
+  savedProject.items[id][property] = dateTask;
+  allProjects[projectID] = savedProject;
+  console.log(`
+                dateTask: ${dateTask} savedProject[property]: ${savedProject.items[id][property]}`);
   saveItem('project', allProjects)
   saveItem('requested-project', savedProject);
-  saveItem('lastEdited', project);
+  saveItem('lastEdited', savedProject);
   location.reload();
 };
 

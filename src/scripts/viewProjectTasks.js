@@ -30,15 +30,15 @@ const getDate = (id) => {
 const hideShowDropdown = (id) => {
   const arrow = document.getElementById(`listItemDownArrow${id}`);
   const dropdown = document.getElementById(`dropContainer${id}`);
-  //let dropState;
-  //if (localStorage.retrieveItem('dropdownState')) {
-  //  dropState = localStorage.retrieveItem('dropdownState');
-  //  dropState = false;
-  //  localStorage.saveItem('dropdownState', dropState);
-  //} else {
-  //  dropState = false;
-  //  localStorage.saveItem('dropdownState', dropState);
-  //}
+  let dropState;
+  if (localStorage.retrieveItem('dropdownState')) {
+   dropState = localStorage.retrieveItem('dropdownState');
+   dropState = false;
+   localStorage.saveItem('dropdownState', dropState);
+  } else {
+   dropState = false;
+   localStorage.saveItem('dropdownState', dropState);
+  }
   dropdown.classList.toggle('flex');
   dropdown.classList.toggle('slide-in-top');
   dropdown.classList.toggle('slide-in-bottom');
