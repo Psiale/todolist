@@ -252,6 +252,7 @@ const todoListMainContainer = () => {
         listContainer.appendChild(createSingleTask(listLength));
       }
     }
+    
   };
 
   const todoItemGenerator = () => {
@@ -261,8 +262,7 @@ const todoListMainContainer = () => {
     const inputContainer = generator.htmlGenerator('div', 'todo-input-container');
     for (let i = 0; i < 4; i++) {
       const inputLabel = generator.htmlGenerator('label', 'todo-label-input');
-      const inputElement = generator.htmlGenerator('input', 'todo-input-value');
-      inputContainer.append(inputLabel, inputElement);
+      inputContainer.append(inputLabel);
     }
     const btnText = generator.textGenerator('p', 'Create Task');
     const btnTextP = generator.textGenerator('p', 'Create Project');
