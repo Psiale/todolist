@@ -187,7 +187,7 @@ const obliterateProject = (id) => {
   const projects = retrieveItem('project');
   const projectToObliterate = projects[id];
   const result = projects.splice(id, 1);
-
+  saveItem('project', projects);
 }
 
 const setTaskProperty = (string, id, property) => {

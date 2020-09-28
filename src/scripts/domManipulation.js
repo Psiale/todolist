@@ -259,7 +259,7 @@ const todoListMainContainer = () => {
         listContainer.appendChild(createSingleTask(listLength));
       }
     }
-    
+
   };
 
   const todoItemGenerator = () => {
