@@ -183,6 +183,13 @@ const obliterateTask = () => {
   location.reload();
 };
 
+const obliterateProject = (id) => {
+  const projects = retrieveItem('project');
+  const projectToObliterate = projects[id];
+  const result = projects.splice(id, 1);
+
+}
+
 const setTaskProperty = (string, id, property) => {
   const allProjects = retrieveItem('project');
   const savedProject = retrieveItem('requested-project');
@@ -221,5 +228,6 @@ const getTaskProperty = (id, property) => {
 export {
   retrieveProject, saveProject, renderProject,
   itemHandler, saveTask, editTask, obliterateTask,
+  obliterateProject, 
   settingPriority, setTaskProperty, getTaskProperty, renderTodoListToDom, projectArr, getIdFromProject, addNewProject,
 };
