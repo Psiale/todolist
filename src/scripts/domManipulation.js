@@ -139,7 +139,6 @@ const todoListMainContainer = () => {
         generator.hideAndShow(dateInput, dateDisplay, dateBackButton);
         location.reload();
       });
-      dateSubmit.classList.add('hidden');
       generator.enterShortcut(dateSubmit, dateInput);
 
       dateContainer.append(dateSubmit, dateInput, dateDisplay, dateBackButton);
