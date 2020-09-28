@@ -189,7 +189,12 @@ const setTaskProperty = (string, id, property) => {
   let dropState = retrieveItem('dropdownState');
   const projectID = savedProject.id;
   const dateInputElement = document.getElementById(`${string + id}`);
-  const dateTask = dateInputElement.value;
+  let dateTask;
+  if (dateInputElement.value !== '') {
+    dateTask = dateInputElement.value;
+  } else {
+    return;
+  }
   savedProject.items[id][property] = dateTask;
   allProjects[projectID] = savedProject;
   console.log(projectID)
