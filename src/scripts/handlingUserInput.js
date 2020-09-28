@@ -228,6 +228,6 @@ const getTaskProperty = (id, property) => {
 export {
   retrieveProject, saveProject, renderProject,
   itemHandler, saveTask, editTask, obliterateTask,
-  obliterateProject, 
+  obliterateProject,
   settingPriority, setTaskProperty, getTaskProperty, renderTodoListToDom, projectArr, getIdFromProject, addNewProject,
 };
