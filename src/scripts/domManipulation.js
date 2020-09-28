@@ -28,29 +28,6 @@ if (retrieveItem('project') && retrieveItem('project').length > 0) {
 const todoListMainContainer = () => {
   const todoListMainContainer = generator.htmlGenerator('div', 'todo-list-main-container', 'todoListMainContainer');
 
-  const todoListItemGenerator = (arr = []) => {
-    const todoListArrContainer = generator.htmlGenerator('div', 'project-todoList-arr-container');
-    for (let i = 0; i < arr.length; i++) {
-      const element = arr[i];
-      const todoListItemContainer = generator.htmlGenerator('div', 'todolist-item-container', `todoListItemContainer${i}`);
-      const todoListItemDeleteButton = generator.htmlGenerator('button', 'todolist-item-delete-btn', `todoListItemDeleteBtn${i}`);
-      const todoListItemDeleteButtonText = generator.textGenerator('p', '<i class="fas fa-times"></i>');
-      todoListItemDeleteButton.append(todoListItemDeleteButtonText);
-      const textContent = generator.textGenerator('p', `${element.projectTitle}`);
-      textContent.addEventListener('click', () => {
-        getIdFromProject(i);
-        location.reload();
-      });
-      todoListItemDeleteButton.addEventListener('click', () => {
-        obliterateProject(i);
-        location.reload();
-      });
-      todoListItemContainer.append(textContent, todoListItemDeleteButton);
-      todoListArrContainer.appendChild(todoListItemContainer);
-    }
-    return todoListArrContainer;
-  }
-
   const projectGenerator = () => {
     const mainContainer = generator.htmlGenerator('div', 'project-form-container');
     const form = generator.htmlGenerator('form', 'edit-project-title-container', 'editProjectTitleContainer');
@@ -62,7 +39,7 @@ const todoListMainContainer = () => {
     inputElement.placeholder = `${currentProject.projectTitle}`;
 
     const listContainer = generator.htmlGenerator('div', 'project-item-container', 'projectItemContainer');
-    const btnText = generator.textGenerator('p', 'Save');
+    const btnText = generator.textGenerator('p', 'Save<br>Project');
     const btn = generator.htmlGenerator('button', 'project-submit-btn', 'projectSubmitBtn');
 
     btn.appendChild(btnText);
@@ -264,7 +241,6 @@ const todoListMainContainer = () => {
 
   const todoItemGenerator = () => {
     const mainContainer = generator.htmlGenerator('div', 'todo-form-container');
-    const formTitle = generator.textGenerator('h2', 'Add A New Task');
     const form = generator.htmlGenerator('form', 'todo-item-form');
     const inputContainer = generator.htmlGenerator('div', 'todo-input-container');
     for (let i = 0; i < 4; i++) {
@@ -289,12 +265,42 @@ const todoListMainContainer = () => {
     });
 
     form.append(inputContainer, btn, btnP);
-    mainContainer.append(formTitle, form);
+    mainContainer.appendChild(form);
     return mainContainer;
   };
 
-  todoListMainContainer.append(projectGenerator(), todoListTasks(), todoItemGenerator(), todoListItemGenerator(projectArr));
+  todoListMainContainer.append(projectGenerator(), todoListTasks(), todoItemGenerator());
   return todoListMainContainer;
 };
 
-export default todoListMainContainer;
+const projectSelectorList = () => {
+  const mainContainer = generator.htmlGenerator('div', 'project-selector-container', 'projectSelectorContainer');
+
+  const todoListItemGenerator = (arr = []) => {
+    const todoListArrContainer = generator.htmlGenerator('div', 'project-todoList-arr-container');
+    for (let i = 0; i < arr.length; i++) {
+      const element = arr[i];
+      const todoListItemContainer = generator.htmlGenerator('div', 'todolist-item-container', `todoListItemContainer${i}`);
+      const todoListItemDeleteButton = generator.htmlGenerator('button', 'todolist-item-delete-btn', `todoListItemDeleteBtn${i}`);
+      const todoListItemDeleteButtonText = generator.textGenerator('p', '<i class="fas fa-times"></i>');
+      todoListItemDeleteButton.append(todoListItemDeleteButtonText);
+      const textContent = generator.textGenerator('p', `${element.projectTitle}`);
+      textContent.addEventListener('click', () => {
+        getIdFromProject(i);
+        location.reload();
+      });
+      todoListItemDeleteButton.addEventListener('click', () => {
+        obliterateProject(i);
+        location.reload();
+      });
+      todoListItemContainer.append(textContent, todoListItemDeleteButton);
+      todoListArrContainer.appendChild(todoListItemContainer);
+    }
+    return todoListArrContainer;
+  }
+
+  mainContainer.appendChild(todoListItemGenerator(projectArr));
+  return mainContainer;
+}
+
+export { todoListMainContainer, projectSelectorList };
