@@ -144,6 +144,7 @@ const todoListMainContainer = () => {
     const listItemContainer = generator.htmlGenerator('div', 'todo-list-item-container', `listItemContainer${id}`);
     const listItemInputContainer = generator.htmlGenerator('input', 'project-task-input', `projectTask${id}`);
     const listItemSubmitButton = generator.htmlGenerator('button', 'project-task-submit', `projectTaskSubmit${id}`);
+    const listItemSubmitIcon = generator.textGenerator('i', '<i class="fas fa-check-circle"></i>');
     const listItemDeleteButtonText = generator.textGenerator('p', '<i class="fas fa-times"></i>');
     const listItemDeleteButton = generator.htmlGenerator('button', 'list-item-delete-button', `projectTaskDelete${id}`);
     const listItemPriorityButton = generator.htmlGenerator('button', 'todo-list-item-button', `listItemButton${id}`);
@@ -151,6 +152,7 @@ const todoListMainContainer = () => {
     const listItemDownArrowIcon = generator.textGenerator('p', '<i class="fas fa-sort-down"></i>');
     listItemInputContainer.placeholder = 'New task...';
     listItemDownArrow.appendChild(listItemDownArrowIcon);
+    listItemSubmitButton.appendChild(listItemSubmitIcon);
     listItemPriorityButton.classList.add('list-item-priority');
     listItemDownArrow.addEventListener('click', () => {
       hideShowDropdown(id);
@@ -178,6 +180,19 @@ const todoListMainContainer = () => {
 
 
     listItemSubmitButton.classList.add('hidden');
+    //const confirmButton = () => {
+    //  const displayedTitle = (document.querySelector(':focus'));
+    //  if (displayedTitle.placeholder === currentProject) {
+    //    listItemSubmitButton.classList.remove('hidden');
+    //  }
+    //};
+    //
+    //const listItemInputs = document.querySelectorAll('.project-task-input');
+    //listItemInputs.forEach(item => item.addEventListener('click', () => {
+    //  preventDefault();
+    //  confirmButton();
+    //}));
+
     listItemDeleteButton.type = 'button';
     listItemDeleteButton.appendChild(listItemDeleteButtonText);
 
@@ -222,7 +237,6 @@ const todoListMainContainer = () => {
         }, 1);
       }
     }
-
     return mainContainer;
   };
 
