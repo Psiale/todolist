@@ -2,18 +2,13 @@ import * as generator from './domTools';
 import { retrieveItem, saveItem } from './localStorage';
 import { setDate, getDate, hideShowDropdown } from './viewProjectTasks';
 import { todoList } from './classes/todoListItem';
-import {
-  retrieveProject, saveProject, saveTask, editTask,
-  obliterateTask, settingPriority, setTaskProperty, getTaskProperty,
-  renderProject, renderTodoListToDom, projectArr, getIdFromProject, addNewProject,
-  obliterateProject,
-} from './handlingUserInput';
+import * as hui from './handlingUserInput';
 
 const mainContainer = generator.htmlGenerator('div', 'todo-list-tasks', 'todoListTasks');
 
 (function () {
   if (!retrieveItem('dropdownState')) {
-    let dropState = [true, 999];
+    const dropState = [true, 999];
     saveItem('dropdownState', dropState);
   }
 }());
@@ -22,8 +17,8 @@ let currentProject;
 if (retrieveItem('project') && retrieveItem('project').length > 0) {
   currentProject = retrieveItem('requested-project');
 } else {
-  currentProject = addNewProject();
-};
+  currentProject = hui.addNewProject();
+}
 
 const todoListMainContainer = () => {
   const todoListMainContainer = generator.htmlGenerator('div', 'todo-list-main-container', 'todoListMainContainer');
@@ -35,7 +30,6 @@ const todoListMainContainer = () => {
     const inputLabel = generator.htmlGenerator('label', 'project-label-input');
     const inputElement = generator.htmlGenerator('input', 'project-title-input', 'projectTitleInput');
 
-    // create a loop to render items to append on todoListArrContainer
     inputElement.placeholder = `${currentProject.projectTitle}`;
 
     const listContainer = generator.htmlGenerator('div', 'project-item-container', 'projectItemContainer');
@@ -44,7 +38,7 @@ const todoListMainContainer = () => {
 
     btn.appendChild(btnText);
     btn.setAttribute('type', 'button');
-    btn.addEventListener('click', saveProject);
+    btn.addEventListener('click', hui.saveProject);
 
     generator.enterShortcut(btn, inputElement);
 
@@ -72,8 +66,8 @@ const todoListMainContainer = () => {
       const descriptionContainer = generator.htmlGenerator('div', 'description-container', `descriptionContainer${id}`);
       const descriptionInput = generator.htmlGenerator('input', 'description-input', `descriptionInput${id}`);
 
-      if (getTaskProperty(id, 'description')) {
-        descriptionInput.placeholder = `${getTaskProperty(id, 'description')}`;
+      if (hui.getTaskProperty(id, 'description')) {
+        descriptionInput.placeholder = `${hui.getTaskProperty(id, 'description')}`;
       } else {
         descriptionInput.placeholder = 'Give your task a description...';
       }
@@ -81,8 +75,8 @@ const todoListMainContainer = () => {
       const descriptionSubmit = generator.htmlGenerator('button', 'description-submit-button', `descriptionSubmitButton${id}`);
       const descriptionSubmitIcon = generator.textGenerator('i', '<i class="fas fa-save"></i>');
       descriptionSubmit.addEventListener('click', () => {
-        setTaskProperty('descriptionInput', id, 'description');
-        //location.reload();
+        hui.setTaskProperty('descriptionInput', id, 'description');
+        generator.reload();
       });
       descriptionSubmit.classList.add('hidden');
       generator.enterShortcut(descriptionSubmit, descriptionInput);
@@ -101,10 +95,10 @@ const todoListMainContainer = () => {
       dateInput.classList.add('hidden');
 
       const dateSubmit = generator.htmlGenerator('button', 'date-submit-button', `dateSubmitButton${id}`);
-      // dateSubmit.classList.add('hidden');
+
       const dateSubmitIcon = generator.textGenerator('i', '<i class="fas fa-check-circle"></i>');
       dateSubmit.appendChild(dateSubmitIcon);
-      dateSubmit.classList.add('hidden')
+      dateSubmit.classList.add('hidden');
       const dateBackButton = generator.htmlGenerator('button', 'date-back-button', `dateBackButton${id}`);
       dateBackButton.innerHTML = 'Cancel';
 
@@ -125,7 +119,7 @@ const todoListMainContainer = () => {
         event.preventDefault();
         setDate(id);
         generator.hideAndShow(dateInput, dateDisplay, dateBackButton);
-        location.reload();
+        generator.reload();
       });
       generator.enterShortcut(dateSubmit, dateInput);
 
@@ -150,7 +144,7 @@ const todoListMainContainer = () => {
     const listItemPriorityButton = generator.htmlGenerator('button', 'todo-list-item-button', `listItemButton${id}`);
     const listItemDownArrow = generator.htmlGenerator('button', 'list-item-down-arrow', `listItemDownArrow${id}`);
     const listItemDownArrowIcon = generator.textGenerator('p', '<i class="fas fa-sort-down"></i>');
-    listItemInputContainer.placeholder = 'New task...';
+    listItemInputContainer.placeholder = 'Give it a title...';
     listItemDownArrow.appendChild(listItemDownArrowIcon);
     listItemSubmitButton.appendChild(listItemSubmitIcon);
     listItemPriorityButton.classList.add('list-item-priority');
@@ -169,7 +163,7 @@ const todoListMainContainer = () => {
     }
 
     const setPriorityStatus = () => {
-      if (settingPriority() === 0) {
+      if (hui.settingPriority() === 0) {
         listItemPriorityButton.innerHTML = '<i class="fas fa-star"></i>';
       } else {
         listItemPriorityButton.innerHTML = '<i class="far fa-star"></i>';
@@ -180,40 +174,23 @@ const todoListMainContainer = () => {
 
 
     listItemSubmitButton.classList.add('hidden');
-    //const confirmButton = () => {
-    //  const displayedTitle = (document.querySelector(':focus'));
-    //  if (displayedTitle.placeholder === currentProject) {
-    //    listItemSubmitButton.classList.remove('hidden');
-    //  }
-    //};
-    //
-    //const listItemInputs = document.querySelectorAll('.project-task-input');
-    //listItemInputs.forEach(item => item.addEventListener('click', () => {
-    //  preventDefault();
-    //  confirmButton();
-    //}));
 
     listItemDeleteButton.type = 'button';
     listItemDeleteButton.appendChild(listItemDeleteButtonText);
 
     const listItemID = generator.generateID(listItemInputContainer);
     if (listItemID >= savedItemsLength) {
-      listItemSubmitButton.addEventListener('click', saveTask);
+      listItemSubmitButton.addEventListener('click', hui.saveTask);
     } else {
-      listItemSubmitButton.addEventListener('click', editTask);
+      listItemSubmitButton.addEventListener('click', hui.editTask);
     }
 
     generator.enterShortcut(listItemSubmitButton, listItemInputContainer);
-    // listItemInputContainer.addEventListener('focusout', saveTask);
-    // listItemInputContainer.addEventListener('focusout', editTask);
-    // a function that doesn't require the focus element, but takes back the content of the input;
 
     listItemDeleteButton.addEventListener('click', (event) => {
       event.preventDefault();
-      obliterateTask();
+      hui.obliterateTask();
     });
-    // implement save task when element loses focus
-    // Do not save if element value is empty
     listItemContainer.append(
       listItemInputContainer,
       listItemSubmitButton,
@@ -233,7 +210,7 @@ const todoListMainContainer = () => {
           const inputField = document.getElementById(`projectTask${i}`);
           if (currentProject.items[i].title) {
             inputField.placeholder = `${currentProject.items[i].title}`;
-          };
+          }
         }, 1);
       }
     }
@@ -241,8 +218,6 @@ const todoListMainContainer = () => {
   };
 
   const listBuilder = () => {
-    // if there is a list, render the list,  add a single one
-    // if not, add a single one
     const listLength = currentProject.items.length;
     const listContainer = document.getElementById('todoListTasks');
     const domLength = listContainer.childNodes.length;
@@ -255,7 +230,6 @@ const todoListMainContainer = () => {
         listContainer.appendChild(createSingleTask(listLength));
       }
     }
-
   };
 
   const todoItemGenerator = () => {
@@ -274,13 +248,10 @@ const todoListMainContainer = () => {
     btnP.setAttribute('type', 'button');
     btn.appendChild(btnText);
     btnP.appendChild(btnTextP);
-    // btn.addEventListener('click', itemHandler);
     btn.addEventListener('click', listBuilder);
     btnP.addEventListener('click', () => {
-      // 9. Passed renderProject as the id fetcher to return the proper project
-
-      addNewProject();
-      location.reload()
+      hui.addNewProject();
+      generator.reload();
     });
 
     form.append(inputContainer, btn, btnP);
@@ -305,12 +276,12 @@ const projectSelectorList = () => {
       todoListItemDeleteButton.append(todoListItemDeleteButtonText);
       const textContent = generator.textGenerator('p', `${element.projectTitle}`);
       textContent.addEventListener('click', () => {
-        getIdFromProject(i);
-        location.reload();
+        hui.getIdFromProject(i);
+        generator.reload();
       });
       todoListItemDeleteButton.addEventListener('click', () => {
-        obliterateProject(i);
-        location.reload();
+        hui.obliterateProject(i);
+        generator.reload();
       });
       todoListItemContainer.append(textContent, todoListItemDeleteButton);
       todoListArrContainer.appendChild(todoListItemContainer);
@@ -318,7 +289,7 @@ const projectSelectorList = () => {
     return todoListArrContainer;
   };
   const backgroundContainer = generator.htmlGenerator('div', 'todoList-background-container');
-  mainContainer.append(todoListItemGenerator(projectArr), backgroundContainer);
+  mainContainer.append(todoListItemGenerator(hui.projectArr), backgroundContainer);
   return mainContainer;
 };
 

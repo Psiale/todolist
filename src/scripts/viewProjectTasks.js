@@ -11,11 +11,9 @@ const dateParser = (task) => {
     const timeFormatted = format(initialDate, 'Pp');
     return `${timeFormatted}`;
   }
-  return;
 };
 
 const getDate = (id) => {
-  // 6. Changed the definition of project to return a todoList item
   const project = localStorage.retrieveItem('requested-project');
 
   if (id && project.items[id]) {
@@ -48,9 +46,7 @@ const hideShowDropdown = (id) => {
     }
   }
   descriptionInput.focus();
-}
-
-
+};
 
 
 export { setDate, getDate, hideShowDropdown };

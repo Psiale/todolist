@@ -1,9 +1,8 @@
 import { todoItem, todoList } from './classes/todoListItem';
 import { saveItem, retrieveItem } from './localStorage';
-import { generateID } from './domTools';
+import { generateID, reload } from './domTools';
 
 const placeholderProject = todoList('New Project');
-// 1. Changed projectArr to be defined as an empty array or the projects array
 let projectArr = [];
 if (retrieveItem('project')) {
   if (retrieveItem('project').length > 0) projectArr = retrieveItem('project');
@@ -11,18 +10,15 @@ if (retrieveItem('project')) {
 
 const addNewProject = () => {
   if (retrieveItem('project') && retrieveItem('project').length > 0) {
-    console.log('I should be second');
     const currentProject = todoList('New Project');
     currentProject.id = retrieveItem('project').length;
     saveItem('requested-project', currentProject);
     saveItem('lastEdited', currentProject);
     return currentProject;
-  } else {
-    console.log('I should be first');
-    const firstProject = placeholderProject;
-    firstProject.id = 0;
-    return firstProject;
   }
+  const firstProject = placeholderProject;
+  firstProject.id = 0;
+  return firstProject;
 };
 
 const retrieveProject = (indx) => {
@@ -34,14 +30,12 @@ const retrieveProject = (indx) => {
 
 const getIdFromProject = (i) => {
   saveItem('requested-project', retrieveItem('project')[i]);
-  console.log('requested-project');
-}
+};
 
 const renderProject = () => {
   let count;
   if (retrieveItem('project') && retrieveItem('project').length > 0) {
     count = retrieveItem('project').length;
-    console.log(count);
     return count;
   }
   count = 0;
@@ -53,7 +47,6 @@ const renderTodoListToDom = () => {
   const newProjectTitle = document.getElementById('projectTitleInput').value;
   placeholderProject.projectTitle = newProjectTitle;
   projectArr.push(placeholderProject);
-  // 3. after pushing the placeholder to the arr I saved the element into local storage
   saveItem('project', projectArr);
   const todoListArr = retrieveItem('project');
   return todoListArr;
@@ -87,7 +80,7 @@ const saveProject = () => {
     saveItem('requested-project', placeholderProject);
     saveItem('lastEdited', placeholderProject);
   }
-  location.reload();
+  reload();
 };
 
 const saveTask = () => {
@@ -106,7 +99,7 @@ const saveTask = () => {
   saveItem('project', allProjects);
   saveItem('lastEdited', project);
   saveItem('requested-project', project);
-  location.reload();
+  reload();
 };
 
 const itemHandler = () => {
@@ -117,7 +110,7 @@ const itemHandler = () => {
   itemArray.push(todoItem(tasks[0].value, tasks[1].value, tasks[2].value, tasks[3].value));
   saveItem('itemArray', itemArray);
   saveItem('project', project);
-  location.reload();
+  reload();
 };
 
 
@@ -143,7 +136,7 @@ const editTask = () => {
   saveItem('project', allProjects);
   saveItem('lastEdited', project);
   saveItem('requested-project', project);
-  location.reload();
+  reload();
 };
 
 const settingPriority = () => {
@@ -172,7 +165,7 @@ const settingPriority = () => {
 };
 
 const obliterateTask = () => {
-  const allProjects = retrieveItem('project')
+  const allProjects = retrieveItem('project');
   const project = retrieveItem('requested-project');
   const projectID = project.id;
   const focusElement = document.querySelector(':focus');
@@ -185,7 +178,7 @@ const obliterateTask = () => {
   saveItem('project', allProjects);
   saveItem('requested-project', project);
   saveItem('lastEdited', project);
-  location.reload();
+  reload();
 };
 
 const obliterateProject = (id) => {
@@ -193,7 +186,7 @@ const obliterateProject = (id) => {
   const projectToObliterate = projects[id];
   projects.splice(id, 1);
   saveItem('project', projects);
-}
+};
 
 const setTaskProperty = (string, id, property) => {
   const allProjects = retrieveItem('project');
@@ -209,18 +202,15 @@ const setTaskProperty = (string, id, property) => {
   }
   savedProject.items[id][property] = dateTask;
   allProjects[projectID] = savedProject;
-  console.log(projectID)
-  console.log(id);
   dropState = [false, id];
   saveItem('dropdownState', dropState);
-  saveItem('project', allProjects)
+  saveItem('project', allProjects);
   saveItem('requested-project', savedProject);
   saveItem('lastEdited', savedProject);
-  location.reload();
+  reload();
 };
 
 const getTaskProperty = (id, property) => {
-  // 5. Changed savedProject definition to retrieve a TodoList item
   const savedProject = retrieveItem('requested-project');
   if (id && savedProject.items[id]) {
     if (savedProject.items === []) {

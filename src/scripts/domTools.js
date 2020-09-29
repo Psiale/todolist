@@ -27,8 +27,12 @@ const hideAndShow = (a, b, c = null, d = null) => {
   if (d) d.classList.toggle('hidden');
 };
 
+const reload = () => {
+  location.reload();
+};
+
 const generateID = (domElement) => domElement.id.split('').reverse().slice(0, 1).join('');
 
 export {
-  htmlGenerator, textGenerator, generateID, enterShortcut, hideAndShow,
+  htmlGenerator, textGenerator, generateID, enterShortcut, hideAndShow, reload,
 };
