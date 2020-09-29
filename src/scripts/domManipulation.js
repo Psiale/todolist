@@ -216,7 +216,9 @@ const todoListMainContainer = () => {
         mainContainer.appendChild(createSingleTask(`${i}`));
         setTimeout(() => {
           const inputField = document.getElementById(`projectTask${i}`);
-          inputField.placeholder = `${currentProject.items[i].title}`;
+          if (currentProject.items[i].title) {
+            inputField.placeholder = `${currentProject.items[i].title}`;
+          };
         }, 1);
       }
     }
