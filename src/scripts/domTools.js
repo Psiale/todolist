@@ -20,10 +20,11 @@ const enterShortcut = (btn, element) => {
   });
 };
 
-const hideAndShow = (a, b, c = null) => {
+const hideAndShow = (a, b, c = null, d = null) => {
   a.classList.toggle('hidden');
   b.classList.toggle('hidden');
   if (c) c.classList.toggle('hidden');
+  if (d) d.classList.toggle('hidden');
 };
 
 const generateID = (domElement) => domElement.id.split('').reverse().slice(0, 1).join('');

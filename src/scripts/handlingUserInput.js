@@ -60,7 +60,12 @@ const renderTodoListToDom = () => {
 };
 
 const saveProject = () => {
-  const newProjectTitle = document.getElementById('projectTitleInput').value;
+  let newProjectTitle;
+  if (document.getElementById('projectTitleInput').value !== '') {
+    newProjectTitle = document.getElementById('projectTitleInput').value;
+  } else {
+    return;
+  }
   if (retrieveItem('project') && retrieveItem('project').length > 0) {
     projectArr = retrieveItem('project');
     const project = retrieveItem('requested-project');

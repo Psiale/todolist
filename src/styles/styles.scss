@@ -274,16 +274,16 @@ body {
         position: relative;
 
         input {
+          width: 90%;
           height: 70%;
         }
 
-        .date-display,
+        .date-display,        
         .date-input {
-          max-width: 50%;
           background-color: transparent;
           border: none;
           outline: none;
-          font: 400 20px/20px $primary-font;
+          font: 400 12px/16px $primary-font;
           &::placeholder {
             color: #D7BDE2;
           }
@@ -291,23 +291,38 @@ body {
             filter: invert(1);
         }
         }
+        .date-submit-button {
+          background-color: transparent;
+          margin: 0 8px;
+          height: 20px;
+          font-size: 12px;
+          svg {
+            color: pink;
+          }
+        }
+
+        .date-input {
+          max-width: 55%;
+        }
+        .date-display {
+          max-width: 100%;
+          text-align: center;
+          font-size: 16px;
+        }
 
         .date-input {
           color: #dcdcdc;
         }
 
         .date-back-button {
-          position: absolute;
-          right: 10px;
-          top: 4px;
           border: 50%;
-          height: 35px;
-          width: 75px;
+          height: 20px;
+          width: 55px;
           background-color: #D7BDE2;
           border-radius: 4px;
           border: none;
           color: #303030;
-          font: 600 14px/14px $primary-font;
+          font: 600 12px/12px $primary-font;
 
           &:focus {
             outline: none;
@@ -326,6 +341,9 @@ body {
     justify-content: flex-start;
     align-items: center;
     border-radius: 6px;
+    .simple-list-item-container {
+      width: 98%;
+    }
   }
 }
 

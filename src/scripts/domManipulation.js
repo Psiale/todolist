@@ -100,24 +100,27 @@ const todoListMainContainer = () => {
       dateInput.setAttribute('max', '2100-01-01T00:00');
       dateInput.classList.add('hidden');
 
-      const dateDisplay = generator.htmlGenerator('input', 'date-display', `dateDisplay${id}`);
-      dateDisplay.placeholder = getDate(id);
-      dateDisplay.addEventListener('click', (event) => {
-        event.preventDefault();
-        generator.hideAndShow(dateDisplay, dateInput, dateBackButton);
-      });
-
+      const dateSubmit = generator.htmlGenerator('button', 'date-submit-button', `dateSubmitButton${id}`);
+      // dateSubmit.classList.add('hidden');
+      const dateSubmitIcon = generator.textGenerator('i', '<i class="fas fa-check-circle"></i>');
+      dateSubmit.appendChild(dateSubmitIcon);
+      dateSubmit.classList.add('hidden')
       const dateBackButton = generator.htmlGenerator('button', 'date-back-button', `dateBackButton${id}`);
       dateBackButton.innerHTML = 'Cancel';
+
+      const dateDisplay = generator.htmlGenerator('input', 'date-display', `dateDisplay${id}`);
+      dateDisplay.placeholder = getDate(id);
+
+      dateDisplay.addEventListener('click', (event) => {
+        event.preventDefault();
+        generator.hideAndShow(dateDisplay, dateInput, dateBackButton, dateSubmit);
+      });
+
       dateBackButton.addEventListener('click', (event) => {
         event.preventDefault();
         generator.hideAndShow(dateInput, dateDisplay, dateBackButton);
       });
       dateBackButton.classList.add('hidden');
-
-      const dateSubmit = generator.htmlGenerator('button', 'date-submit-button', `dateSubmitButton${id}`);
-      const dateSubmitIcon = generator.textGenerator('i', '<i class="fas fa-stopwatch"></i>');
-      dateSubmit.appendChild(dateSubmitIcon);
       dateSubmit.addEventListener('click', (event) => {
         event.preventDefault();
         setDate(id);
@@ -126,7 +129,7 @@ const todoListMainContainer = () => {
       });
       generator.enterShortcut(dateSubmit, dateInput);
 
-      dateContainer.append(dateSubmit, dateInput, dateDisplay, dateBackButton);
+      dateContainer.append(dateInput, dateDisplay, dateSubmit, dateBackButton);
       return dateContainer;
     };
 
