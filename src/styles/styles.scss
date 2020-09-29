@@ -94,6 +94,7 @@ body {
   width: 100%;
   font: 300 16px/16px $primary-font;
   color: #202020;
+  background-color: #D7BDE2;
 }
 
 // MAIN PAGE CONTAINER ---------------------//
@@ -113,6 +114,8 @@ body {
   height: 75%;
   background: rgb(51, 51, 51);
   padding: 10px;
+  border-bottom-left-radius: 8px;
+  border-bottom-right-radius: 8px;
 
   .project-form-container {
     display: flex;
@@ -121,7 +124,7 @@ body {
 
     .edit-project-title-container {
       display: flex;
-      justify-content: space-between;
+      justify-content: flex-start;
       flex-flow: row nowrap;
       align-items: center;
       width: 100%;
@@ -131,16 +134,17 @@ body {
       input {
         height: 75px;
         top: 0;
-        width: 70%;
-        position: absolute;
-        left: 25%;
-        transform: translateX(-25%);
+        width: 90%;
         border: none;
         outline: none;
         background-color: transparent;
         font: 400 26px/30px $primary-font;
         color: #dcdcdc;
-
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        margin-left: 10px;
+        
         &::placeholder {
           font: 500 26px/30px $primary-font;
           color: #D7BDE2;
@@ -159,6 +163,7 @@ body {
         box-shadow: inset 0px 0px 7px 1px rgba(131,92,148,1);
         padding: 0;
         padding: 4px 6px 6px 6px;
+        margin-left: auto;
 
         p {
           font: 600 14px/20px $primary-font;
@@ -210,7 +215,7 @@ body {
         border: none;
         width: 70%;
         padding-left: 20px;
-        font: 400 22px/22px $primary-font;
+        font: 400 16px/16px $primary-font;
         color: #dcdcdc;
 
         &::placeholder {
@@ -228,16 +233,16 @@ body {
         background: transparent;
         outline: none;
         border: none;
-        width: 60px;
+        width: 40px;
         svg {
-          font-size: 22px;
+          font-size: 16px;
           color: #D7BDE2;
         }
       }
 
       .list-item-down-arrow {
         padding-bottom: 10px;
-        margin-left: -5px;
+        margin: 0 10px 0 -5px;
       }
     }
 
@@ -318,7 +323,7 @@ body {
     width: 100%;
     height: 80%;
     flex-flow: column nowrap;
-    justify-content: center;
+    justify-content: flex-start;
     align-items: center;
     border-radius: 6px;
   }
@@ -328,6 +333,11 @@ body {
   height: 25%;
   position: relative;
   z-index: 11;
+  overflow: hidden;
+  padding: 10px 0;
+  border-top-right-radius: 8px;
+  border-top-left-radius: 8px;
+
   .todolist-item-container {
     position: relative;
     width: 100%;
@@ -336,14 +346,20 @@ body {
     color: black;
     display: flex;
     flex-flow: row nowrap;
-    margin-left: 20px;
+    padding: 0 0 0 20px;
+  
     p {
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
       width: 70%;
-      // margin-right: 30px;
+      font: 700 16px/16px $primary-font;
+      color: #313131;
     }
+  
     button {
-      width: 30%;
-      height: 36px;
+      height: 45px;
+      width: 45px;
       background: transparent;
       border: none;
       display: flex;
@@ -353,24 +369,44 @@ body {
       line-height: 0;
       font-size: 18px;
       margin-left: auto;
+
+      &:focus {
+        outline: none;
+      }
     }
   }
+
   .todoList-background-container {
-    z-index: 1;
+    background: url('../assets/splashy.jpg') 100% 100% no-repeat;
+    height: 100%;
+    width: 100%;
     position: absolute;
     top: 0;
     left: 0;
     right: 0;
     bottom: 0;
-    width: 100%;
-    height: 100%;
-    background: url('../assets/splashy.jpg') 100% 100% no-repeat;
-    box-shadow: inset 0 0 2000px rgba(255, 255, 255, 0.5);
-    filter: blur(5px);
-    background-size: cover;
-    // filter: blur(5px);
+    z-index: 1;
+    background-color: rgba(255, 255, 255, .15);
+    backdrop-filter: blur(5px);
+    overflow-y: auto;
+
+    &:before {
+      background: inherit;
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      box-shadow: inset 0 0 2000px rgba(255, 255, 255, .8);
+      filter: blur(6px);
+    }
   }
 
+  .project-todoList-arr-container {
+    height: 100%;
+    overflow-y: auto;
+  }
 }
 
 .hidden { 
