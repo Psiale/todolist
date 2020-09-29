@@ -297,10 +297,10 @@ const projectSelectorList = () => {
       todoListArrContainer.appendChild(todoListItemContainer);
     }
     return todoListArrContainer;
-  }
-
-  mainContainer.appendChild(todoListItemGenerator(projectArr));
+  };
+  const backgroundContainer = generator.htmlGenerator('div', 'todoList-background-container');
+  mainContainer.append(todoListItemGenerator(projectArr), backgroundContainer);
   return mainContainer;
-}
+};
 
 export { todoListMainContainer, projectSelectorList };

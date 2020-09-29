@@ -101,8 +101,7 @@ body {
   display: flex;
   height: 100%;
   width: 100%;
-  flex-flow: row nowrap;
-  background: darkred;
+  flex-flow: column nowrap;
 }
 
 // TODO LIST WINDOW ------------------------//
@@ -323,6 +322,55 @@ body {
     align-items: center;
     border-radius: 6px;
   }
+}
+
+.project-selector-container { 
+  height: 25%;
+  position: relative;
+  z-index: 11;
+  .todolist-item-container {
+    position: relative;
+    width: 100%;
+    height: 60px;
+    z-index: 10;
+    color: black;
+    display: flex;
+    flex-flow: row nowrap;
+    margin-left: 20px;
+    p {
+      width: 70%;
+      // margin-right: 30px;
+    }
+    button {
+      width: 30%;
+      height: 36px;
+      background: transparent;
+      border: none;
+      display: flex;
+      align-items: center;
+      padding: 0;
+      margin: 0;
+      line-height: 0;
+      font-size: 18px;
+      margin-left: auto;
+    }
+  }
+  .todoList-background-container {
+    z-index: 1;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    width: 100%;
+    height: 100%;
+    background: url('../assets/splashy.jpg') 100% 100% no-repeat;
+    box-shadow: inset 0 0 2000px rgba(255, 255, 255, 0.5);
+    filter: blur(5px);
+    background-size: cover;
+    // filter: blur(5px);
+  }
+
 }
 
 .hidden { 
