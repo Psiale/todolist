@@ -12,7 +12,6 @@ create a location reload function -->
 <!-- delete all comments -->
 
 // DOM MANIPULATION
-Line 5 import, as *
-Separate single task function to a module (that shit is big)
+<!-- Separate single task function to a module (that shit is big) -->
 
 line 21 (current project definition) should be a function
