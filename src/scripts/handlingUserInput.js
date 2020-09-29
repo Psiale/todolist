@@ -9,6 +9,22 @@ if (retrieveItem('project')) {
   if (retrieveItem('project').length > 0) projectArr = retrieveItem('project');
 }
 
+const addNewProject = () => {
+  if (retrieveItem('project') && retrieveItem('project').length > 0) {
+    console.log('I should be second');
+    const currentProject = todoList('New Project');
+    currentProject.id = retrieveItem('project').length;
+    saveItem('requested-project', currentProject);
+    saveItem('lastEdited', currentProject);
+    return currentProject;
+  } else {
+    console.log('I should be first');
+    const firstProject = placeholderProject;
+    firstProject.id = 0;
+    return firstProject;
+  }
+};
+
 const retrieveProject = (indx) => {
   if (!retrieveItem('project') || !retrieveItem('project')[indx]) {
     return placeholderProject;
@@ -17,8 +33,8 @@ const retrieveProject = (indx) => {
 };
 
 const getIdFromProject = (i) => {
-   saveItem('requested-project', retrieveItem('project')[i]);
-   console.log('requested-project');
+  saveItem('requested-project', retrieveItem('project')[i]);
+  console.log('requested-project');
 }
 
 const renderProject = () => {
@@ -44,40 +60,53 @@ const renderTodoListToDom = () => {
 };
 
 const saveProject = () => {
-  const count = renderProject();
-  console.log(count);
-  const newProjectTitle = document.getElementById('projectTitleInput').value;
-  placeholderProject.projectTitle = newProjectTitle;
-  placeholderProject.id = count;
-  projectArr.push(placeholderProject);
-  // 3. after pushing the placeholder to the arr I saved the element into local storage
-  saveItem('project', projectArr);
-  if (retrieveItem('project')[count]) {
-    placeholderProject.items = retrieveItem('project')[count].items;
+  let newProjectTitle;
+  if (document.getElementById('projectTitleInput').value !== '') {
+    newProjectTitle = document.getElementById('projectTitleInput').value;
+  } else {
+    return;
   }
-  saveItem('project', projectArr);
-  saveItem('lastEdited', projectArr[projectArr.length - 1]);
+  if (retrieveItem('project') && retrieveItem('project').length > 0) {
+    projectArr = retrieveItem('project');
+    const project = retrieveItem('requested-project');
+    const projectID = project.id;
+    project.projectTitle = newProjectTitle;
+    if (projectID > project.length - 1) {
+      projectArr.push(project);
+    } else {
+      projectArr[projectID] = project;
+    }
+    saveItem('project', projectArr);
+    saveItem('requested-project', project);
+    saveItem('lastEdited', project);
+  } else {
+    placeholderProject.projectTitle = newProjectTitle;
+    placeholderProject.id = 0;
+    projectArr.push(placeholderProject);
+    saveItem('project', projectArr);
+    saveItem('requested-project', placeholderProject);
+    saveItem('lastEdited', placeholderProject);
+  }
   location.reload();
 };
 
 const saveTask = () => {
-  // 4. Changed project declaration to acess a todoList item
-  const project = retrieveItem('project')[renderProject()];
-  const listLength = project.items.length;
-  const focusElement = document.querySelector(':focus');
-  const focusedID = generateID(focusElement);
-  let inputValue;
-  if (document.getElementById(`projectTask${listLength}`).value !== '') {
-    inputValue = document.getElementById(`projectTask${listLength}`).value;
-  } else {
-    return;
+  const allProjects = retrieveItem('project');
+  if (!retrieveItem('requested-project')) {
+    const initialRequestedProject = allProjects[0];
+    saveItem('requested-project', initialRequestedProject);
   }
+  const project = retrieveItem('requested-project');
+  const projectID = project.id;
+  const listLength = project.items.length;
+  if (document.getElementById(`projectTask${listLength}`).value === '') return;
+  const inputValue = document.getElementById(`projectTask${listLength}`).value;
   project.items.push(todoItem(inputValue));
-  console.log(project);
-  saveItem('project', project);
-  console.log(renderProject());
-  //  location.reload();
-  console.log(retrieveItem('project'));
+  allProjects[projectID] = project;
+  saveItem('project', allProjects);
+  saveItem('lastEdited', project);
+  saveItem('requested-project', project);
+  location.reload();
 };
 
 const itemHandler = () => {
@@ -93,7 +122,9 @@ const itemHandler = () => {
 
 
 const editTask = () => {
-  const project = retrieveItem('project');
+  const allProjects = retrieveItem('project');
+  const project = retrieveItem('requested-project');
+  const projectID = project.id;
   let input;
   if (document.querySelector(':focus').type === 'submit') {
     input = document.querySelector(':focus').previousSibling;
@@ -108,24 +139,32 @@ const editTask = () => {
   }
   const taskId = generateID(input);
   project.items[taskId].title = task;
-  saveItem('project', project);
+  allProjects[projectID] = project;
+  saveItem('project', allProjects);
   saveItem('lastEdited', project);
+  saveItem('requested-project', project);
   location.reload();
 };
 
 const settingPriority = () => {
   let number;
-  const project = retrieveItem('project');
+  const allProjects = retrieveItem('project');
+  const project = retrieveItem('requested-project');
+  const projectID = project.id;
   const focusElement = document.querySelector(':focus');
   const focusContainerID = generateID(focusElement.parentNode);
   if (focusElement.firstChild.dataset.prefix === 'far') {
     project.items[focusContainerID].priority = 0;
-    saveItem('project', project);
+    allProjects[projectID] = project;
+    saveItem('project', allProjects);
+    saveItem('requested-project', project);
     saveItem('lastEdited', project);
     number = 0;
   } else {
     project.items[focusContainerID].priority = 1;
-    saveItem('project', project);
+    allProjects[projectID] = project;
+    saveItem('project', allProjects);
+    saveItem('requested-project', project);
     saveItem('lastEdited', project);
     number = 1;
   }
@@ -133,35 +172,56 @@ const settingPriority = () => {
 };
 
 const obliterateTask = () => {
-  const project = retrieveItem('project');
+  const allProjects = retrieveItem('project')
+  const project = retrieveItem('requested-project');
+  const projectID = project.id;
   const focusElement = document.querySelector(':focus');
   const inputElement = focusElement.parentNode.firstChild;
   const inputValue = inputElement.placeholder;
   const result = project.items.filter((element) => element.title !== `${inputValue}`);
 
   if (project.items) { project.items = result; }
-  saveItem('project', project);
+  allProjects[projectID] = project;
+  saveItem('project', allProjects);
+  saveItem('requested-project', project);
   saveItem('lastEdited', project);
-  console.log(project);
   location.reload();
 };
 
+const obliterateProject = (id) => {
+  const projects = retrieveItem('project');
+  const projectToObliterate = projects[id];
+  projects.splice(id, 1);
+  saveItem('project', projects);
+}
+
 const setTaskProperty = (string, id, property) => {
-  const savedProject = retrieveItem('project');
-  console.log(`${property + id}`);
+  const allProjects = retrieveItem('project');
+  const savedProject = retrieveItem('requested-project');
+  let dropState = retrieveItem('dropdownState');
+  const projectID = savedProject.id;
   const dateInputElement = document.getElementById(`${string + id}`);
-  const project = savedProject.items[id];
-  const dateTask = dateInputElement.value;
-  project[property] = dateTask;
-  saveItem('project', savedProject);
-  saveItem('lastEdited', project);
-  console.log(savedProject);
-  // location.reload();
+  let dateTask;
+  if (dateInputElement.value !== '') {
+    dateTask = dateInputElement.value;
+  } else {
+    return;
+  }
+  savedProject.items[id][property] = dateTask;
+  allProjects[projectID] = savedProject;
+  console.log(projectID)
+  console.log(id);
+  dropState = [false, id];
+  saveItem('dropdownState', dropState);
+  saveItem('project', allProjects)
+  saveItem('requested-project', savedProject);
+  saveItem('lastEdited', savedProject);
+  location.reload();
 };
 
 const getTaskProperty = (id, property) => {
   // 5. Changed savedProject definition to retrieve a TodoList item
-  const savedProject = retrieveProject(1);
+  const savedProject = retrieveItem('requested-project');
   if (id && savedProject.items[id]) {
     if (savedProject.items === []) {
       return 'Give your task a description';
@@ -173,5 +233,6 @@ const getTaskProperty = (id, property) => {
 export {
   retrieveProject, saveProject, renderProject,
   itemHandler, saveTask, editTask, obliterateTask,
-  settingPriority, setTaskProperty, getTaskProperty, renderTodoListToDom, projectArr, getIdFromProject,
+  obliterateProject,
+  settingPriority, setTaskProperty, getTaskProperty, renderTodoListToDom, projectArr, getIdFromProject, addNewProject,
 };
