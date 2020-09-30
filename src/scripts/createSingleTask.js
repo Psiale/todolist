@@ -44,9 +44,6 @@ const createSingleTask = (id, currentProject) => {
 
   listItemPriorityButton.addEventListener('click', setPriorityStatus);
 
-
-  //listItemSubmitButton.classList.add('hidden');
-
   listItemDeleteButton.type = 'button';
   listItemDeleteButton.appendChild(listItemDeleteButtonText);
 

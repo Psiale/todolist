@@ -3,6 +3,8 @@ import { retrieveItem, saveItem } from './localStorage';
 import * as hui from './handlingUserInput';
 import createSingleTask from './createSingleTask';
 import todoListItemGenerator from './todoListItemGenerator';
+import projectGenerator from './projectGenerator';
+import todoListTasks from './todoListTasks';
 
 const mainContainer = generator.htmlGenerator('div', 'todo-list-tasks', 'todoListTasks');
 
@@ -22,49 +24,6 @@ if (retrieveItem('project') && retrieveItem('project').length > 0) {
 
 const todoListMainContainer = () => {
   const todoListMainContainer = generator.htmlGenerator('div', 'todo-list-main-container', 'todoListMainContainer');
-
-  const projectGenerator = () => {
-    const mainContainer = generator.htmlGenerator('div', 'project-form-container');
-    const form = generator.htmlGenerator('form', 'edit-project-title-container', 'editProjectTitleContainer');
-    const inputContainer = generator.htmlGenerator('div', 'project-input-container');
-    const inputLabel = generator.htmlGenerator('label', 'project-label-input');
-    const inputElement = generator.htmlGenerator('input', 'project-title-input', 'projectTitleInput');
-
-    inputElement.placeholder = `${currentProject.projectTitle}`;
-
-    const listContainer = generator.htmlGenerator('div', 'project-item-container', 'projectItemContainer');
-    const btnText = generator.textGenerator('p', 'Save<br>Project');
-    const btn = generator.htmlGenerator('button', 'project-submit-btn', 'projectSubmitBtn');
-
-    btn.appendChild(btnText);
-    btn.setAttribute('type', 'button');
-    btn.addEventListener('click', hui.saveProject);
-
-    generator.enterShortcut(btn, inputElement);
-
-    inputContainer.append(inputLabel, inputElement);
-    form.append(inputContainer, listContainer, btn);
-    setTimeout(() => {
-      mainContainer.appendChild(form);
-    }, 1);
-    return mainContainer;
-  };
-
-
-  const todoListTasks = () => {
-    if (currentProject) {
-      for (let i = 0; i < currentProject.items.length; i++) {
-        mainContainer.appendChild(createSingleTask(`${i}`, currentProject));
-        setTimeout(() => {
-          const inputField = document.getElementById(`projectTask${i}`);
-          if (currentProject.items[i].title) {
-            inputField.placeholder = `${currentProject.items[i].title}`;
-          }
-        }, 1);
-      }
-    }
-    return mainContainer;
-  };
 
   const listBuilder = () => {
     const listLength = currentProject.items.length;
@@ -108,7 +67,7 @@ const todoListMainContainer = () => {
     return mainContainer;
   };
 
-  todoListMainContainer.append(projectGenerator(), todoListTasks(), todoItemGenerator());
+  todoListMainContainer.append(projectGenerator(currentProject), todoListTasks(currentProject, mainContainer), todoItemGenerator());
   return todoListMainContainer;
 };
 
