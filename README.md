@@ -1,4 +1,4 @@
-p<p align="center">
+<p align="center">
   <img src="screens/Todo-List-Preview.png" alt="The Todo List" width="400" height="auto">
 
   <h1 align="center">🛒✅ Todo List</h1>
