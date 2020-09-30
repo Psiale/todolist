@@ -91,7 +91,6 @@ There are a few commands that you can use interact with the project:
 ### Creating New Projects
 
 <p align="center">
-
 <a href="screens/creating-projects.gif"><img src="screens/creating-projects.gif" alt="Creating New Projects" width="400" height="auto"></a>
 
 > The user can enter their chosen project name at the top of the page. Don't like the name? Re-select the project name and enter a new one!
@@ -116,7 +115,7 @@ There are a few commands that you can use interact with the project:
 ### Deleting Projects
 
 <p align="center">
-<a href="screens/Deleting-projects.gif"><img src="screens/Deleting-projects.gif" alt="Adding a Description and Date" width="400" height="auto"></a>
+<a href="screens/Deleting-Projects.gif"><img src="screens/Deleting-Projects.gif" alt="Adding a Description and Date" width="400" height="auto"></a>
 </p>
 
 *******
