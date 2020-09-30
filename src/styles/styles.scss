@@ -272,7 +272,8 @@ body {
 
       .list-item-priority,
       .list-item-delete-button,
-      .list-item-down-arrow {
+      .list-item-down-arrow,
+      .project-task-submit {
         background: transparent;
         outline: none;
         border: none;
@@ -344,12 +345,14 @@ body {
         }
         }
         .date-submit-button {
-          background-color: transparent;
-          margin: 0 8px;
-          height: 20px;
-          font-size: 12px;
+          background: transparent;
+          outline: none;
+          border: none;
+          width: 40px;
+          margin-top: 2px;
           svg {
-            color: pink;
+            font-size: 16px;
+            color: #D7BDE2;
           }
         }
 
