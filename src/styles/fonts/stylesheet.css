@@ -5,7 +5,6 @@
     url('Montserrat-Medium.woff') format('woff');
   font-weight: 500;
   font-style: normal;
-  font-display: swap;
 }
 
 @font-face {
@@ -15,7 +14,6 @@
     url('Montserrat-Bold.woff') format('woff');
   font-weight: bold;
   font-style: normal;
-  font-display: swap;
 }
 
 @font-face {
@@ -25,7 +23,6 @@
     url('Montserrat-Thin.woff') format('woff');
   font-weight: 100;
   font-style: normal;
-  font-display: swap;
 }
 
 @font-face {
@@ -35,7 +32,6 @@
     url('Montserrat-Regular.woff') format('woff');
   font-weight: normal;
   font-style: normal;
-  font-display: swap;
 }
 
 @font-face {
@@ -45,5 +41,4 @@
     url('Montserrat-Light.woff') format('woff');
   font-weight: 300;
   font-style: normal;
-  font-display: swap;
 }
