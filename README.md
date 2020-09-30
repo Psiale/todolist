@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="screens/Todo-List-Preview.png" alt="The Todo List" width="500" height="auto">
+  <img src="screens/Todo-List-Preview.png" alt="The Todo List" width="400" height="auto">
 
   <h1 align="center">🛒✅ Todo List</h1>
 
@@ -91,7 +91,7 @@ There are a few commands that you can use interact with the project:
 ### Creating New Projects
 <p align="center>
 
-<a href="screens/creating-projects.gif"><img src="screens/creating-projects.gif" alt="Creating New Projects" width="500" height="auto"></a>
+<a href="screens/creating-projects.gif"><img src="screens/creating-projects.gif" alt="Creating New Projects" width="400" height="auto"></a>
 
 > The user can enter their chosen project name at the top of the page. Don't like the name? Re-select the project name and enter a new one!
 
@@ -99,21 +99,21 @@ There are a few commands that you can use interact with the project:
 ### Adding Tasks
 
 
-<a href="screens/creating-tasks.gif"><img src="screens/creating-tasks.gif" alt="Creating New Tasks" width="500" height="auto"></a>
+<a href="screens/creating-tasks.gif"><img src="screens/creating-tasks.gif" alt="Creating New Tasks" width="400" height="auto"></a>
 
 > Creating and editing tasks is just as easy as editing project titles. 
 
 ### Adding A Description and Date
 
 
-<a href="screens/Adding-description-date.gif"><img src="screens/Adding-description-date.gif" alt="Adding a Description and Date" width="500" height="auto"></a>
+<a href="screens/Adding-description-date.gif"><img src="screens/Adding-description-date.gif" alt="Adding a Description and Date" width="400" height="auto"></a>
 
 > The description and date dropdown allows the user to enter more information if they need to remember more.
 
 ### Deleting Projects
 
 
-<a href="screens/Deleting-projects.gif"><img src="screens/Deleting-projects.gif" alt="Adding a Description and Date" width="500" height="auto"></a>
+<a href="screens/Deleting-projects.gif"><img src="screens/Deleting-projects.gif" alt="Adding a Description and Date" width="400" height="auto"></a>
 > 
 *******
 
