@@ -9,7 +9,7 @@
 </h3>
 <p align="center">
     <br />
-    <a href=""><strong>Check Out The App »</strong></a>
+    <a href="https://mtodo-list.netlify.app/"><strong>Check Out The App »</strong></a>
     <br />
     <br />
     <a href="">Download this repository</a>
@@ -34,6 +34,8 @@
 
 
 ## 🧬 The Project Brief
+
+<strong>N.B. This app was designed as a mobile first app so to get the best experience, we recommend [accessing the app](https://mtodo-list.netlify.app/) from your phone!</strong>
 
 This is a project to be included by all students at [Microverse](https://www.microverse.org/) as part of the Javascript module.
 
@@ -62,7 +64,7 @@ The finished version of the app is written entirely in ES6 Javascript (with SCSS
 ### 💾 Setup & Use
 
 #### Setup
-For the live site, [head here.]()
+For the live site, [head here.](https://mtodo-list.netlify.app/)
 
 1. To inspect and tinker with the code on your system, download this repo either [here]() or from the link at the top of the page
 
