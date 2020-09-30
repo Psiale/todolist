@@ -1,4 +1,4 @@
-<p align="center">
+p<p align="center">
   <img src="screens/Todo-List-Preview.png" alt="The Todo List" width="400" height="auto">
 
   <h1 align="center">🛒✅ Todo List</h1>
@@ -89,32 +89,36 @@ There are a few commands that you can use interact with the project:
 ## 🎟️ Showcase
 
 ### Creating New Projects
-<p align="center>
+
+<p align="center">
 
 <a href="screens/creating-projects.gif"><img src="screens/creating-projects.gif" alt="Creating New Projects" width="400" height="auto"></a>
 
 > The user can enter their chosen project name at the top of the page. Don't like the name? Re-select the project name and enter a new one!
-
+</p>
 
 ### Adding Tasks
 
-
+<p align="center">
 <a href="screens/creating-tasks.gif"><img src="screens/creating-tasks.gif" alt="Creating New Tasks" width="400" height="auto"></a>
 
 > Creating and editing tasks is just as easy as editing project titles. 
+</p>
 
 ### Adding A Description and Date
 
-
+<p align="center">
 <a href="screens/Adding-description-date.gif"><img src="screens/Adding-description-date.gif" alt="Adding a Description and Date" width="400" height="auto"></a>
 
 > The description and date dropdown allows the user to enter more information if they need to remember more.
+</p>
 
 ### Deleting Projects
 
-
+<p align="center">
 <a href="screens/Deleting-projects.gif"><img src="screens/Deleting-projects.gif" alt="Adding a Description and Date" width="400" height="auto"></a>
-> 
+</p>
+
 *******
 
 ## 🔱 Contributions, Issues and Forking
