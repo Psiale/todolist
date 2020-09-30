@@ -43,7 +43,6 @@ const renderProject = () => {
 };
 
 const renderTodoListToDom = () => {
-  const count = renderProject();
   const newProjectTitle = document.getElementById('projectTitleInput').value;
   placeholderProject.projectTitle = newProjectTitle;
   projectArr.push(placeholderProject);
@@ -183,7 +182,6 @@ const obliterateTask = () => {
 
 const obliterateProject = (id) => {
   const projects = retrieveItem('project');
-  const projectToObliterate = projects[id];
   projects.splice(id, 1);
   saveItem('project', projects);
 };
@@ -224,5 +222,6 @@ export {
   retrieveProject, saveProject, renderProject,
   itemHandler, saveTask, editTask, obliterateTask,
   obliterateProject,
-  settingPriority, setTaskProperty, getTaskProperty, renderTodoListToDom, projectArr, getIdFromProject, addNewProject,
+  settingPriority, setTaskProperty, getTaskProperty,
+  renderTodoListToDom, projectArr, getIdFromProject, addNewProject,
 };

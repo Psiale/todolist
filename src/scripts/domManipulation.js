@@ -1,11 +1,9 @@
 import * as generator from './domTools';
 import { retrieveItem, saveItem } from './localStorage';
 import * as hui from './handlingUserInput';
-import createSingleTask from './createSingleTask';
 import todoListItemGenerator from './todoListItemGenerator';
 import projectGenerator from './projectGenerator';
 import todoListTasks from './todoListTasks';
-import listBuilder from './listBuilder';
 import todoItemGenerator from './todoItemGenerator';
 
 const mainContainer = generator.htmlGenerator('div', 'todo-list-tasks', 'todoListTasks');
@@ -28,7 +26,8 @@ let currentProject;
 
 const todoListMainContainer = () => {
   const todoListMainContainer = generator.htmlGenerator('div', 'todo-list-main-container', 'todoListMainContainer');
-  todoListMainContainer.append(projectGenerator(currentProject), todoListTasks(currentProject, mainContainer), todoItemGenerator(currentProject));
+  todoListMainContainer.append(projectGenerator(currentProject),
+    todoListTasks(currentProject, mainContainer), todoItemGenerator(currentProject));
   return todoListMainContainer;
 };
 
