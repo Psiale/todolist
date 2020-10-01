@@ -12,9 +12,9 @@
     <a href="https://mtodo-list.netlify.app/"><strong>Check Out The App »</strong></a>
     <br />
     <br />
-    <a href="">Download this repository</a>
+    <a href="https://github.com/Psiale/todolist/archive/master.zip">Download this repository</a>
     |
-    <a href="">Report A Bug</a>
+    <a href="https://github.com/Psiale/todolist/issues/new">Report A Bug</a>
     |
     <a href="">Fork It</a>
   </p>
@@ -27,9 +27,9 @@
   - [Tools & Tech](https://github.com/Psiale/todolist#-tools--technology-used)
   - [Setup & Use](https://github.com/Psiale/todolist#-setup--use)
   - [Showcase](https://github.com/Psiale/todolist#%EF%B8%8F-showcase)
-  - [Contributions, Issues and Forking](https://github.com/Rhelli/Restaurant-Website/tree/feature/readme#-contributions-issues-and-forking)
-  - [Creators](https://github.com/Psiale/todolist#-contributions-issues-and-forking)
-  - [Show Your Support!](https://github.com/Psiale/todolist#-%EF%B8%8F-creators)
+  - [Contributions, Issues and Forking](https://github.com/Psiale/todolist#-contributions-issues-and-forking)
+  - [Creators](https://github.com/Psiale/todolist#-%EF%B8%8F-creators)
+  - [Show Your Support!](https://github.com/Psiale/todolist#-show-your-support)
 
 
 ## 🧬 The Project Brief
@@ -125,10 +125,10 @@ There are a few commands that you can use interact with the project:
 
 Contributions, issues and feature requests are more than welcome! 
 
-If you have any problems running or setting up this project, please submit it as a bug on the [issues page](https://github.com/Rhelli/Restaurant-Website/issues) right away!
+If you have any problems running or setting up this project, please submit it as a bug on the [issues page](https://github.com/Psiale/todolist/issues) right away!
 
 If you want to make your own changes, modifications or improvements, go ahead and Fork it!
-1. [Fork it](https://github.com/Rhelli/Restaurant-Website/fork)
+1. [Fork it](https://github.com/Psiale/todolist/fork)
 2. Create your working branch (git checkout -b [choose-a-name])
 3. Commit your changes (git commit -am 'what this commit will fix/add/improve')
 4. Push to the branch (git push origin [chosen-name])
