@@ -22,15 +22,14 @@
 
 
 ## Table of Contents
-  - [The Project Brief](https://github.com/Rhelli/Restaurant-Website/tree/feature/readme#-the-project-brief)
-  - [Project Specific](https://github.com/Rhelli/Restaurant-Website/tree/feature/readme#-the-nitty-gritty)
-  - [Tools & Tech](https://github.com/Rhelli/Restaurant-Website/tree/feature/readme#-tools--technology-used)
-  - [Setup & Use](https://github.com/Rhelli/Restaurant-Website/tree/feature/readme#%EF%B8%8F-setup--use)
-  - [Showcase](https://github.com/Rhelli/Restaurant-Website/tree/feature/readme#-showcase)
+  - [The Project Brief](https://github.com/Psiale/todolist#-the-project-brief)
+  - [Project Specific](https://github.com/Psiale/todolist#-the-project-specific)
+  - [Tools & Tech](https://github.com/Psiale/todolist#-tools--technology-used)
+  - [Setup & Use](https://github.com/Psiale/todolist#-setup--use)
+  - [Showcase](https://github.com/Psiale/todolist#%EF%B8%8F-showcase)
   - [Contributions, Issues and Forking](https://github.com/Rhelli/Restaurant-Website/tree/feature/readme#-contributions-issues-and-forking)
-  - [Creators](https://github.com/Rhelli/Restaurant-Website/tree/feature/readme#%EF%B8%8F-creator)
-  - [Show Your Support!](https://github.com/Rhelli/Restaurant-Website/tree/feature/readme#%EF%B8%8F-show-your-support)
-  - [Licensing](https://github.com/Rhelli/Restaurant-Website/tree/feature/readme#-licensing)
+  - [Creators](https://github.com/Psiale/todolist#-contributions-issues-and-forking)
+  - [Show Your Support!](https://github.com/Psiale/todolist#-%EF%B8%8F-creators)
 
 
 ## 🧬 The Project Brief
@@ -143,6 +142,3 @@ Rory Hellier - [Github](https://github.com/Rhelli)
 
 ## 👏🏽 Show Your Support!
 Give a ⭐️ if you like this project!
-
-## 📑 Licensing
-This project is [MIT](https://github.com/Rhelli/Restaurant-Website/LICENSE.txt) licensed.
