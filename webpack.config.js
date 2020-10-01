@@ -21,7 +21,6 @@ module.exports = {
   plugins: [
     new CleanWebpackPlugin({ cleanStaleWebpackAssets: false }),
     new HTMLWebpackPlugin({
-    // favicon: './src/assets/img/sandwich.png',
       title: 'Todo List',
     }),
     new PreloadWebpackPlugin(),

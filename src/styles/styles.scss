@@ -1,14 +1,15 @@
 @import './fonts/stylesheet.css';
 
- @-webkit-keyframes slide-in-bottom {
+@-webkit-keyframes slide-in-bottom {
   0% {
     -webkit-transform: translateY(1000px);
-            transform: translateY(1000px);
+    transform: translateY(1000px);
     opacity: 0;
   }
+
   100% {
     -webkit-transform: translateY(0);
-            transform: translateY(0);
+    transform: translateY(0);
     opacity: 1;
   }
 }
@@ -16,25 +17,27 @@
 @keyframes slide-in-bottom {
   0% {
     -webkit-transform: translateY(1000px);
-            transform: translateY(1000px);
+    transform: translateY(1000px);
     opacity: 0;
   }
+
   100% {
     -webkit-transform: translateY(0);
-            transform: translateY(0);
+    transform: translateY(0);
     opacity: 1;
   }
 }
 
- @-webkit-keyframes slide-in-top {
+@-webkit-keyframes slide-in-top {
   0% {
     -webkit-transform: translateY(-50px);
-            transform: translateY(-50px);
+    transform: translateY(-50px);
     opacity: 0;
   }
+
   100% {
     -webkit-transform: translateY(0);
-            transform: translateY(0);
+    transform: translateY(0);
     opacity: 1;
   }
 }
@@ -42,24 +45,25 @@
 @keyframes slide-in-top {
   0% {
     -webkit-transform: translateY(-50px);
-            transform: translateY(-50px);
+    transform: translateY(-50px);
     opacity: 0;
   }
+
   100% {
     -webkit-transform: translateY(0);
-            transform: translateY(0);
+    transform: translateY(0);
     opacity: 1;
   }
 }
 
 .slide-in-bottom {
-	-webkit-animation: slide-in-bottom 0.25s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
-	        animation: slide-in-bottom 0.25s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
+  -webkit-animation: slide-in-bottom 0.25s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
+  animation: slide-in-bottom 0.25s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
 }
 
 .slide-in-top {
-	-webkit-animation: slide-in-top 0.15s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
-	        animation: slide-in-top 0.15s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
+  -webkit-animation: slide-in-top 0.15s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
+  animation: slide-in-top 0.15s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
 }
 
 html {
@@ -94,10 +98,9 @@ body {
   width: 100%;
   font: 300 16px/16px $primary-font;
   color: #202020;
-  background-color: #D7BDE2;
+  background-color: #d7bde2;
 }
 
-// MAIN PAGE CONTAINER ---------------------//
 .main-container {
   display: flex;
   height: 100%;
@@ -105,7 +108,6 @@ body {
   flex-flow: column nowrap;
 }
 
-// TODO LIST WINDOW ------------------------//
 .todo-list-main-container {
   display: flex;
   flex-flow: column nowrap;
@@ -116,6 +118,12 @@ body {
   padding: 10px;
   border-bottom-left-radius: 8px;
   border-bottom-right-radius: 8px;
+
+  p {
+    font: 600 14px/20px $primary-font;
+    color: #af7ac5;
+    margin: 0;
+  }
 
   .project-form-container {
     display: flex;
@@ -144,10 +152,10 @@ body {
         overflow: hidden;
         text-overflow: ellipsis;
         margin-left: 10px;
-        
+
         &::placeholder {
           font: 500 26px/30px $primary-font;
-          color: #D7BDE2;
+          color: #d7bde2;
         }
       }
 
@@ -156,64 +164,27 @@ body {
         width: auto;
         background-color: transparent;
         border-radius: 8px;
-        border: 3px solid #AF7AC5;
+        border: 3px solid #af7ac5;
         transition-duration: 0.15s;
-        -webkit-box-shadow: inset 0px 0px 7px 1px rgba(131,92,148,1);
-        -moz-box-shadow: inset 0px 0px 7px 1px rgba(131,92,148,1);
-        box-shadow: inset 0px 0px 7px 1px rgba(131,92,148,1);
+        -webkit-box-shadow: inset 0 0 7px 1px rgba(131, 92, 148, 1);
+        -moz-box-shadow: inset 0 0 7px 1px rgba(131, 92, 148, 1);
+        box-shadow: inset 0 0 7px 1px rgba(131, 92, 148, 1);
         padding: 0;
         padding: 4px 6px 6px 6px;
         margin-left: auto;
 
-        p {
-          font: 600 14px/20px $primary-font;
-          color: #AF7AC5;
-          margin: 0;
-        }
-
         &:hover,
         &:focus {
           transition-duration: 0.2s;
-          -webkit-box-shadow: inset 0px 0px 15px 3px rgba(131,92,148,1);
-          -moz-box-shadow: inset 0px 0px 15px 3px rgba(131,92,148,1);
-          box-shadow: inset 0px 0px 15px 3px rgba(131,92,148,1);  
+          -webkit-box-shadow: inset 0 0 15px 3px rgba(131, 92, 148, 1);
+          -moz-box-shadow: inset 0 0 15px 3px rgba(131, 92, 148, 1);
+          box-shadow: inset 0 0 15px 3px rgba(131, 92, 148, 1);
         }
 
         &:hover {
           outline: none;
         }
       }
-    }
-  }
-
-  .todo-submit-btn,
-  .project-create-btn {
-    margin-top: 5px;
-    background-color: transparent;
-    border-radius: 8px;
-    border: 3px solid #AF7AC5;
-    transition-duration: 0.15s;
-    -webkit-box-shadow: inset 0px 0px 7px 1px rgba(131,92,148,1);
-    -moz-box-shadow: inset 0px 0px 7px 1px rgba(131,92,148,1);
-    box-shadow: inset 0px 0px 7px 1px rgba(131,92,148,1);
-    padding: 0;
-    padding: 4px 6px 6px 6px;
-    margin-left: auto;
-    p {
-      font: 600 14px/20px $primary-font;
-      color: #AF7AC5;
-      margin: 0;
-    }
-    &:hover,
-    &:focus {
-      outline: none;
-      transition-duration: 0.2s;
-      -webkit-box-shadow: inset 0px 0px 15px 3px rgba(131,92,148,1);
-      -moz-box-shadow: inset 0px 0px 15px 3px rgba(131,92,148,1);
-      box-shadow: inset 0px 0px 15px 3px rgba(131,92,148,1);  
-    }
-    &:hover {
-      outline: none;
     }
   }
 
@@ -227,6 +198,40 @@ body {
     border-bottom-right-radius: 25px;
   }
 
+  .todo-submit-btn,
+  .project-create-btn {
+    margin-top: 5px;
+    background-color: transparent;
+    border-radius: 8px;
+    border: 3px solid #af7ac5;
+    transition-duration: 0.15s;
+    -webkit-box-shadow: inset 0 0 7px 1px rgba(131, 92, 148, 1);
+    -moz-box-shadow: inset 0 0 7px 1px rgba(131, 92, 148, 1);
+    box-shadow: inset 0 0 7px 1px rgba(131, 92, 148, 1);
+    padding: 0;
+    padding: 4px 6px 6px 6px;
+    margin-left: auto;
+
+    p {
+      font: 600 14px/20px $primary-font;
+      color: #af7ac5;
+      margin: 0;
+    }
+
+    &:hover,
+    &:focus {
+      outline: none;
+      transition-duration: 0.2s;
+      -webkit-box-shadow: inset 0 0 15px 3px rgba(131, 92, 148, 1);
+      -moz-box-shadow: inset 0 0 15px 3px rgba(131, 92, 148, 1);
+      box-shadow: inset 0 0 15px 3px rgba(131, 92, 148, 1);
+    }
+
+    &:hover {
+      outline: none;
+    }
+  }
+
   .todo-list-tasks {
     display: flex;
     flex-flow: column nowrap;
@@ -237,6 +242,12 @@ body {
     overflow: hidden;
     overflow-y: auto;
     background-color: rgba(0, 0, 0, 0.4);
+    justify-content: flex-start;
+    border-radius: 6px;
+
+    .simple-list-item-container {
+      width: 98%;
+    }
 
     .todo-list-item-container {
       color: wheat;
@@ -264,7 +275,7 @@ body {
         text-overflow: ellipsis;
 
         &::placeholder {
-          color: #D7BDE2;
+          color: #d7bde2;
         }
       }
 
@@ -274,14 +285,16 @@ body {
 
       .list-item-priority,
       .list-item-delete-button,
-      .list-item-down-arrow {
+      .list-item-down-arrow,
+      .project-task-submit {
         background: transparent;
         outline: none;
         border: none;
         width: 40px;
+
         svg {
           font-size: 16px;
-          color: #D7BDE2;
+          color: #d7bde2;
         }
       }
 
@@ -308,6 +321,7 @@ body {
           width: 100%;
           color: #6d029b;
           overflow-wrap: break-word;
+
           &::placeholder {
             color: #6d029b;
             font-weight: 500;
@@ -332,47 +346,50 @@ body {
           height: 70%;
         }
 
-        .date-display,        
-        .date-input {
-          background-color: transparent;
-          border: none;
-          outline: none;
-          font: 400 12px/16px $primary-font;
-          &::placeholder {
-            color: #D7BDE2;
-          }
-          &::-webkit-calendar-picker-indicator {
-            filter: invert(1);
-        }
-        }
-        .date-submit-button {
-          background-color: transparent;
-          margin: 0 8px;
-          height: 20px;
-          font-size: 12px;
-          svg {
-            color: pink;
-          }
-        }
-
         .date-input {
           max-width: 55%;
+          color: #dcdcdc;
         }
+
         .date-display {
           max-width: 100%;
           text-align: center;
           font-size: 16px;
         }
 
+        .date-display,
         .date-input {
-          color: #dcdcdc;
+          background-color: transparent;
+          border: none;
+          outline: none;
+          font: 400 12px/16px $primary-font;
+
+          &::placeholder {
+            color: #d7bde2;
+          }
+
+          &::-webkit-calendar-picker-indicator {
+            filter: invert(1);
+          }
+        }
+
+        .date-submit-button {
+          background: transparent;
+          outline: none;
+          border: none;
+          width: 40px;
+          margin-top: 2px;
+
+          svg {
+            font-size: 16px;
+            color: #d7bde2;
+          }
         }
 
         .date-back-button {
-          border: 50%;
           height: 20px;
           width: 55px;
-          background-color: #D7BDE2;
+          background-color: #d7bde2;
           border-radius: 4px;
           border: none;
           color: #303030;
@@ -386,22 +403,9 @@ body {
       }
     }
   }
-
-  .todo-list-tasks {
-    display: flex;
-    width: 100%;
-    height: 80%;
-    flex-flow: column nowrap;
-    justify-content: flex-start;
-    align-items: center;
-    border-radius: 6px;
-    .simple-list-item-container {
-      width: 98%;
-    }
-  }
 }
 
-.project-selector-container { 
+.project-selector-container {
   height: 25%;
   position: relative;
   z-index: 11;
@@ -419,7 +423,7 @@ body {
     display: flex;
     flex-flow: row nowrap;
     padding: 0 0 0 20px;
-  
+
     p {
       white-space: nowrap;
       overflow: hidden;
@@ -428,7 +432,7 @@ body {
       font: 700 16px/16px $primary-font;
       color: #313131;
     }
-  
+
     button {
       height: 45px;
       width: 45px;
@@ -458,11 +462,11 @@ body {
     right: 0;
     bottom: 0;
     z-index: 1;
-    background-color: rgba(255, 255, 255, .15);
+    background-color: rgba(255, 255, 255, 0.15);
     backdrop-filter: blur(5px);
     overflow-y: auto;
 
-    &:before {
+    &::before {
       background: inherit;
       content: '';
       position: absolute;
@@ -470,7 +474,7 @@ body {
       left: 0;
       right: 0;
       bottom: 0;
-      box-shadow: inset 0 0 2000px rgba(255, 255, 255, .8);
+      box-shadow: inset 0 0 2000px rgba(255, 255, 255, 0.8);
       filter: blur(6px);
     }
   }
@@ -485,7 +489,7 @@ body {
   }
 }
 
-.hidden { 
+.hidden {
   display: none;
 }
 
