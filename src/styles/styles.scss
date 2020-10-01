@@ -1,0 +1,498 @@
+@import './fonts/stylesheet.css';
+
+@-webkit-keyframes slide-in-bottom {
+  0% {
+    -webkit-transform: translateY(1000px);
+    transform: translateY(1000px);
+    opacity: 0;
+  }
+
+  100% {
+    -webkit-transform: translateY(0);
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+@keyframes slide-in-bottom {
+  0% {
+    -webkit-transform: translateY(1000px);
+    transform: translateY(1000px);
+    opacity: 0;
+  }
+
+  100% {
+    -webkit-transform: translateY(0);
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+@-webkit-keyframes slide-in-top {
+  0% {
+    -webkit-transform: translateY(-50px);
+    transform: translateY(-50px);
+    opacity: 0;
+  }
+
+  100% {
+    -webkit-transform: translateY(0);
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+@keyframes slide-in-top {
+  0% {
+    -webkit-transform: translateY(-50px);
+    transform: translateY(-50px);
+    opacity: 0;
+  }
+
+  100% {
+    -webkit-transform: translateY(0);
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+.slide-in-bottom {
+  -webkit-animation: slide-in-bottom 0.25s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
+  animation: slide-in-bottom 0.25s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
+}
+
+.slide-in-top {
+  -webkit-animation: slide-in-top 0.15s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
+  animation: slide-in-top 0.15s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
+}
+
+html {
+  box-sizing: border-box;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: inherit;
+}
+
+html,
+body {
+  padding: 0;
+  margin: 0;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5 {
+  padding: 0;
+  margin: 0;
+}
+
+$primary-font: 'Montserrat', sans-serif, monospace;
+
+body {
+  height: 100vh;
+  width: 100%;
+  font: 300 16px/16px $primary-font;
+  color: #202020;
+  background-color: #d7bde2;
+}
+
+.main-container {
+  display: flex;
+  height: 100%;
+  width: 100%;
+  flex-flow: column nowrap;
+}
+
+.todo-list-main-container {
+  display: flex;
+  flex-flow: column nowrap;
+  align-items: center;
+  width: 100%;
+  height: 75%;
+  background: rgb(51, 51, 51);
+  padding: 10px;
+  border-bottom-left-radius: 8px;
+  border-bottom-right-radius: 8px;
+
+  p {
+    font: 600 14px/20px $primary-font;
+    color: #af7ac5;
+    margin: 0;
+  }
+
+  .project-form-container {
+    display: flex;
+    width: 100%;
+    height: 15%;
+
+    .edit-project-title-container {
+      display: flex;
+      justify-content: flex-start;
+      flex-flow: row nowrap;
+      align-items: center;
+      width: 100%;
+      height: 80px;
+      position: relative;
+
+      input {
+        height: 75px;
+        top: 0;
+        width: 90%;
+        border: none;
+        outline: none;
+        background-color: transparent;
+        font: 400 26px/30px $primary-font;
+        color: #dcdcdc;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        margin-left: 10px;
+
+        &::placeholder {
+          font: 500 26px/30px $primary-font;
+          color: #d7bde2;
+        }
+      }
+
+      button {
+        height: 70%;
+        width: auto;
+        background-color: transparent;
+        border-radius: 8px;
+        border: 3px solid #af7ac5;
+        transition-duration: 0.15s;
+        -webkit-box-shadow: inset 0 0 7px 1px rgba(131, 92, 148, 1);
+        -moz-box-shadow: inset 0 0 7px 1px rgba(131, 92, 148, 1);
+        box-shadow: inset 0 0 7px 1px rgba(131, 92, 148, 1);
+        padding: 0;
+        padding: 4px 6px 6px 6px;
+        margin-left: auto;
+
+        &:hover,
+        &:focus {
+          transition-duration: 0.2s;
+          -webkit-box-shadow: inset 0 0 15px 3px rgba(131, 92, 148, 1);
+          -moz-box-shadow: inset 0 0 15px 3px rgba(131, 92, 148, 1);
+          box-shadow: inset 0 0 15px 3px rgba(131, 92, 148, 1);
+        }
+
+        &:hover {
+          outline: none;
+        }
+      }
+    }
+  }
+
+  .todo-submit-btn {
+    margin-right: 5px;
+    border-bottom-left-radius: 25px;
+  }
+
+  .project-create-btn {
+    margin-left: 5px;
+    border-bottom-right-radius: 25px;
+  }
+
+  .todo-submit-btn,
+  .project-create-btn {
+    margin-top: 5px;
+    background-color: transparent;
+    border-radius: 8px;
+    border: 3px solid #af7ac5;
+    transition-duration: 0.15s;
+    -webkit-box-shadow: inset 0 0 7px 1px rgba(131, 92, 148, 1);
+    -moz-box-shadow: inset 0 0 7px 1px rgba(131, 92, 148, 1);
+    box-shadow: inset 0 0 7px 1px rgba(131, 92, 148, 1);
+    padding: 0;
+    padding: 4px 6px 6px 6px;
+    margin-left: auto;
+
+    p {
+      font: 600 14px/20px $primary-font;
+      color: #af7ac5;
+      margin: 0;
+    }
+
+    &:hover,
+    &:focus {
+      outline: none;
+      transition-duration: 0.2s;
+      -webkit-box-shadow: inset 0 0 15px 3px rgba(131, 92, 148, 1);
+      -moz-box-shadow: inset 0 0 15px 3px rgba(131, 92, 148, 1);
+      box-shadow: inset 0 0 15px 3px rgba(131, 92, 148, 1);
+    }
+
+    &:hover {
+      outline: none;
+    }
+  }
+
+  .todo-list-tasks {
+    display: flex;
+    flex-flow: column nowrap;
+    align-items: center;
+    width: 100%;
+    height: 80%;
+    padding: 3px;
+    overflow: hidden;
+    overflow-y: auto;
+    background-color: rgba(0, 0, 0, 0.4);
+    justify-content: flex-start;
+    border-radius: 6px;
+
+    .simple-list-item-container {
+      width: 98%;
+    }
+
+    .todo-list-item-container {
+      color: wheat;
+      position: relative;
+      width: 100%;
+      height: 70px;
+      border-radius: 4px;
+      background: rgba(256, 256, 256, 0.1);
+      display: flex;
+      margin: 3px 0;
+      z-index: 10;
+      padding: 0;
+      border-bottom: 5px solid #6d029b;
+
+      .project-task-input {
+        background: transparent;
+        outline: none;
+        border: none;
+        width: 70%;
+        padding-left: 20px;
+        font: 400 14px/14px $primary-font;
+        color: #dcdcdc;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+
+        &::placeholder {
+          color: #d7bde2;
+        }
+      }
+
+      .list-item-priority {
+        margin-left: auto;
+      }
+
+      .list-item-priority,
+      .list-item-delete-button,
+      .list-item-down-arrow,
+      .project-task-submit {
+        background: transparent;
+        outline: none;
+        border: none;
+        width: 40px;
+
+        svg {
+          font-size: 16px;
+          color: #d7bde2;
+        }
+      }
+
+      .list-item-down-arrow {
+        padding-bottom: 10px;
+        margin: 0 10px 0 -5px;
+      }
+    }
+
+    .drop-container {
+      position: relative;
+      flex-flow: column nowrap;
+      height: 150px;
+      background-color: #424242;
+      z-index: 2;
+
+      .description-container {
+        width: 100%;
+        height: 70%;
+        padding: 10px 10px 0 10px;
+
+        .description-input {
+          height: 100%;
+          width: 100%;
+          color: #6d029b;
+          overflow-wrap: break-word;
+
+          &::placeholder {
+            color: #6d029b;
+            font-weight: 500;
+          }
+
+          &:focus {
+            outline: none;
+          }
+        }
+      }
+
+      .date-container {
+        display: flex;
+        width: 100%;
+        height: 30%;
+        justify-content: center;
+        align-items: center;
+        position: relative;
+
+        input {
+          width: 90%;
+          height: 70%;
+        }
+
+        .date-input {
+          max-width: 55%;
+          color: #dcdcdc;
+        }
+
+        .date-display {
+          max-width: 100%;
+          text-align: center;
+          font-size: 16px;
+        }
+
+        .date-display,
+        .date-input {
+          background-color: transparent;
+          border: none;
+          outline: none;
+          font: 400 12px/16px $primary-font;
+
+          &::placeholder {
+            color: #d7bde2;
+          }
+
+          &::-webkit-calendar-picker-indicator {
+            filter: invert(1);
+          }
+        }
+
+        .date-submit-button {
+          background: transparent;
+          outline: none;
+          border: none;
+          width: 40px;
+          margin-top: 2px;
+
+          svg {
+            font-size: 16px;
+            color: #d7bde2;
+          }
+        }
+
+        .date-back-button {
+          height: 20px;
+          width: 55px;
+          background-color: #d7bde2;
+          border-radius: 4px;
+          border: none;
+          color: #303030;
+          font: 600 12px/12px $primary-font;
+
+          &:focus {
+            outline: none;
+            border: none;
+          }
+        }
+      }
+    }
+  }
+}
+
+.project-selector-container {
+  height: 25%;
+  position: relative;
+  z-index: 11;
+  overflow: hidden;
+  padding: 10px 0;
+  border-top-right-radius: 8px;
+  border-top-left-radius: 8px;
+
+  .todolist-item-container {
+    position: relative;
+    width: 100%;
+    height: 60px;
+    z-index: 10;
+    color: black;
+    display: flex;
+    flex-flow: row nowrap;
+    padding: 0 0 0 20px;
+
+    p {
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      width: 70%;
+      font: 700 16px/16px $primary-font;
+      color: #313131;
+    }
+
+    button {
+      height: 45px;
+      width: 45px;
+      background: transparent;
+      border: none;
+      display: flex;
+      align-items: center;
+      padding: 0;
+      margin: 0;
+      line-height: 0;
+      font-size: 18px;
+      margin-left: auto;
+
+      &:focus {
+        outline: none;
+      }
+    }
+  }
+
+  .todoList-background-container {
+    background: url('../assets/splashy.jpg') 100% 100% no-repeat;
+    height: 100%;
+    width: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 1;
+    background-color: rgba(255, 255, 255, 0.15);
+    backdrop-filter: blur(5px);
+    overflow-y: auto;
+
+    &::before {
+      background: inherit;
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      box-shadow: inset 0 0 2000px rgba(255, 255, 255, 0.8);
+      filter: blur(6px);
+    }
+  }
+
+  .project-todoList-arr-container {
+    height: 100%;
+    overflow-y: auto;
+
+    .todolist-item-container {
+      border-bottom: 2px solid #909090;
+    }
+  }
+}
+
+.hidden {
+  display: none;
+}
+
+.rotate {
+  transform: rotate(180deg);
+}
