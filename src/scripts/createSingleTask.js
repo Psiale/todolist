@@ -32,6 +32,33 @@ const createSingleTask = (id, currentProject) => {
         listItemPriorityButton.innerHTML = '<i class="far fa-star"></i>';
       }
     }, 1);
+
+// SPOILER:  SOLUTION BELOW 
+
+
+
+
+
+
+
+
+
+
+
+
+
+    // async solution
+    // async function resolve() {
+    //   if (id && currentProject.items[id]) {
+    //     if (await currentProject.items[id].priority === 0) {
+    //       listItemPriorityButton.innerHTML = '<i class="fas fa-star"></i>';
+    //     } else {
+    //       listItemPriorityButton.innerHTML = '<i class="far fa-star"></i>';
+    //     }
+    //   }
+    // }
+
+    // resolve().catch((err) => console.log(err));
   }
 
   const setPriorityStatus = () => {

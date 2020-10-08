@@ -25,7 +25,33 @@ const projectGenerator = (currentProject) => {
   setTimeout(() => {
     mainContainer.appendChild(form);
   }, 1);
+
+  // SPOILER:  SOLUTION BELOW
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  // async solution
+  //   async function resolve() {
+  //     await mainContainer.appendChild(form);
+  //   }
+  //   resolve().catch((err) => err);
+  //   return mainContainer;
+  // };
+
   return mainContainer;
 };
+
 
 export default projectGenerator;
